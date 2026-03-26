@@ -1,4 +1,4 @@
-﻿namespace XClone.Application
+﻿namespace XClone.Application.Models.Requets.Post
 {
     public class GetAllPostRequest
     {

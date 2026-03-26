@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Xhope\\Desktop\\clases\\github\\vmt-bootcamp\\backend\\x-clone\\XClone.Shared\\XClone.Shared.csproj",
+      "projectUniqueName": "C:\\Users\\Xhope\\Desktop\\clases\\github\\vmt-bootcamp\\backend\\x_clone\\XClone.Shared\\XClone.Shared.csproj",
       "projectName": "XClone.Shared",
-      "projectPath": "C:\\Users\\Xhope\\Desktop\\clases\\github\\vmt-bootcamp\\backend\\x-clone\\XClone.Shared\\XClone.Shared.csproj",
+      "projectPath": "C:\\Users\\Xhope\\Desktop\\clases\\github\\vmt-bootcamp\\backend\\x_clone\\XClone.Shared\\XClone.Shared.csproj",
       "packagesPath": "C:\\Users\\Xhope\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Xhope\\Desktop\\clases\\github\\vmt-bootcamp\\backend\\x-clone\\XClone.Shared\\obj\\",
+      "outputPath": "C:\\Users\\Xhope\\Desktop\\clases\\github\\vmt-bootcamp\\backend\\x_clone\\XClone.Shared\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

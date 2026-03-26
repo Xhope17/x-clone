@@ -115,11 +115,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Xhope\\Desktop\\clases\\github\\vmt-bootcamp\\backend\\x-clone\\X_Clone.WebApi\\XClone.WebApi.csproj",
+      "projectUniqueName": "C:\\Users\\Xhope\\Desktop\\clases\\github\\vmt-bootcamp\\backend\\x_clone\\X_Clone.WebApi\\XClone.WebApi.csproj",
       "projectName": "XClone.WebApi",
-      "projectPath": "C:\\Users\\Xhope\\Desktop\\clases\\github\\vmt-bootcamp\\backend\\x-clone\\X_Clone.WebApi\\XClone.WebApi.csproj",
+      "projectPath": "C:\\Users\\Xhope\\Desktop\\clases\\github\\vmt-bootcamp\\backend\\x_clone\\X_Clone.WebApi\\XClone.WebApi.csproj",
       "packagesPath": "C:\\Users\\Xhope\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Xhope\\Desktop\\clases\\github\\vmt-bootcamp\\backend\\x-clone\\X_Clone.WebApi\\obj\\",
+      "outputPath": "C:\\Users\\Xhope\\Desktop\\clases\\github\\vmt-bootcamp\\backend\\x_clone\\X_Clone.WebApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -140,8 +140,8 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "C:\\Users\\Xhope\\Desktop\\clases\\github\\vmt-bootcamp\\backend\\x-clone\\XClone.Application\\XClone.Application.csproj": {
-              "projectPath": "C:\\Users\\Xhope\\Desktop\\clases\\github\\vmt-bootcamp\\backend\\x-clone\\XClone.Application\\XClone.Application.csproj"
+            "C:\\Users\\Xhope\\Desktop\\clases\\github\\vmt-bootcamp\\backend\\x_clone\\XClone.Application\\XClone.Application.csproj": {
+              "projectPath": "C:\\Users\\Xhope\\Desktop\\clases\\github\\vmt-bootcamp\\backend\\x_clone\\XClone.Application\\XClone.Application.csproj"
             }
           }
         }

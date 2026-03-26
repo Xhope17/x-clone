@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Crk6XQL962w=",
+  "dgSpecHash": "QFntz/xdbmg=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Xhope\\Desktop\\clases\\github\\vmt-bootcamp\\backend\\x-clone\\X_Clone.WebApi\\XClone.WebApi.csproj",
+  "projectFilePath": "C:\\Users\\Xhope\\Desktop\\clases\\github\\vmt-bootcamp\\backend\\x_clone\\X_Clone.WebApi\\XClone.WebApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Xhope\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.14\\microsoft.aspnetcore.openapi.9.0.14.nupkg.sha512",
     "C:\\Users\\Xhope\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"

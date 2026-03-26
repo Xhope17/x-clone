@@ -10,4 +10,9 @@
     <ProjectReference Include="..\XClone.Shared\XClone.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\Requets\Message\" />
+    <Folder Include="Models\Requets\Hashtag\" />
+  </ItemGroup>
+
 </Project>

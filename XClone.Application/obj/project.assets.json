@@ -33,11 +33,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Xhope\\Desktop\\clases\\github\\vmt-bootcamp\\backend\\x-clone\\XClone.Application\\XClone.Application.csproj",
+      "projectUniqueName": "C:\\Users\\Xhope\\Desktop\\clases\\github\\vmt-bootcamp\\backend\\x_clone\\XClone.Application\\XClone.Application.csproj",
       "projectName": "XClone.Application",
-      "projectPath": "C:\\Users\\Xhope\\Desktop\\clases\\github\\vmt-bootcamp\\backend\\x-clone\\XClone.Application\\XClone.Application.csproj",
+      "projectPath": "C:\\Users\\Xhope\\Desktop\\clases\\github\\vmt-bootcamp\\backend\\x_clone\\XClone.Application\\XClone.Application.csproj",
       "packagesPath": "C:\\Users\\Xhope\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Xhope\\Desktop\\clases\\github\\vmt-bootcamp\\backend\\x-clone\\XClone.Application\\obj\\",
+      "outputPath": "C:\\Users\\Xhope\\Desktop\\clases\\github\\vmt-bootcamp\\backend\\x_clone\\XClone.Application\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -58,8 +58,8 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "C:\\Users\\Xhope\\Desktop\\clases\\github\\vmt-bootcamp\\backend\\x-clone\\XClone.Shared\\XClone.Shared.csproj": {
-              "projectPath": "C:\\Users\\Xhope\\Desktop\\clases\\github\\vmt-bootcamp\\backend\\x-clone\\XClone.Shared\\XClone.Shared.csproj"
+            "C:\\Users\\Xhope\\Desktop\\clases\\github\\vmt-bootcamp\\backend\\x_clone\\XClone.Shared\\XClone.Shared.csproj": {
+              "projectPath": "C:\\Users\\Xhope\\Desktop\\clases\\github\\vmt-bootcamp\\backend\\x_clone\\XClone.Shared\\XClone.Shared.csproj"
             }
           }
         }

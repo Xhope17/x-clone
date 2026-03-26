@@ -10,3 +10,15 @@ C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x-clone\XClone.Shared\
 C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x-clone\XClone.Shared\obj\Debug\net9.0\refint\XClone.Shared.dll
 C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x-clone\XClone.Shared\obj\Debug\net9.0\XClone.Shared.pdb
 C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x-clone\XClone.Shared\obj\Debug\net9.0\ref\XClone.Shared.dll
+C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x_clone\XClone.Shared\bin\Debug\net9.0\XClone.Shared.deps.json
+C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x_clone\XClone.Shared\bin\Debug\net9.0\XClone.Shared.dll
+C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x_clone\XClone.Shared\bin\Debug\net9.0\XClone.Shared.pdb
+C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x_clone\XClone.Shared\obj\Debug\net9.0\XClone.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x_clone\XClone.Shared\obj\Debug\net9.0\XClone.Shared.AssemblyInfoInputs.cache
+C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x_clone\XClone.Shared\obj\Debug\net9.0\XClone.Shared.AssemblyInfo.cs
+C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x_clone\XClone.Shared\obj\Debug\net9.0\XClone.Shared.csproj.CoreCompileInputs.cache
+C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x_clone\XClone.Shared\obj\Debug\net9.0\XClone.Shared.sourcelink.json
+C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x_clone\XClone.Shared\obj\Debug\net9.0\XClone.Shared.dll
+C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x_clone\XClone.Shared\obj\Debug\net9.0\refint\XClone.Shared.dll
+C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x_clone\XClone.Shared\obj\Debug\net9.0\XClone.Shared.pdb
+C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x_clone\XClone.Shared\obj\Debug\net9.0\ref\XClone.Shared.dll
