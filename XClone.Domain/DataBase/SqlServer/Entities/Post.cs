@@ -17,7 +17,7 @@ public partial class Post
 
     public Guid? CommunityId { get; set; }
 
-    public DateTime FechaCreacion { get; set; }
+    public DateTime CreateAt { get; set; }
 
     public virtual User Author { get; set; } = null!;
 

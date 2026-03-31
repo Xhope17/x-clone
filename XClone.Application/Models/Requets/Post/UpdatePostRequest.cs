@@ -5,19 +5,19 @@ namespace XClone.Application.Models.Requets.Post
 {
     public class UpdatePostRequest
     {
-        [Required(ErrorMessage = ValidationConstants.REQUIRED)]
+        //[Required(ErrorMessage = ValidationConstants.REQUIRED)]
         [MaxLength(250, ErrorMessage = ValidationConstants.MAX_LENGTH)]
         [MinLength(1, ErrorMessage = ValidationConstants.MIN_LENGTH)]
 
-        public required string AutorId { get; set; } = null!;
+        public string? AutorId { get; set; } = null!;
 
         [MaxLength(255, ErrorMessage = ValidationConstants.MAX_LENGTH)]
         //[MinLength(10, ErrorMessage = ValidationConstants.MIN_LENGTH)]
         public string? Comunidad { get; set; }
 
-        [Required(ErrorMessage = ValidationConstants.REQUIRED)]      //las otras 2 son obligatorias antes que esta
+        //[Required(ErrorMessage = ValidationConstants.REQUIRED)]      //las otras 2 son obligatorias antes que esta
         [MaxLength(250, ErrorMessage = ValidationConstants.MAX_LENGTH)]
         [MinLength(1, ErrorMessage = ValidationConstants.MIN_LENGTH)]
-        public required string Texto { get; set; } = null!;
+        public string? Texto { get; set; } = null!;
     }
 }

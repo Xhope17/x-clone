@@ -1653,6 +1653,19 @@
           "bin/placeholder/XClone.Domain.dll": {}
         }
       },
+      "XClone.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "XClone.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/XClone.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/XClone.Infrastructure.dll": {}
+        }
+      },
       "XClone.Shared/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
@@ -4782,6 +4795,11 @@
       "path": "../XClone.Domain/XClone.Domain.csproj",
       "msbuildProject": "../XClone.Domain/XClone.Domain.csproj"
     },
+    "XClone.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../XClone.Infrastructure/XClone.Infrastructure.csproj",
+      "msbuildProject": "../XClone.Infrastructure/XClone.Infrastructure.csproj"
+    },
     "XClone.Shared/1.0.0": {
       "type": "project",
       "path": "../XClone.Shared/XClone.Shared.csproj",
@@ -4792,7 +4810,8 @@
     "net9.0": [
       "Microsoft.AspNetCore.OpenApi >= 9.0.14",
       "Microsoft.EntityFrameworkCore.Design >= 9.0.14",
-      "XClone.Application >= 1.0.0"
+      "XClone.Application >= 1.0.0",
+      "XClone.Infrastructure >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -4829,6 +4848,9 @@
           "projectReferences": {
             "C:\\Users\\Xhope\\Desktop\\clases\\github\\vmt-bootcamp\\backend\\x_clone\\XClone.Application\\XClone.Application.csproj": {
               "projectPath": "C:\\Users\\Xhope\\Desktop\\clases\\github\\vmt-bootcamp\\backend\\x_clone\\XClone.Application\\XClone.Application.csproj"
+            },
+            "C:\\Users\\Xhope\\Desktop\\clases\\github\\vmt-bootcamp\\backend\\x_clone\\XClone.Infrastructure\\XClone.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\Xhope\\Desktop\\clases\\github\\vmt-bootcamp\\backend\\x_clone\\XClone.Infrastructure\\XClone.Infrastructure.csproj"
             }
           }
         }

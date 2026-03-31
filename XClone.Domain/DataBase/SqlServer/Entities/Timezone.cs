@@ -7,7 +7,7 @@ public partial class Timezone
 {
     public Guid Id { get; set; }
 
-    public string Nombre { get; set; } = null!;
+    public string Name { get; set; } = null!;
 
     public string Continente { get; set; } = null!;
 

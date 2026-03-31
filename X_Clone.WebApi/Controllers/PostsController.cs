@@ -22,9 +22,9 @@ namespace XClone.WebApi.Controllers
 
         //obtener todos los post
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] GetAllPostRequest model)
+        public async Task<IActionResult> GetAll([FromQuery] FilterPostRequest model)
         {
-            var rsp = postService.Get(model.Limit ?? 0, model.Offset ?? 0);
+            var rsp = postService.Get(model);
 
             return Ok(rsp);
         }

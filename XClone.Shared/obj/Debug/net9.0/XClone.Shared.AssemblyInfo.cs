@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("XClone.Shared")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+94801d566722f34dc5cb2508d1e635f9f2700efb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d79bd7fa72e69980384e1c61e8755fab3eeb18cb")]
 [assembly: System.Reflection.AssemblyProductAttribute("XClone.Shared")]
 [assembly: System.Reflection.AssemblyTitleAttribute("XClone.Shared")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

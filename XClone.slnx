@@ -1,6 +1,7 @@
 <Solution>
   <Project Path="XClone.Application/XClone.Application.csproj" />
   <Project Path="XClone.Domain/XClone.Domain.csproj" Id="366f6d6e-7f2f-4610-8a19-e54fdd9dbb8a" />
+  <Project Path="XClone.Infrastructure/XClone.Infrastructure.csproj" Id="965558a4-a885-4f1a-9707-380bfb8c86ca" />
   <Project Path="XClone.Shared/XClone.Shared.csproj" />
   <Project Path="X_Clone.WebApi/XClone.WebApi.csproj" />
 </Solution>

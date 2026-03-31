@@ -7,9 +7,9 @@ public partial class Community
 {
     public Guid Id { get; set; }
 
-    public string Nombre { get; set; } = null!;
+    public string CommunityName { get; set; } = null!;
 
-    public string? Descripcion { get; set; }
+    public string? Description { get; set; }
 
     public Guid CreatorId { get; set; }
 

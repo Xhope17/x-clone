@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\XClone.Application\XClone.Application.csproj" />
+    <ProjectReference Include="..\XClone.Infrastructure\XClone.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
