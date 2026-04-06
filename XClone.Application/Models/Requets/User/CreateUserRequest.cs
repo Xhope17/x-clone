@@ -7,7 +7,7 @@ namespace XClone.Application.Models.Requets.User
     {
         [Required(ErrorMessage = ValidationConstants.REQUIRED)]
         [MaxLength(100, ErrorMessage = ValidationConstants.MAX_LENGTH)]
-        [MinLength(1, ErrorMessage = ValidationConstants.MIN_LENGTH)]
+        [MinLength(6, ErrorMessage = ValidationConstants.MIN_LENGTH)]
         public string UserName { get; set; } = null!;
 
         [Required(ErrorMessage = ValidationConstants.REQUIRED)]

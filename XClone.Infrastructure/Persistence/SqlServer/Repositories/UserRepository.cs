@@ -39,6 +39,20 @@ namespace XClone.Infrastructure.Persistence.SqlServer.Repositories
             }
         }
 
+
+        public async Task<User?> GetUserName(string userName, string email)
+        {
+            try
+            {
+                // Solo traemos el usuario si existe y NO está eliminado (IsActive == true)
+                return await context.Users.FirstOrDefaultAsync(x => x.UserName == userName && x.Email == email && x.IsActive == true);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public async Task<bool> IfExists(Guid userId)
         {
             try

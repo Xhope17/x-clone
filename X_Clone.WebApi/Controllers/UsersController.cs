@@ -25,7 +25,7 @@ namespace XClone.WebApi.Controllers
             var rsp = userService.Get(model);
 
 
-            return Ok(ResponseHelper.Create(rsp));
+            return Ok(rsp);
         }
 
         //obtener un post
@@ -43,7 +43,7 @@ namespace XClone.WebApi.Controllers
         {
             var rsp = userService.Update(id, model);
 
-            return Ok(ResponseHelper.Create(rsp, "Usuario actualizado"));
+            return Ok(ResponseHelper.Create(rsp, null, "Usuario actualizado"));
         }
 
         //eliminar un usuario
@@ -51,7 +51,7 @@ namespace XClone.WebApi.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             var rsp = await userService.Delete(id);
-            return Ok(ResponseHelper.Create(rsp, "usuario eliminado"));
+            return Ok(ResponseHelper.Create(rsp, null, "usuario eliminado"));
         }
     }
 }

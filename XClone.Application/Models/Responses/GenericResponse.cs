@@ -7,6 +7,8 @@ namespace XClone.Application.Models.Responses
 
         public string Message { get; set; }
 
+        public List<string> Erros { get; set; } = [];
+
         public DateTime TimeStamp { get; set; } = DateTimeHelper.UtcNow();
 
         public T Data { get; set; }

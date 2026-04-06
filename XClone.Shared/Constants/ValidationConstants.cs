@@ -17,6 +17,8 @@
 
         public const string AUTHOR_ID_REQUIRED = "El campo AuthorId es requerido";
 
+        public const string VALIDATION_MESSAGE = "Error de validación: {0}";
+
 
     }
 }

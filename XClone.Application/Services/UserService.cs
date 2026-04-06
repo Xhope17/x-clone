@@ -39,11 +39,22 @@ namespace XClone.Application.Services
             cache.Add(user.UserId.ToString(), user);
             return ResponseHelper.Create(user, "Usuario creado");
             */
+
+            //throw new Exception("La base de datos, no e pudo conectar con el servicio");
+
+            var userExist = await repository.GetUserName(model.UserName, model.Email);
+
+            if (userExist != null)
+            {
+                return ResponseHelper.Create<UserDto>(null!, null, ValidationConstants.DUPLICATE);
+            }
+
             if (model.Edad < 18)
             {
                 // Asegúrate de que el método devuelva el tipo correcto en caso de error
-                return ResponseHelper.Create<UserDto>(null!, ValidationConstants.INVALID_AGE);
+                return ResponseHelper.Create<UserDto>(null!, null, ValidationConstants.INVALID_AGE);
             }
+
 
             var create = await repository.Create(new User
             {
@@ -98,6 +109,11 @@ namespace XClone.Application.Services
             if (!string.IsNullOrWhiteSpace(model.UserName))
             {
                 queryable = queryable.Where(x => x.UserName.Contains(model.UserName ?? ""));
+            }
+
+            if (!string.IsNullOrWhiteSpace(model.DisplayName))
+            {
+                queryable = queryable.Where(x => x.DisplayName.Contains(model.DisplayName ?? ""));
             }
 
             // Realizar paginación y consulta
@@ -166,11 +182,27 @@ namespace XClone.Application.Services
             return ResponseHelper.Create(Map(update));
         }
 
+        //peticiones internas
         private async Task<User> GetUser(Guid userId)
         {
             return await repository.Get(userId)
                 ?? throw new NotFoundException(ResponseConstans.USER_NOT_EXIST); // Asegúrate de tener esta constante
         }
+
+        //obtener por username
+        //private async Task<User> GetUser(string userName)
+        //{
+        //    //var user = repository.Queryable().FirstOrDefault(x => x.UserName == userName);
+        //    //if (user is null)
+        //    //{
+        //    //    throw new NotFoundException(ResponseConstans.USER_NOT_EXIST);
+        //    //}
+        //    //return user;
+
+        //    return await repository.GetUserName(userName)
+        //        ?? throw new NotFoundException(ResponseConstans.USER_NOT_EXIST); // Asegúrate de tener esta constante   
+        //}
+
 
         //map
         private UserDto Map(User user)
