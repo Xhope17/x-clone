@@ -1,3 +1,4 @@
+using Scalar.AspNetCore;
 using Serilog;
 using XClone.WebApi.Extensions;
 using XClone.WebApi.Middlewares;
@@ -40,12 +41,19 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.MapScalarApiReference(options =>
+    {
+        options.Theme = ScalarTheme.Mars;
+        options.WithTitle("X-Clone API");
+    });
     app.MapOpenApi();
 }
 
 app.UseMiddleware<ErrorHandlerMiddleware>();
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

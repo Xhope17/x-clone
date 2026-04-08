@@ -5,8 +5,11 @@
         //FIRST_APP_TIME_USER_USERNAME
         public static string FIRST_APP_TIME_USER_USERNAME = "FirstAppTime:User:UserName";
 
+        //FIRST_APP_TIME_USER_DISPLAYNAME
+        public static string FIRST_APP_TIME_USER_DISPLAYNAME = "FirstAppTime:User:DisplayName";
+
         //FIRST_APP_TIME_USER_EMAIL
-        public static string FIRST_APP_TIME_USER_EMAIL = "FirstAppTimeUser:User:Email";
+        public static string FIRST_APP_TIME_USER_EMAIL = "FirstApptime:User:Email";
 
         //FIRST_APP_TIME_USER_POSITION
         public static string FIRST_APP_TIME_USER_POSITION = "FirstAppTime:User:Position";
@@ -15,11 +18,11 @@
         public static string CONNECTION_STRING_DATABASE = "ConnectionStrings:Database";
 
         //FIRST_APP_TIME_USER_PASSWORD
-        public static string FIRST_APP_TIME_USER_PASSWORD = "FirstApptimeUser:Password";
+        public static string FIRST_APP_TIME_USER_PASSWORD = "FirstApptime:User:Password";
+
 
 
         //JWT
-
         //JWT_PRIVATE_KEY
         public static string JWT_PRIVATE_KEY = "Jwt:PrivateKey";
 
@@ -29,8 +32,11 @@
         //JWT_ISSUER
         public static string JWT_ISSUER = "Jwt:Issuer";
 
-        //JWT_EXPIRATION_MINUTES
-        public static string JWT_EXPIRATION_MIN = "Jwt:ExpirationInMinutes";
+
+        //"ExpirationInMinutesMinimun": "1",
+        public static string JWT_EXPIRATION_IN_MINUTES_MIN = "Jwt:ExpirationInMinutes";
+        //"ExpirationInMinutesTo":  "5"
+        public static string JWT_EXPIRATION_IN_MINUTES_MAX = "Jwt:Expiration";
 
 
 

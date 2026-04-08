@@ -12,7 +12,7 @@
         public const string PROJECT_NOT_EXISTS = "El proyecto no existe";
 
         //Token not found
-        public const string AUTH_TOKEN_NOT_FOUND = "Token de autenticación no es correcto o expiró";
+        public const string AUTH_TOKEN_NOT_FOUND = "El token no es correcto, expiró o no se argumentó";
 
         public static string ErrorUnexpected(string traceId)
         {

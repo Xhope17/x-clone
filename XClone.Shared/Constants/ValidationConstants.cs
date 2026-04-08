@@ -10,7 +10,7 @@
 
 
         //email
-        public const string INVALID_EMAIL = "Ingrese un email valido";
+        //public const string INVALID_EMAIL = "Ingrese un email valido";
 
         public const string USER_NOT_FOUND = "Usuario no encontrado";
         public const string POST_NOT_FOUND = "Post no encontrado";
@@ -21,7 +21,7 @@
         public const string DUPLICATE = "El recurso ya existe";
 
         public const string AUTHOR_ID_REQUIRED = "El campo AuthorId es requerido";
-
+        public const string EMAIL_ADDRESS = "La dirección de correo electrónico, no es correcta {0}";
 
 
     }

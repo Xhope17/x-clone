@@ -84,6 +84,9 @@ namespace XClone.Application.Services
             var position = configuration[ConfigurationConstants.FIRST_APP_TIME_USER_POSITION]
                 ?? throw new Exception(ResponseConstans.ConfigurationPropertyNotFound(ConfigurationConstants.FIRST_APP_TIME_USER_POSITION));
 
+            var displayName = configuration[ConfigurationConstants.FIRST_APP_TIME_USER_DISPLAYNAME]
+                ?? throw new Exception(ResponseConstans.ConfigurationPropertyNotFound(ConfigurationConstants.FIRST_APP_TIME_USER_POSITION));
+
 
             var email = configuration[ConfigurationConstants.FIRST_APP_TIME_USER_EMAIL]
                 ?? throw new Exception(ResponseConstans.ConfigurationPropertyNotFound(ConfigurationConstants.FIRST_APP_TIME_USER_EMAIL));
@@ -101,6 +104,7 @@ namespace XClone.Application.Services
             await repository.Create(new User
             {
                 UserName = userName,
+                DisplayName = displayName,
                 Email = email,
                 Position = position,
                 Password = Hasher.HashPassword(password),

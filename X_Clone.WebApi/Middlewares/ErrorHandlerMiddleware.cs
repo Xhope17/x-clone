@@ -17,15 +17,18 @@ namespace XClone.WebApi.Middlewares
             }
             catch (NotFoundException exception)
             {
-                //var response = ResponseHelper.Create(exception.Message);
-                //context.Response.StatusCode = StatusCodes.Status404NotFound;
+                /*var response = ResponseHelper.Create(exception.Message);
+                context.Response.StatusCode = StatusCodes.Status404NotFound;
+                */
                 await context.Response.WriteAsJsonAsync(ManageException(context, exception, StatusCodes.Status404NotFound));
             }
             catch (BadHttpRequestException exception)
             {
-                //var response = ResponseHelper.Create(exception.Message);
-                //context.Response.StatusCode = StatusCodes.Status400BadRequest;
                 await context.Response.WriteAsJsonAsync(ManageException(context, exception, StatusCodes.Status400BadRequest));
+            }
+            catch (UnauthorizedException exception)
+            {
+                await context.Response.WriteAsJsonAsync(ManageException(context, exception, StatusCodes.Status401Unauthorized));
             }
             catch (Exception exception)
             {

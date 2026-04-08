@@ -28,7 +28,7 @@ namespace XClone.WebApi.Extensions
             services.AddScoped<IPostService, PostService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAuthService, AuthService>();
-
+            services.AddScoped<ICacheService, CacheService>();
 
 
         }
@@ -58,6 +58,7 @@ namespace XClone.WebApi.Extensions
                 {
                     var errors = errorContext.ModelState.Values.SelectMany(value => value.Errors.Select(error => error.ErrorMessage).ToList()).ToList();
                     var response = ResponseHelper.Create(
+
                         data: ValidationConstants.VALIDATION_MESSAGE,
                         errors: errors,
                         message: ValidationConstants.VALIDATION_MESSAGE
@@ -69,10 +70,10 @@ namespace XClone.WebApi.Extensions
             services.AddOpenApi();
 
             //services.AddSqlServer<XcloneContext>(configuration.GetConnectionString("Database"));
-            var databaseConnetingString = Environment.GetEnvironmentVariable("ConnectionStrings:DataBase")
-                ?? configuration.GetConnectionString("Database");
-            services.AddSqlServer<XcloneContext>(databaseConnetingString);
+            var databaseConnetingString = Environment.GetEnvironmentVariable(ConfigurationConstants.CONNECTION_STRING_DATABASE)
+                ?? configuration[ConfigurationConstants.CONNECTION_STRING_DATABASE];
 
+            services.AddSqlServer<XcloneContext>(databaseConnetingString);
 
             services.AddServices();
 
@@ -80,8 +81,12 @@ namespace XClone.WebApi.Extensions
 
             services.AddMiddlleWares();
 
-            AddLogging(services);
+            services.AddLogging();
+
             services.AddAuth(configuration);
+
+            services.AddCache();
+
             await Initialize(services);
 
         }
@@ -131,7 +136,7 @@ namespace XClone.WebApi.Extensions
         }
 
 
-        public static void AddAuth(IServiceCollection services, IConfiguration configuration)
+        public static void AddAuth(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddAuthentication(builder =>
             {
@@ -153,11 +158,12 @@ namespace XClone.WebApi.Extensions
                     ?? configuration[ConfigurationConstants.JWT_PRIVATE_KEY]
                     ?? throw new Exception(ResponseConstans.ConfigurationPropertyNotFound(ConfigurationConstants.JWT_PRIVATE_KEY));
 
-                var expirationInMutes = Environment.GetEnvironmentVariable(ConfigurationConstants.JWT_EXPIRATION_MIN) //produccion y desarrollo
-                    ?? configuration[ConfigurationConstants.JWT_EXPIRATION_MIN]
-                    ?? "10";
+                //var expirationInMutes = Environment.GetEnvironmentVariable(ConfigurationConstants.JWT_EXPIRATION_MIN) //produccion y desarrollo
+                //    ?? configuration[ConfigurationConstants.JWT_EXPIRATION_MIN]
+                //    ?? "10";
 
-                builder.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                //builder.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                builder.TokenValidationParameters = new TokenValidationParameters
                 {
 
                     ValidateIssuer = true,
@@ -180,6 +186,11 @@ namespace XClone.WebApi.Extensions
             });
             services.AddAuthorization();
 
+        }
+
+        public static void AddCache(this IServiceCollection services)
+        {
+            services.AddMemoryCache();
         }
     }
 }

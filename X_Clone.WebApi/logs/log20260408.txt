@@ -1,0 +1,748 @@
+2026-04-08 10:16:19.674 -05:00 [INF] User profile is available. Using 'C:\Users\Xhope\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-08 10:16:20.096 -05:00 [INF] Now listening on: http://localhost:5230
+2026-04-08 10:16:20.176 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-08 10:16:20.179 -05:00 [INF] Hosting environment: Development
+2026-04-08 10:16:20.190 -05:00 [INF] Content root path: C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x_clone\X_Clone.WebApi
+2026-04-08 10:16:24.420 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5230/api/auth/login - application/json 45
+2026-04-08 10:16:28.296 -05:00 [WRN] Failed to determine the https port for redirect.
+2026-04-08 10:16:28.318 -05:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2026-04-08 10:16:28.341 -05:00 [INF] AuthenticationScheme: Bearer was challenged.
+2026-04-08 10:16:28.411 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5230/api/auth/login - 401 0 null 4010.7858ms
+2026-04-08 10:16:34.406 -05:00 [ERR] An error occurred using the connection to database 'XClone' on server 'localhost,1433'.
+2026-04-08 10:16:34.431 -05:00 [ERR] An exception occurred while iterating over the results of a query for context type 'XClone.Domain.Database.SqlServer.Context.XcloneContext'.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Error relacionado con la red o específico de la instancia mientras se establecía una conexión con el servidor SQL Server. No se encontró el servidor o éste no estaba accesible. Compruebe que el nombre de la instancia es correcto y que SQL Server está configurado para admitir conexiones remotas. (provider: Proveedor de TCP, error: 0 - Tiempo de espera de la operación de espera agotado.)
+ ---> System.ComponentModel.Win32Exception (258): Tiempo de espera de la operación de espera agotado.
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.Connect(ServerInfo serverInfo, SqlInternalConnectionTds connHandler, TimeoutTimer timeout, SqlConnectionString connectionOptions, Boolean withFailover)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, TimeoutTimer timeout, Boolean withFailover)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString connectionOptions, SqlCredential credential, TimeoutTimer timeout)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(TimeoutTimer timeout, SqlConnectionString connectionOptions, SqlCredential credential, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, Boolean applyTransientFaultHandling, String accessToken, IDbConnectionPool pool, Func`3 accessTokenCallback)
+   at Microsoft.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionPoolGroupProviderInfo poolGroupProviderInfo, IDbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(IDbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.ConnectionPool.WaitHandleDbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.SqlClient.ConnectionPool.WaitHandleDbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.SqlClient.ConnectionPool.WaitHandleDbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.SqlClient.ConnectionPool.WaitHandleDbConnectionPool.WaitForPendingOpen()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:00000000-0000-0000-0000-000000000000
+Error Number:258,State:0,Class:20
+Microsoft.Data.SqlClient.SqlException (0x80131904): Error relacionado con la red o específico de la instancia mientras se establecía una conexión con el servidor SQL Server. No se encontró el servidor o éste no estaba accesible. Compruebe que el nombre de la instancia es correcto y que SQL Server está configurado para admitir conexiones remotas. (provider: Proveedor de TCP, error: 0 - Tiempo de espera de la operación de espera agotado.)
+ ---> System.ComponentModel.Win32Exception (258): Tiempo de espera de la operación de espera agotado.
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.Connect(ServerInfo serverInfo, SqlInternalConnectionTds connHandler, TimeoutTimer timeout, SqlConnectionString connectionOptions, Boolean withFailover)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, TimeoutTimer timeout, Boolean withFailover)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString connectionOptions, SqlCredential credential, TimeoutTimer timeout)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(TimeoutTimer timeout, SqlConnectionString connectionOptions, SqlCredential credential, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, Boolean applyTransientFaultHandling, String accessToken, IDbConnectionPool pool, Func`3 accessTokenCallback)
+   at Microsoft.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionPoolGroupProviderInfo poolGroupProviderInfo, IDbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(IDbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.ConnectionPool.WaitHandleDbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.SqlClient.ConnectionPool.WaitHandleDbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.SqlClient.ConnectionPool.WaitHandleDbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.SqlClient.ConnectionPool.WaitHandleDbConnectionPool.WaitForPendingOpen()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:00000000-0000-0000-0000-000000000000
+Error Number:258,State:0,Class:20
+2026-04-08 10:19:07.092 -05:00 [INF] User profile is available. Using 'C:\Users\Xhope\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-08 10:19:07.702 -05:00 [INF] Executed DbCommand (331ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [User] AS [u]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-04-08 10:20:21.101 -05:00 [INF] User profile is available. Using 'C:\Users\Xhope\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-08 10:20:21.344 -05:00 [INF] Executed DbCommand (122ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [User] AS [u]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-04-08 10:21:41.746 -05:00 [INF] User profile is available. Using 'C:\Users\Xhope\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-08 10:21:42.196 -05:00 [INF] Executed DbCommand (248ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [User] AS [u]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-04-08 10:21:42.472 -05:00 [INF] Now listening on: http://localhost:5230
+2026-04-08 10:21:42.731 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-08 10:21:42.737 -05:00 [INF] Hosting environment: Development
+2026-04-08 10:21:42.742 -05:00 [INF] Content root path: C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x_clone\X_Clone.WebApi
+2026-04-08 10:21:43.302 -05:00 [INF] Executed DbCommand (78ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Guid), @p2='?' (DbType = DateTime2), @p3='?' (Size = 100), @p4='?' (Size = 255), @p5='?' (DbType = Boolean), @p6='?' (DbType = Boolean), @p7='?' (Size = 255), @p8='?' (Size = 20), @p9='?' (DbType = Guid), @p10='?' (Size = 100), @p11='?' (DbType = Guid), @p12='?' (Size = 50)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [User] ([Age], [CityId], [DeletedAt], [DisplayName], [Email], [IsActive], [IsVerified], [Password], [PhoneNumber], [PinnedPostId], [Position], [TimezoneId], [UserName])
+OUTPUT INSERTED.[Id], INSERTED.[CreateAt], INSERTED.[JoinedAt], INSERTED.[UpdatedAt]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12);
+2026-04-08 10:21:43.410 -05:00 [ERR] An exception occurred in the database while saving changes for context type 'XClone.Domain.Database.SqlServer.Context.XcloneContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert the value NULL into column 'DisplayName', table 'XClone.dbo.User'; column does not allow nulls. INSERT fails.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:fd325738-5ce5-4632-832b-05870ecd2feb
+Error Number:515,State:2,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert the value NULL into column 'DisplayName', table 'XClone.dbo.User'; column does not allow nulls. INSERT fails.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:fd325738-5ce5-4632-832b-05870ecd2feb
+Error Number:515,State:2,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2026-04-08 10:24:12.264 -05:00 [INF] User profile is available. Using 'C:\Users\Xhope\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-08 10:24:12.271 -05:00 [INF] Executed DbCommand (132ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [User] AS [u]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-04-08 10:24:12.962 -05:00 [INF] Now listening on: http://localhost:5230
+2026-04-08 10:24:13.214 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-08 10:24:13.219 -05:00 [INF] Hosting environment: Development
+2026-04-08 10:24:13.223 -05:00 [INF] Content root path: C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x_clone\X_Clone.WebApi
+2026-04-08 10:24:13.473 -05:00 [INF] Executed DbCommand (48ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Guid), @p2='?' (DbType = DateTime2), @p3='?' (Size = 100), @p4='?' (Size = 255), @p5='?' (DbType = Boolean), @p6='?' (DbType = Boolean), @p7='?' (Size = 255), @p8='?' (Size = 20), @p9='?' (DbType = Guid), @p10='?' (Size = 100), @p11='?' (DbType = Guid), @p12='?' (Size = 50)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [User] ([Age], [CityId], [DeletedAt], [DisplayName], [Email], [IsActive], [IsVerified], [Password], [PhoneNumber], [PinnedPostId], [Position], [TimezoneId], [UserName])
+OUTPUT INSERTED.[Id], INSERTED.[CreateAt], INSERTED.[JoinedAt], INSERTED.[UpdatedAt]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12);
+2026-04-08 10:24:13.553 -05:00 [ERR] An exception occurred in the database while saving changes for context type 'XClone.Domain.Database.SqlServer.Context.XcloneContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert the value NULL into column 'DisplayName', table 'XClone.dbo.User'; column does not allow nulls. INSERT fails.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:d0e7dded-de18-486e-a7c4-e8f3695d53b0
+Error Number:515,State:2,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert the value NULL into column 'DisplayName', table 'XClone.dbo.User'; column does not allow nulls. INSERT fails.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:d0e7dded-de18-486e-a7c4-e8f3695d53b0
+Error Number:515,State:2,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2026-04-08 10:28:26.056 -05:00 [INF] Executed DbCommand (93ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [User] AS [u]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-04-08 10:28:26.038 -05:00 [INF] User profile is available. Using 'C:\Users\Xhope\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-08 10:28:26.603 -05:00 [INF] Now listening on: http://localhost:5230
+2026-04-08 10:28:26.726 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-08 10:28:26.738 -05:00 [INF] Hosting environment: Development
+2026-04-08 10:28:26.752 -05:00 [INF] Content root path: C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x_clone\X_Clone.WebApi
+2026-04-08 10:28:27.173 -05:00 [INF] Executed DbCommand (114ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Guid), @p2='?' (DbType = DateTime2), @p3='?' (Size = 100), @p4='?' (Size = 255), @p5='?' (DbType = Boolean), @p6='?' (DbType = Boolean), @p7='?' (Size = 255), @p8='?' (Size = 20), @p9='?' (DbType = Guid), @p10='?' (Size = 100), @p11='?' (DbType = Guid), @p12='?' (Size = 50)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [User] ([Age], [CityId], [DeletedAt], [DisplayName], [Email], [IsActive], [IsVerified], [Password], [PhoneNumber], [PinnedPostId], [Position], [TimezoneId], [UserName])
+OUTPUT INSERTED.[Id], INSERTED.[CreateAt], INSERTED.[JoinedAt], INSERTED.[UpdatedAt]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12);
+2026-04-08 10:28:45.565 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5230/api/auth/login - application/json 74
+2026-04-08 10:28:45.973 -05:00 [WRN] Failed to determine the https port for redirect.
+2026-04-08 10:28:45.998 -05:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2026-04-08 10:28:46.015 -05:00 [INF] AuthenticationScheme: Bearer was challenged.
+2026-04-08 10:28:46.056 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5230/api/auth/login - 401 0 null 505.3974ms
+2026-04-08 10:33:17.309 -05:00 [INF] User profile is available. Using 'C:\Users\Xhope\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-08 10:33:17.325 -05:00 [INF] Executed DbCommand (163ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [User] AS [u]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-04-08 10:33:18.076 -05:00 [INF] Now listening on: http://localhost:5230
+2026-04-08 10:33:18.320 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-08 10:33:18.323 -05:00 [INF] Hosting environment: Development
+2026-04-08 10:33:18.326 -05:00 [INF] Content root path: C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x_clone\X_Clone.WebApi
+2026-04-08 10:33:18.710 -05:00 [INF] Executed DbCommand (77ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Guid), @p2='?' (DbType = DateTime2), @p3='?' (Size = 100), @p4='?' (Size = 255), @p5='?' (DbType = Boolean), @p6='?' (DbType = Boolean), @p7='?' (Size = 255), @p8='?' (Size = 20), @p9='?' (DbType = Guid), @p10='?' (Size = 100), @p11='?' (DbType = Guid), @p12='?' (Size = 50)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [User] ([Age], [CityId], [DeletedAt], [DisplayName], [Email], [IsActive], [IsVerified], [Password], [PhoneNumber], [PinnedPostId], [Position], [TimezoneId], [UserName])
+OUTPUT INSERTED.[Id], INSERTED.[CreateAt], INSERTED.[JoinedAt], INSERTED.[UpdatedAt]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12);
+2026-04-08 10:33:34.696 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5230/api/auth/login - application/json 74
+2026-04-08 10:33:35.073 -05:00 [WRN] Failed to determine the https port for redirect.
+2026-04-08 10:33:35.099 -05:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2026-04-08 10:33:35.128 -05:00 [INF] AuthenticationScheme: Bearer was challenged.
+2026-04-08 10:33:35.175 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5230/api/auth/login - 401 0 null 495.6268ms
+2026-04-08 10:33:41.171 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5230/api/auth/login - application/json 71
+2026-04-08 10:33:41.193 -05:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2026-04-08 10:33:41.199 -05:00 [INF] AuthenticationScheme: Bearer was challenged.
+2026-04-08 10:33:41.203 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5230/api/auth/login - 401 0 null 31.7294ms
+2026-04-08 10:33:44.047 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5230/api/auth/login - application/json 71
+2026-04-08 10:33:44.088 -05:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2026-04-08 10:33:44.093 -05:00 [INF] AuthenticationScheme: Bearer was challenged.
+2026-04-08 10:33:44.096 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5230/api/auth/login - 401 0 null 49.5559ms
+2026-04-08 10:34:13.836 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5230/api/auth/login - application/json 71
+2026-04-08 10:34:13.852 -05:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2026-04-08 10:34:13.869 -05:00 [INF] AuthenticationScheme: Bearer was challenged.
+2026-04-08 10:34:13.877 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5230/api/auth/login - 401 0 null 41.3153ms
+2026-04-08 10:34:58.359 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5230/api/auth/login - application/json 71
+2026-04-08 10:34:58.377 -05:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2026-04-08 10:34:58.440 -05:00 [INF] AuthenticationScheme: Bearer was challenged.
+2026-04-08 10:34:58.446 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5230/api/auth/login - 401 0 null 109.4245ms
+2026-04-08 10:36:51.273 -05:00 [INF] Executed DbCommand (134ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [User] AS [u]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-04-08 10:36:51.273 -05:00 [INF] User profile is available. Using 'C:\Users\Xhope\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-08 10:36:52.126 -05:00 [INF] Now listening on: http://localhost:5230
+2026-04-08 10:36:52.427 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-08 10:36:52.492 -05:00 [INF] Hosting environment: Development
+2026-04-08 10:36:52.534 -05:00 [INF] Content root path: C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x_clone\X_Clone.WebApi
+2026-04-08 10:36:52.713 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5230/api/auth/login - application/json 71
+2026-04-08 10:36:53.122 -05:00 [WRN] Failed to determine the https port for redirect.
+2026-04-08 10:36:53.152 -05:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2026-04-08 10:36:53.173 -05:00 [INF] AuthenticationScheme: Bearer was challenged.
+2026-04-08 10:36:53.205 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5230/api/auth/login - 401 0 null 523.3699ms
+2026-04-08 10:37:03.223 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5230/api/auth/login - application/json 71
+2026-04-08 10:37:03.251 -05:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2026-04-08 10:37:03.257 -05:00 [INF] AuthenticationScheme: Bearer was challenged.
+2026-04-08 10:37:03.265 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5230/api/auth/login - 401 0 null 49.134ms
+2026-04-08 10:37:23.794 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5230/api/auth/login - application/json 71
+2026-04-08 10:37:23.862 -05:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2026-04-08 10:37:23.866 -05:00 [INF] AuthenticationScheme: Bearer was challenged.
+2026-04-08 10:37:23.871 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5230/api/auth/login - 401 0 null 82.5784ms
+2026-04-08 10:37:29.286 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5230/api/auth/login - application/json 71
+2026-04-08 10:37:29.303 -05:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2026-04-08 10:37:29.307 -05:00 [INF] AuthenticationScheme: Bearer was challenged.
+2026-04-08 10:37:29.313 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5230/api/auth/login - 401 0 null 29.229ms
+2026-04-08 10:38:43.335 -05:00 [INF] User profile is available. Using 'C:\Users\Xhope\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-08 10:38:43.378 -05:00 [INF] Executed DbCommand (127ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [User] AS [u]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-04-08 10:38:44.114 -05:00 [INF] Now listening on: http://localhost:5230
+2026-04-08 10:38:44.311 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-08 10:38:44.314 -05:00 [INF] Hosting environment: Development
+2026-04-08 10:38:44.317 -05:00 [INF] Content root path: C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x_clone\X_Clone.WebApi
+2026-04-08 10:38:44.420 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5230/api/auth/login - application/json 71
+2026-04-08 10:38:44.740 -05:00 [WRN] Failed to determine the https port for redirect.
+2026-04-08 10:38:44.758 -05:00 [INF] Executing endpoint 'XClone.WebApi.Controllers.AuthController.Login (XClone.WebApi)'
+2026-04-08 10:38:44.875 -05:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(XClone.Application.Models.Requets.Auth.LoginAuthRequest) on controller XClone.WebApi.Controllers.AuthController (XClone.WebApi).
+2026-04-08 10:38:45.596 -05:00 [INF] Executed DbCommand (76ms) [Parameters=[@__email_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[Age], [u].[CityId], [u].[CreateAt], [u].[DeletedAt], [u].[DisplayName], [u].[Email], [u].[IsActive], [u].[IsVerified], [u].[JoinedAt], [u].[Password], [u].[PhoneNumber], [u].[PinnedPostId], [u].[Position], [u].[TimezoneId], [u].[UpdatedAt], [u].[UserName]
+FROM [User] AS [u]
+WHERE [u].[Email] = @__email_0 AND [u].[DeletedAt] IS NULL
+2026-04-08 10:45:58.935 -05:00 [INF] User profile is available. Using 'C:\Users\Xhope\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-08 10:45:58.952 -05:00 [INF] Executed DbCommand (116ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [User] AS [u]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-04-08 10:45:59.508 -05:00 [INF] Now listening on: http://localhost:5230
+2026-04-08 10:45:59.693 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-08 10:45:59.696 -05:00 [INF] Hosting environment: Development
+2026-04-08 10:45:59.699 -05:00 [INF] Content root path: C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x_clone\X_Clone.WebApi
+2026-04-08 10:46:03.613 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5230/api/auth/login - application/json 71
+2026-04-08 10:46:03.994 -05:00 [WRN] Failed to determine the https port for redirect.
+2026-04-08 10:46:04.009 -05:00 [INF] Executing endpoint 'XClone.WebApi.Controllers.AuthController.Login (XClone.WebApi)'
+2026-04-08 10:46:04.077 -05:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(XClone.Application.Models.Requets.Auth.LoginAuthRequest) on controller XClone.WebApi.Controllers.AuthController (XClone.WebApi).
+2026-04-08 10:46:04.881 -05:00 [INF] Executed DbCommand (90ms) [Parameters=[@__email_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[Age], [u].[CityId], [u].[CreateAt], [u].[DeletedAt], [u].[DisplayName], [u].[Email], [u].[IsActive], [u].[IsVerified], [u].[JoinedAt], [u].[Password], [u].[PhoneNumber], [u].[PinnedPostId], [u].[Position], [u].[TimezoneId], [u].[UpdatedAt], [u].[UserName]
+FROM [User] AS [u]
+WHERE [u].[Email] = @__email_0 AND [u].[DeletedAt] IS NULL
+2026-04-08 10:46:17.968 -05:00 [INF] Executed action XClone.WebApi.Controllers.AuthController.Login (XClone.WebApi) in 13859.9329ms
+2026-04-08 10:46:18.019 -05:00 [INF] Executed endpoint 'XClone.WebApi.Controllers.AuthController.Login (XClone.WebApi)'
+2026-04-08 10:46:18.296 -05:00 [FTL] Se generó una excepcion no controlada: con el traceId: "1584ed49-34c7-48d3-a3cd-60509ea69773". Excepción: System.NotSupportedException: IDX10634: Unable to create the SignatureProvider.
+Algorithm: 'SHA256', SecurityKey: '[PII of type 'Microsoft.IdentityModel.Tokens.SymmetricSecurityKey' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'
+ is not supported. The list of supported algorithms is available here: https://aka.ms/IdentityModel/supported-algorithms
+   at Microsoft.IdentityModel.Tokens.CryptoProviderFactory.CreateSignatureProvider(SecurityKey key, String algorithm, Boolean willCreateSignatures, Boolean cacheProvider)
+   at Microsoft.IdentityModel.Tokens.CryptoProviderFactory.CreateForSigning(SecurityKey key, String algorithm, Boolean cacheProvider)
+   at Microsoft.IdentityModel.Tokens.CryptoProviderFactory.CreateForSigning(SecurityKey key, String algorithm)
+   at Microsoft.IdentityModel.JsonWebTokens.JwtTokenUtilities.CreateEncodedSignature(String input, SigningCredentials signingCredentials)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.WriteToken(SecurityToken token)
+   at XClone.Shared.Helpers.TokenHelper.Create(User user, IConfiguration configuration) in C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x_clone\XClone.Shared\Helpers\TokenHelper.cs:line 54
+   at XClone.Application.Services.AuthService.Login(LoginAuthRequest model) in C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x_clone\XClone.Application\Services\AuthService.cs:line 27
+   at XClone.WebApi.Controllers.AuthController.Login(LoginAuthRequest model) in C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x_clone\X_Clone.WebApi\Controllers\AuthController.cs:line 14
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at XClone.WebApi.Middlewares.ErrorHandlerMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x_clone\X_Clone.WebApi\Middlewares\ErrorHandlerMiddleware.cs:line 14
+2026-04-08 10:46:18.443 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5230/api/auth/login - 500 null application/json; charset=utf-8 14845.402ms
+2026-04-08 10:46:30.399 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5230/api/auth/login - application/json 71
+2026-04-08 10:46:30.418 -05:00 [INF] Executing endpoint 'XClone.WebApi.Controllers.AuthController.Login (XClone.WebApi)'
+2026-04-08 10:46:30.433 -05:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(XClone.Application.Models.Requets.Auth.LoginAuthRequest) on controller XClone.WebApi.Controllers.AuthController (XClone.WebApi).
+2026-04-08 10:46:30.641 -05:00 [INF] Executed DbCommand (7ms) [Parameters=[@__email_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[Age], [u].[CityId], [u].[CreateAt], [u].[DeletedAt], [u].[DisplayName], [u].[Email], [u].[IsActive], [u].[IsVerified], [u].[JoinedAt], [u].[Password], [u].[PhoneNumber], [u].[PinnedPostId], [u].[Position], [u].[TimezoneId], [u].[UpdatedAt], [u].[UserName]
+FROM [User] AS [u]
+WHERE [u].[Email] = @__email_0 AND [u].[DeletedAt] IS NULL
+2026-04-08 10:48:42.006 -05:00 [INF] Executed DbCommand (83ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [User] AS [u]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-04-08 10:48:42.006 -05:00 [INF] User profile is available. Using 'C:\Users\Xhope\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-08 10:48:42.741 -05:00 [INF] Now listening on: http://localhost:5230
+2026-04-08 10:48:42.945 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-08 10:48:42.949 -05:00 [INF] Hosting environment: Development
+2026-04-08 10:48:42.954 -05:00 [INF] Content root path: C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x_clone\X_Clone.WebApi
+2026-04-08 10:51:00.132 -05:00 [INF] Executed DbCommand (112ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [User] AS [u]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-04-08 10:51:00.131 -05:00 [INF] User profile is available. Using 'C:\Users\Xhope\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-08 10:51:01.010 -05:00 [INF] Now listening on: http://localhost:5230
+2026-04-08 10:51:01.309 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-08 10:51:01.313 -05:00 [INF] Hosting environment: Development
+2026-04-08 10:51:01.317 -05:00 [INF] Content root path: C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x_clone\X_Clone.WebApi
+2026-04-08 10:51:02.705 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5230/api/auth/login - application/json 71
+2026-04-08 10:51:03.025 -05:00 [WRN] Failed to determine the https port for redirect.
+2026-04-08 10:51:03.040 -05:00 [INF] Executing endpoint 'XClone.WebApi.Controllers.AuthController.Login (XClone.WebApi)'
+2026-04-08 10:51:03.135 -05:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(XClone.Application.Models.Requets.Auth.LoginAuthRequest) on controller XClone.WebApi.Controllers.AuthController (XClone.WebApi).
+2026-04-08 10:51:03.753 -05:00 [INF] Executed DbCommand (64ms) [Parameters=[@__email_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[Age], [u].[CityId], [u].[CreateAt], [u].[DeletedAt], [u].[DisplayName], [u].[Email], [u].[IsActive], [u].[IsVerified], [u].[JoinedAt], [u].[Password], [u].[PhoneNumber], [u].[PinnedPostId], [u].[Position], [u].[TimezoneId], [u].[UpdatedAt], [u].[UserName]
+FROM [User] AS [u]
+WHERE [u].[Email] = @__email_0 AND [u].[DeletedAt] IS NULL
+2026-04-08 10:51:04.248 -05:00 [INF] Executing OkObjectResult, writing value of type 'XClone.Application.Models.Responses.GenericResponse`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-04-08 10:51:04.336 -05:00 [INF] Executed action XClone.WebApi.Controllers.AuthController.Login (XClone.WebApi) in 1180.5862ms
+2026-04-08 10:51:04.347 -05:00 [INF] Executed endpoint 'XClone.WebApi.Controllers.AuthController.Login (XClone.WebApi)'
+2026-04-08 10:51:04.383 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5230/api/auth/login - 200 null application/json; charset=utf-8 1695.3154ms
+2026-04-08 11:22:47.983 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5230/api/auth/login - application/json 71
+2026-04-08 11:22:48.011 -05:00 [INF] Executing endpoint 'XClone.WebApi.Controllers.AuthController.Login (XClone.WebApi)'
+2026-04-08 11:22:48.017 -05:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(XClone.Application.Models.Requets.Auth.LoginAuthRequest) on controller XClone.WebApi.Controllers.AuthController (XClone.WebApi).
+2026-04-08 11:22:48.219 -05:00 [INF] Executed DbCommand (11ms) [Parameters=[@__email_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[Age], [u].[CityId], [u].[CreateAt], [u].[DeletedAt], [u].[DisplayName], [u].[Email], [u].[IsActive], [u].[IsVerified], [u].[JoinedAt], [u].[Password], [u].[PhoneNumber], [u].[PinnedPostId], [u].[Position], [u].[TimezoneId], [u].[UpdatedAt], [u].[UserName]
+FROM [User] AS [u]
+WHERE [u].[Email] = @__email_0 AND [u].[DeletedAt] IS NULL
+2026-04-08 11:22:48.228 -05:00 [INF] Executing OkObjectResult, writing value of type 'XClone.Application.Models.Responses.GenericResponse`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-04-08 11:22:48.232 -05:00 [INF] Executed action XClone.WebApi.Controllers.AuthController.Login (XClone.WebApi) in 207.5533ms
+2026-04-08 11:22:48.235 -05:00 [INF] Executed endpoint 'XClone.WebApi.Controllers.AuthController.Login (XClone.WebApi)'
+2026-04-08 11:22:48.238 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5230/api/auth/login - 200 null application/json; charset=utf-8 257.4342ms
+2026-04-08 11:23:11.498 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5230/api/auth/login - application/json 71
+2026-04-08 11:23:11.518 -05:00 [INF] Executing endpoint 'XClone.WebApi.Controllers.AuthController.Login (XClone.WebApi)'
+2026-04-08 11:23:11.521 -05:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(XClone.Application.Models.Requets.Auth.LoginAuthRequest) on controller XClone.WebApi.Controllers.AuthController (XClone.WebApi).
+2026-04-08 11:23:11.541 -05:00 [INF] Executed DbCommand (4ms) [Parameters=[@__email_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[Age], [u].[CityId], [u].[CreateAt], [u].[DeletedAt], [u].[DisplayName], [u].[Email], [u].[IsActive], [u].[IsVerified], [u].[JoinedAt], [u].[Password], [u].[PhoneNumber], [u].[PinnedPostId], [u].[Position], [u].[TimezoneId], [u].[UpdatedAt], [u].[UserName]
+FROM [User] AS [u]
+WHERE [u].[Email] = @__email_0 AND [u].[DeletedAt] IS NULL
+2026-04-08 11:23:11.549 -05:00 [INF] Executing OkObjectResult, writing value of type 'XClone.Application.Models.Responses.GenericResponse`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-04-08 11:23:11.552 -05:00 [INF] Executed action XClone.WebApi.Controllers.AuthController.Login (XClone.WebApi) in 26.4502ms
+2026-04-08 11:23:11.572 -05:00 [INF] Executed endpoint 'XClone.WebApi.Controllers.AuthController.Login (XClone.WebApi)'
+2026-04-08 11:23:11.579 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5230/api/auth/login - 200 null application/json; charset=utf-8 81.4952ms
+2026-04-08 11:26:27.467 -05:00 [INF] User profile is available. Using 'C:\Users\Xhope\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-08 11:26:27.496 -05:00 [INF] Executed DbCommand (47ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [User] AS [u]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-04-08 11:26:27.755 -05:00 [INF] Now listening on: http://localhost:5230
+2026-04-08 11:26:27.843 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-08 11:26:27.849 -05:00 [INF] Hosting environment: Development
+2026-04-08 11:26:27.851 -05:00 [INF] Content root path: C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x_clone\X_Clone.WebApi
+2026-04-08 11:28:51.043 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5230/api/posts - application/json 103
+2026-04-08 11:28:51.337 -05:00 [WRN] Failed to determine the https port for redirect.
+2026-04-08 11:28:51.345 -05:00 [INF] Executing endpoint 'XClone.WebApi.Controllers.PostsController.Create (XClone.WebApi)'
+2026-04-08 11:28:51.410 -05:00 [INF] Route matched with {action = "Create", controller = "Posts"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(XClone.Application.Models.Requets.Post.CreatePostRequest) on controller XClone.WebApi.Controllers.PostsController (XClone.WebApi).
+2026-04-08 11:28:52.339 -05:00 [INF] Executed DbCommand (147ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Guid), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Boolean), @p4='?' (DbType = Boolean), @p5='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Post] ([AuthorId], [CommunityId], [DeletedAt], [IsActive], [IsSensitive], [Texto])
+OUTPUT INSERTED.[Id], INSERTED.[CreateAT], INSERTED.[JoinedAt], INSERTED.[UpdatedAt]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2026-04-08 11:28:52.401 -05:00 [ERR] An exception occurred in the database while saving changes for context type 'XClone.Domain.Database.SqlServer.Context.XcloneContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Post_Author". The conflict occurred in database "XClone", table "dbo.User", column 'Id'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:8d0ce852-f604-4be9-bbee-2ce93d417dad
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Post_Author". The conflict occurred in database "XClone", table "dbo.User", column 'Id'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:8d0ce852-f604-4be9-bbee-2ce93d417dad
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2026-04-08 11:29:06.324 -05:00 [INF] Executed action XClone.WebApi.Controllers.PostsController.Create (XClone.WebApi) in 14890.2487ms
+2026-04-08 11:29:06.339 -05:00 [INF] Executed endpoint 'XClone.WebApi.Controllers.PostsController.Create (XClone.WebApi)'
+2026-04-08 11:29:06.533 -05:00 [FTL] Se generó una excepcion no controlada: con el traceId: "dec1be12-484f-4891-bed0-43acf3560d10". Excepción: Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Post_Author". The conflict occurred in database "XClone", table "dbo.User", column 'Id'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:8d0ce852-f604-4be9-bbee-2ce93d417dad
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at XClone.Infrastructure.Persistence.SqlServer.Repositories.PostRepository.Create(Post post) in C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x_clone\XClone.Infrastructure\Persistence\SqlServer\Repositories\PostRepository.cs:line 18
+   at XClone.Application.Services.PostService.Create(CreatePostRequest model) in C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x_clone\XClone.Application\Services\PostService.cs:line 36
+   at XClone.WebApi.Controllers.PostsController.Create(CreatePostRequest model) in C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x_clone\X_Clone.WebApi\Controllers\PostsController.cs:line 23
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at XClone.WebApi.Middlewares.ErrorHandlerMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x_clone\X_Clone.WebApi\Middlewares\ErrorHandlerMiddleware.cs:line 14
+2026-04-08 11:29:06.643 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5230/api/posts - 500 null application/json; charset=utf-8 15611.7627ms
+2026-04-08 11:29:31.745 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5230/api/auth/login - application/json 71
+2026-04-08 11:29:31.771 -05:00 [INF] Executing endpoint 'XClone.WebApi.Controllers.AuthController.Login (XClone.WebApi)'
+2026-04-08 11:29:31.798 -05:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(XClone.Application.Models.Requets.Auth.LoginAuthRequest) on controller XClone.WebApi.Controllers.AuthController (XClone.WebApi).
+2026-04-08 11:29:32.165 -05:00 [INF] Executed DbCommand (4ms) [Parameters=[@__email_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[Age], [u].[CityId], [u].[CreateAt], [u].[DeletedAt], [u].[DisplayName], [u].[Email], [u].[IsActive], [u].[IsVerified], [u].[JoinedAt], [u].[Password], [u].[PhoneNumber], [u].[PinnedPostId], [u].[Position], [u].[TimezoneId], [u].[UpdatedAt], [u].[UserName]
+FROM [User] AS [u]
+WHERE [u].[Email] = @__email_0 AND [u].[DeletedAt] IS NULL
+2026-04-08 11:29:32.436 -05:00 [INF] Executing OkObjectResult, writing value of type 'XClone.Application.Models.Responses.GenericResponse`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-04-08 11:29:32.458 -05:00 [INF] Executed action XClone.WebApi.Controllers.AuthController.Login (XClone.WebApi) in 642.5642ms
+2026-04-08 11:29:32.468 -05:00 [INF] Executed endpoint 'XClone.WebApi.Controllers.AuthController.Login (XClone.WebApi)'
+2026-04-08 11:29:32.478 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5230/api/auth/login - 200 null application/json; charset=utf-8 734.8103ms
+2026-04-08 11:30:12.409 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5230/api/auth/login - application/json 71
+2026-04-08 11:30:12.428 -05:00 [INF] Executing endpoint 'XClone.WebApi.Controllers.AuthController.Login (XClone.WebApi)'
+2026-04-08 11:30:12.433 -05:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(XClone.Application.Models.Requets.Auth.LoginAuthRequest) on controller XClone.WebApi.Controllers.AuthController (XClone.WebApi).
+2026-04-08 11:30:12.459 -05:00 [INF] Executed DbCommand (5ms) [Parameters=[@__email_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[Age], [u].[CityId], [u].[CreateAt], [u].[DeletedAt], [u].[DisplayName], [u].[Email], [u].[IsActive], [u].[IsVerified], [u].[JoinedAt], [u].[Password], [u].[PhoneNumber], [u].[PinnedPostId], [u].[Position], [u].[TimezoneId], [u].[UpdatedAt], [u].[UserName]
+FROM [User] AS [u]
+WHERE [u].[Email] = @__email_0 AND [u].[DeletedAt] IS NULL
+2026-04-08 11:30:12.471 -05:00 [INF] Executing OkObjectResult, writing value of type 'XClone.Application.Models.Responses.GenericResponse`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-04-08 11:30:12.483 -05:00 [INF] Executed action XClone.WebApi.Controllers.AuthController.Login (XClone.WebApi) in 43.4034ms
+2026-04-08 11:30:12.489 -05:00 [INF] Executed endpoint 'XClone.WebApi.Controllers.AuthController.Login (XClone.WebApi)'
+2026-04-08 11:30:12.496 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5230/api/auth/login - 200 null application/json; charset=utf-8 120.7153ms
+2026-04-08 11:32:39.786 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5230/api/auth/login - application/json 71
+2026-04-08 11:32:39.798 -05:00 [INF] Executing endpoint 'XClone.WebApi.Controllers.AuthController.Login (XClone.WebApi)'
+2026-04-08 11:32:39.800 -05:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(XClone.Application.Models.Requets.Auth.LoginAuthRequest) on controller XClone.WebApi.Controllers.AuthController (XClone.WebApi).
+2026-04-08 11:32:39.813 -05:00 [INF] Executed DbCommand (2ms) [Parameters=[@__email_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[Age], [u].[CityId], [u].[CreateAt], [u].[DeletedAt], [u].[DisplayName], [u].[Email], [u].[IsActive], [u].[IsVerified], [u].[JoinedAt], [u].[Password], [u].[PhoneNumber], [u].[PinnedPostId], [u].[Position], [u].[TimezoneId], [u].[UpdatedAt], [u].[UserName]
+FROM [User] AS [u]
+WHERE [u].[Email] = @__email_0 AND [u].[DeletedAt] IS NULL
+2026-04-08 11:32:39.819 -05:00 [INF] Executing OkObjectResult, writing value of type 'XClone.Application.Models.Responses.GenericResponse`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-04-08 11:32:39.825 -05:00 [INF] Executed action XClone.WebApi.Controllers.AuthController.Login (XClone.WebApi) in 20.6074ms
+2026-04-08 11:32:39.829 -05:00 [INF] Executed endpoint 'XClone.WebApi.Controllers.AuthController.Login (XClone.WebApi)'
+2026-04-08 11:32:39.833 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5230/api/auth/login - 200 null application/json; charset=utf-8 46.3647ms
+2026-04-08 11:54:33.718 -05:00 [INF] Executed DbCommand (95ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [User] AS [u]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-04-08 11:54:33.718 -05:00 [INF] User profile is available. Using 'C:\Users\Xhope\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-08 11:54:34.216 -05:00 [INF] Now listening on: http://localhost:5230
+2026-04-08 11:54:34.294 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-08 11:54:34.297 -05:00 [INF] Hosting environment: Development
+2026-04-08 11:54:34.297 -05:00 [INF] Content root path: C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x_clone\X_Clone.WebApi
+2026-04-08 11:54:46.977 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5230/scalar - null null
+2026-04-08 11:54:47.642 -05:00 [WRN] Failed to determine the https port for redirect.
+2026-04-08 11:54:47.651 -05:00 [INF] Executing endpoint 'HTTP: GET /scalar/{documentName?}'
+2026-04-08 11:54:47.766 -05:00 [INF] Executing RedirectResult, redirecting to scalar/.
+2026-04-08 11:54:47.771 -05:00 [INF] Executed endpoint 'HTTP: GET /scalar/{documentName?}'
+2026-04-08 11:54:47.795 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5230/scalar - 302 null null 835.0903ms
+2026-04-08 11:54:47.817 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5230/scalar/ - null null
+2026-04-08 11:54:47.834 -05:00 [INF] Executing endpoint 'HTTP: GET /scalar/{documentName?}'
+2026-04-08 11:54:48.046 -05:00 [INF] Write content with HTTP Response ContentType of text/html
+2026-04-08 11:54:48.126 -05:00 [INF] Executed endpoint 'HTTP: GET /scalar/{documentName?}'
+2026-04-08 11:54:48.135 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5230/scalar/ - 200 null text/html 319.5069ms
+2026-04-08 11:54:48.174 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5230/scalar/scalar.js - null null
+2026-04-08 11:54:48.175 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5230/scalar/scalar.aspnetcore.js - null null
+2026-04-08 11:54:48.194 -05:00 [INF] Executing endpoint 'HTTP: GET /scalar/scalar.js'
+2026-04-08 11:54:48.196 -05:00 [INF] Executing endpoint 'HTTP: GET /scalar/scalar.aspnetcore.js'
+2026-04-08 11:54:48.241 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5230/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-08 11:54:48.256 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5230/_framework/aspnetcore-browser-refresh.js - 200 14931 application/javascript; charset=utf-8 14.7931ms
+2026-04-08 11:54:48.350 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5230/_vs/browserLink - null null
+2026-04-08 11:54:48.364 -05:00 [INF] Sending file with download name ''.
+2026-04-08 11:54:48.364 -05:00 [INF] Sending file with download name ''.
+2026-04-08 11:54:48.380 -05:00 [INF] Executed endpoint 'HTTP: GET /scalar/scalar.aspnetcore.js'
+2026-04-08 11:54:48.412 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5230/scalar/scalar.aspnetcore.js - 200 1111 text/javascript 236.5538ms
+2026-04-08 11:54:48.530 -05:00 [INF] Executed endpoint 'HTTP: GET /scalar/scalar.js'
+2026-04-08 11:54:48.545 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5230/scalar/scalar.js - 200 1110236 text/javascript 370.4718ms
+2026-04-08 11:54:48.624 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5230/_vs/browserLink - 200 null text/javascript; charset=UTF-8 306.0204ms
+2026-04-08 11:54:48.897 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5230/openapi/v1.json - null null
+2026-04-08 11:54:48.908 -05:00 [INF] Executing endpoint 'HTTP: GET /openapi/{documentName}.json'
+2026-04-08 11:54:49.290 -05:00 [INF] Executed endpoint 'HTTP: GET /openapi/{documentName}.json'
+2026-04-08 11:54:49.294 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5230/openapi/v1.json - 200 null application/json;charset=utf-8 397.6616ms
+2026-04-08 11:54:49.685 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5230/scalar/favicon.svg - null null
+2026-04-08 11:54:49.693 -05:00 [INF] Executing endpoint 'HTTP: GET /scalar/favicon.svg'
+2026-04-08 11:54:49.698 -05:00 [INF] Sending file with download name ''.
+2026-04-08 11:54:49.700 -05:00 [INF] Executed endpoint 'HTTP: GET /scalar/favicon.svg'
+2026-04-08 11:54:49.705 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5230/scalar/favicon.svg - 200 533 image/svg+xml 19.8613ms
+2026-04-08 12:06:24.649 -05:00 [INF] Executed DbCommand (80ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [User] AS [u]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-04-08 12:06:24.644 -05:00 [INF] User profile is available. Using 'C:\Users\Xhope\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-08 12:06:25.165 -05:00 [INF] Now listening on: http://localhost:5230
+2026-04-08 12:06:25.276 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-08 12:06:25.280 -05:00 [INF] Hosting environment: Development
+2026-04-08 12:06:25.284 -05:00 [INF] Content root path: C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x_clone\X_Clone.WebApi
+2026-04-08 12:06:30.308 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5230/scalar/ - null null
+2026-04-08 12:06:30.766 -05:00 [WRN] Failed to determine the https port for redirect.
+2026-04-08 12:06:30.773 -05:00 [INF] Executing endpoint 'HTTP: GET /scalar/{documentName?}'
+2026-04-08 12:06:31.047 -05:00 [INF] Write content with HTTP Response ContentType of text/html
+2026-04-08 12:06:31.101 -05:00 [INF] Executed endpoint 'HTTP: GET /scalar/{documentName?}'
+2026-04-08 12:06:31.116 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5230/scalar/ - 200 null text/html 832.4752ms
+2026-04-08 12:06:31.153 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5230/scalar/scalar.aspnetcore.js - null null
+2026-04-08 12:06:31.153 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5230/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-08 12:06:31.153 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5230/scalar/scalar.js - null null
+2026-04-08 12:06:31.171 -05:00 [INF] Executing endpoint 'HTTP: GET /scalar/scalar.aspnetcore.js'
+2026-04-08 12:06:31.171 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5230/_vs/browserLink - null null
+2026-04-08 12:06:31.230 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5230/_framework/aspnetcore-browser-refresh.js - 200 14931 application/javascript; charset=utf-8 77.8797ms
+2026-04-08 12:06:31.250 -05:00 [INF] Executing endpoint 'HTTP: GET /scalar/scalar.js'
+2026-04-08 12:06:31.315 -05:00 [INF] Sending file with download name ''.
+2026-04-08 12:06:31.317 -05:00 [INF] Sending file with download name ''.
+2026-04-08 12:06:31.325 -05:00 [INF] Executed endpoint 'HTTP: GET /scalar/scalar.aspnetcore.js'
+2026-04-08 12:06:31.328 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5230/scalar/scalar.aspnetcore.js - 200 1111 text/javascript 175.139ms
+2026-04-08 12:06:31.345 -05:00 [INF] Executed endpoint 'HTTP: GET /scalar/scalar.js'
+2026-04-08 12:06:31.354 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5230/scalar/scalar.js - 200 1110236 text/javascript 201.6918ms
+2026-04-08 12:06:31.357 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5230/_vs/browserLink - 200 null text/javascript; charset=UTF-8 185.2475ms
+2026-04-08 12:06:31.778 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5230/openapi/v1.json - null null
+2026-04-08 12:06:31.783 -05:00 [INF] Executing endpoint 'HTTP: GET /openapi/{documentName}.json'
+2026-04-08 12:06:32.104 -05:00 [INF] Executed endpoint 'HTTP: GET /openapi/{documentName}.json'
+2026-04-08 12:06:32.108 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5230/openapi/v1.json - 200 null application/json;charset=utf-8 329.3729ms
+2026-04-08 12:06:32.481 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5230/scalar/favicon.svg - null null
+2026-04-08 12:06:32.494 -05:00 [INF] Executing endpoint 'HTTP: GET /scalar/favicon.svg'
+2026-04-08 12:06:32.497 -05:00 [INF] Sending file with download name ''.
+2026-04-08 12:06:32.500 -05:00 [INF] Executed endpoint 'HTTP: GET /scalar/favicon.svg'
+2026-04-08 12:06:32.504 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5230/scalar/favicon.svg - 200 533 image/svg+xml 23.2283ms
+2026-04-08 12:19:55.535 -05:00 [INF] Executed DbCommand (71ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [User] AS [u]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-04-08 12:19:55.535 -05:00 [INF] User profile is available. Using 'C:\Users\Xhope\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-08 12:19:56.041 -05:00 [INF] Now listening on: http://localhost:5230
+2026-04-08 12:19:56.188 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-08 12:19:56.191 -05:00 [INF] Hosting environment: Development
+2026-04-08 12:19:56.194 -05:00 [INF] Content root path: C:\Users\Xhope\Desktop\clases\github\vmt-bootcamp\backend\x_clone\X_Clone.WebApi
+2026-04-08 12:19:59.946 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5230/scalar/ - null null
+2026-04-08 12:20:00.305 -05:00 [WRN] Failed to determine the https port for redirect.
+2026-04-08 12:20:00.319 -05:00 [INF] Executing endpoint 'HTTP: GET /scalar/{documentName?}'
+2026-04-08 12:20:00.515 -05:00 [INF] Write content with HTTP Response ContentType of text/html
+2026-04-08 12:20:00.721 -05:00 [INF] Executed endpoint 'HTTP: GET /scalar/{documentName?}'
+2026-04-08 12:20:00.738 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5230/scalar/ - 200 null text/html 818.3878ms
+2026-04-08 12:20:00.764 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5230/scalar/scalar.js - null null
+2026-04-08 12:20:00.773 -05:00 [INF] Executing endpoint 'HTTP: GET /scalar/scalar.js'
+2026-04-08 12:20:00.774 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5230/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-08 12:20:00.780 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5230/scalar/scalar.aspnetcore.js - null null
+2026-04-08 12:20:00.794 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5230/_vs/browserLink - null null
+2026-04-08 12:20:00.799 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5230/_framework/aspnetcore-browser-refresh.js - 200 14931 application/javascript; charset=utf-8 25.2603ms
+2026-04-08 12:20:00.799 -05:00 [INF] Sending file with download name ''.
+2026-04-08 12:20:00.853 -05:00 [INF] Executing endpoint 'HTTP: GET /scalar/scalar.aspnetcore.js'
+2026-04-08 12:20:00.868 -05:00 [INF] Sending file with download name ''.
+2026-04-08 12:20:00.873 -05:00 [INF] Executed endpoint 'HTTP: GET /scalar/scalar.aspnetcore.js'
+2026-04-08 12:20:00.884 -05:00 [INF] Executed endpoint 'HTTP: GET /scalar/scalar.js'
+2026-04-08 12:20:00.885 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5230/scalar/scalar.aspnetcore.js - 200 1111 text/javascript 107.2961ms
+2026-04-08 12:20:00.898 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5230/scalar/scalar.js - 200 1110236 text/javascript 135.2236ms
+2026-04-08 12:20:00.923 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5230/_vs/browserLink - 200 null text/javascript; charset=UTF-8 129.5056ms
+2026-04-08 12:20:01.329 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5230/openapi/v1.json - null null
+2026-04-08 12:20:01.337 -05:00 [INF] Executing endpoint 'HTTP: GET /openapi/{documentName}.json'
+2026-04-08 12:20:01.481 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5230/scalar/favicon.svg - null null
+2026-04-08 12:20:01.486 -05:00 [INF] Executing endpoint 'HTTP: GET /scalar/favicon.svg'
+2026-04-08 12:20:01.489 -05:00 [INF] Sending file with download name ''.
+2026-04-08 12:20:01.491 -05:00 [INF] Executed endpoint 'HTTP: GET /scalar/favicon.svg'
+2026-04-08 12:20:01.493 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5230/scalar/favicon.svg - 200 533 image/svg+xml 12.3462ms
+2026-04-08 12:20:01.635 -05:00 [INF] Executed endpoint 'HTTP: GET /openapi/{documentName}.json'
+2026-04-08 12:20:01.639 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5230/openapi/v1.json - 200 null application/json;charset=utf-8 309.3878ms

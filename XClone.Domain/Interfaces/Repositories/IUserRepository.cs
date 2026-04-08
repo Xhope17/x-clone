@@ -7,11 +7,10 @@ namespace XClone.Domain.Interfaces.Repositories
         Task<User> Create(User user);
         Task<User?> Get(Guid userId);
         Task<User?> Get(string email);
-        Task<User?> GetUserName(string? userName, string? email);
         IQueryable<User> Queryable();
+        Task<User?> GetUserName(string? userName, string? email);
         Task<bool> IfExists(Guid userId);
         Task<User> Update(User user);
-
         Task<bool> HasCreated();
     }
 }

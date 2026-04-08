@@ -24,6 +24,7 @@ namespace XClone.WebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] FilterUserRequest model)
         {
+            var userId = User.FindFirst("id")?.Value;
             var rsp = userService.Get(model);
 
 
