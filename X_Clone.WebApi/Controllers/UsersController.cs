@@ -8,12 +8,12 @@ namespace XClone.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class UsersController(IUserService userService) : ControllerBase
     {
         //Crear
         [HttpPost]
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([FromBody] CreateUserRequest model)
         {
             var rsp = await userService.Create(model);

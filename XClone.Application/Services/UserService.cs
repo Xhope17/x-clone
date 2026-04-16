@@ -13,7 +13,7 @@ using XClone.Shared.Helpers;
 
 namespace XClone.Application.Services
 {
-    public class UserService(IUserRepository repository, IConfiguration configuration) : IUserService
+    public class UserService(IUserRepository repository, IConfiguration configuration, SMTP smtp) : IUserService
     {
 
         //crear un usuario
@@ -101,6 +101,10 @@ namespace XClone.Application.Services
             //    Position = position,
             //    Password = Hasher.HashPassword(password),
             //};
+
+            var adminRole = await repository.GetRole(RoleConstants.Admin)
+                ?? throw new Exception(ResponseConstants.RoleNotFound(RoleConstants.Admin));
+
             await repository.Create(new User
             {
                 UserName = userName,
@@ -108,6 +112,12 @@ namespace XClone.Application.Services
                 Email = email,
                 Position = position,
                 Password = Hasher.HashPassword(password),
+                UserRoleUsers = [
+                    new UserRole
+                    {
+                        RoleId = adminRole.Id,
+                    }
+                ]
             });
         }
 

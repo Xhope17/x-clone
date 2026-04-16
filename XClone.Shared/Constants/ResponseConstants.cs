@@ -20,6 +20,9 @@
         public const string AUTH_USER_OR_PASSWORD_NOT_FOUND = "El usuario o la contraseña son incorrectos";
         public const string AUTH_REFRESH_TOKEN_NOT_FOUND = "El token para refrescar la sesión expiró, no existe o es incorrecto";
 
+        // Roles
+        public static string RoleNotFound(string name) => $"El rol {name} no existe";
+        public static string RoleNotFound(Guid id) => $"El rol con ID: {id} no existe";
 
         public static string ErrorUnexpected(string traceId)
         {

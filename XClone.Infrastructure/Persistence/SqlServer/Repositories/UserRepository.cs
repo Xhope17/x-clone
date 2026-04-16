@@ -31,7 +31,11 @@ namespace XClone.Infrastructure.Persistence.SqlServer.Repositories
             try
             {
                 // Solo traemos el usuario si existe y NO está eliminado (IsActive == true)
-                return await context.Users.FirstOrDefaultAsync(x => x.Id == userId && x.DeletedAt == null);
+                //return await context.Users.FirstOrDefaultAsync(x => x.Id == userId && x.DeletedAt == null);
+                return await context.Users
+                    .Include(user => user.UserRoleUsers)
+                    .ThenInclude(UserRoles => UserRoles.Role)
+                    .FirstOrDefaultAsync(x => x.Id == userId && x.DeletedAt == null);
             }
             catch (Exception)
             {
@@ -44,13 +48,28 @@ namespace XClone.Infrastructure.Persistence.SqlServer.Repositories
             try
             {
                 // Solo traemos el usuario si existe y NO está eliminado (IsActive == true)
-                return await context.Users.FirstOrDefaultAsync(x => x.Email == email && x.DeletedAt == null);
+                //return await context.Users.FirstOrDefaultAsync(x => x.Email == email && x.DeletedAt == null);
+                return await context.Users
+                    .Include(user => user.UserRoleUsers)
+                    .ThenInclude(userRoles => userRoles.Role)
+                    .FirstOrDefaultAsync(x => x.Email == email && x.DeletedAt == null);
             }
             catch (Exception)
             {
                 throw;
             }
         }
+
+        public async Task<Role?> GetRole(string name)
+        {
+            return await context.Roles.FirstOrDefaultAsync(x => x.Name == name);
+        }
+
+        public async Task<Role?> GetRole(Guid id)
+        {
+            return await context.Roles.FirstOrDefaultAsync(x => x.Id == id);
+        }
+
 
         public async Task<User?> GetUserName(string userName, string email)
         {

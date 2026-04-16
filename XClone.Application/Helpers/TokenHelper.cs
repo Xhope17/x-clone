@@ -14,7 +14,7 @@ namespace XClone.Application.Helpers
     public static class TokenHelper
     {
         public static readonly Random rnd = new();
-        public static string Create(Guid UserId, IConfiguration configuration, ICacheService cache)
+        public static string Create(Guid UserId, List<string> roles, IConfiguration configuration, ICacheService cache)
         {
             //var issuer = Environment.GetEnvironmentVariable(ConfigurationConstants.JWT_ISSUER) //produccion y desarrollo
             //    ?? configuration[ConfigurationConstants.JWT_ISSUER]

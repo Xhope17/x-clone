@@ -70,4 +70,12 @@ public partial class User
     public virtual ICollection<Repost> Reposts { get; set; } = new List<Repost>();
 
     public virtual Timezone? Timezone { get; set; }
+
+    public virtual ICollection<UserHistory> UserHistoryPerformedByNavigations { get; set; } = new List<UserHistory>();
+
+    public virtual ICollection<UserHistory> UserHistoryUsers { get; set; } = new List<UserHistory>();
+
+    public virtual ICollection<UserRole> UserRoleAssignedByNavigations { get; set; } = new List<UserRole>();
+
+    public virtual ICollection<UserRole> UserRoleUsers { get; set; } = new List<UserRole>();
 }

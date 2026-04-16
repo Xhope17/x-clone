@@ -12,5 +12,9 @@ namespace XClone.Domain.Interfaces.Repositories
         Task<bool> IfExists(Guid userId);
         Task<User> Update(User user);
         Task<bool> HasCreated();
+
+        // Roles
+        Task<Role?> GetRole(string name);
+        Task<Role?> GetRole(Guid id);
     }
 }
