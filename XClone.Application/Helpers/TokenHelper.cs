@@ -47,7 +47,8 @@ namespace XClone.Application.Helpers
                 //new Claim(ClaimTypes.Email, user.Email),
                 //new Claim("UserId", user.Id.ToString())
 
-                new Claim(ClaimsConstants.USER_ID, UserId.ToString())
+                new Claim(ClaimsConstants.USER_ID, UserId.ToString()),
+                new Claim(ClaimTypes.Role, roles[0])
             };
 
             var securityToken = new JwtSecurityToken(

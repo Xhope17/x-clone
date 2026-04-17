@@ -11,6 +11,7 @@ namespace XClone.Application.Models.Responses
 
         public DateTime TimeStamp { get; set; } = DateTimeHelper.UtcNow();
 
+        public int Count { get; set; } = 0;
         public T Data { get; set; }
 
 

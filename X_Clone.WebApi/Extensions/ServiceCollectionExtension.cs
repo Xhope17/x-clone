@@ -5,6 +5,7 @@ using Serilog;
 using Serilog.Sinks.MSSqlServer;
 using XClone.Application.Helpers;
 using XClone.Application.Interfaces.Services;
+using XClone.Application.Models.Services;
 using XClone.Application.Services;
 using XClone.Domain.Database.SqlServer.Context;
 using XClone.Domain.DataBase.SqlServer;
@@ -32,7 +33,8 @@ namespace XClone.WebApi.Extensions
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<ICacheService, CacheService>();
-
+            services.AddScoped<IEmailTemplateService, EmailTemplateService>();
+            services.AddScoped<IAppService, AppService>();
 
         }
 
@@ -46,7 +48,7 @@ namespace XClone.WebApi.Extensions
             services.AddTransient<IPostRepository, PostRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-
+            services.AddScoped<IEmailTemplateRepository, EmailTemplateRepository>();
         }
 
         public async static Task AddSMTP(this IServiceCollection services, IConfiguration configuration)
@@ -150,13 +152,21 @@ namespace XClone.WebApi.Extensions
                 .CreateLogger();
         }
 
+
+
         public async static Task Initialize(this IServiceCollection services)
         {
+            var templatesData = new EmailTemplateData();
+            services.AddSingleton(templatesData);
+
             var provider = services.BuildServiceProvider();
             var scope = provider.CreateAsyncScope();
 
             var userService = scope.ServiceProvider.GetRequiredService<IUserService>();
             await userService.CreateFristUser();
+
+            var emailTemplateService = scope.ServiceProvider.GetRequiredService<IEmailTemplateService>();
+            await emailTemplateService.Init();
         }
 
 

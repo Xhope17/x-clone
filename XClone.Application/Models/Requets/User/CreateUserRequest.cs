@@ -33,5 +33,8 @@ namespace XClone.Application.Models.Requets.User
 
         [MaxLength(20, ErrorMessage = ValidationConstants.MAX_LENGTH)]
         public string? PhoneNumber { get; set; }
+
+        [Required]
+        public Guid RoleId { get; set; }
     }
 }

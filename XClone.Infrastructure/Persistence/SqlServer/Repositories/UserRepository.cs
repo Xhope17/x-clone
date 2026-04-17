@@ -6,25 +6,25 @@ using XClone.Domain.Interfaces.Repositories;
 namespace XClone.Infrastructure.Persistence.SqlServer.Repositories
 {
     // Hacemos la clase pública y heredamos de IUserRepository
-    public class UserRepository(XcloneContext context) : IUserRepository
+    public class UserRepository(XcloneContext context) : GenericRepository<User>(context), IUserRepository
     {
-        public async Task<User> Create(User user)
-        {
-            try
-            {
-                // insert
-                await context.Users.AddAsync(user);
+        //public async Task<User> Create(User user)
+        //{
+        //    try
+        //    {
+        //        // insert
+        //        await context.Users.AddAsync(user);
 
-                // execution // commit
-                //await context.SaveChangesAsync();
+        //        // execution // commit
+        //        //await context.SaveChangesAsync();
 
-                return user;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+        //        return user;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw;
+        //    }
+        //}
 
         public async Task<User?> Get(Guid userId)
         {
@@ -109,6 +109,11 @@ namespace XClone.Infrastructure.Persistence.SqlServer.Repositories
             }
         }
 
+        public async Task<bool> IfExists(string email)
+        {
+            return await context.Users.AnyAsync(x => x.Email == email);
+        }
+
         public IQueryable<User> Queryable()
         {
             try
@@ -122,19 +127,19 @@ namespace XClone.Infrastructure.Persistence.SqlServer.Repositories
             }
         }
 
-        public async Task<User> Update(User user)
-        {
-            try
-            {
-                context.Users.Update(user);
-                //await context.SaveChangesAsync();
+        //public async Task<User> Update(User user)
+        //{
+        //    try
+        //    {
+        //        context.Users.Update(user);
+        //        //await context.SaveChangesAsync();
 
-                return user;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+        //        return user;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw;
+        //    }
+        //}
     }
 }

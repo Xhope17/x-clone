@@ -9,11 +9,12 @@ using XClone.Domain.DataBase.SqlServer;
 using XClone.Domain.Exceptions;
 using XClone.Shared;
 using XClone.Shared.Constants;
+using XClone.Shared.Helpers;
 
 namespace XClone.Application.Services
 {
     //public class AuthService(IUserRepository userRepository, IConfiguration configuration, ICacheService cacheService) : IAuthService
-    public class AuthService(IUnitOfWork uow, IConfiguration configuration, ICacheService cacheService) : IAuthService
+    public class AuthService(IUnitOfWork uow, IConfiguration configuration, ICacheService cacheService, IEmailTemplateService emailTemplateService, SMTP smtp) : IAuthService
     {
         public async Task<GenericResponse<LoginAuthResponse>> Login(LoginAuthRequest model)
         {
@@ -23,12 +24,20 @@ namespace XClone.Application.Services
             var validatePassword = Hasher.ComparePassword(model.Password, user.Password);
             if (!validatePassword)
             {
+                var templateFailed = await emailTemplateService.Get(EmailTemplateNameConstants.AUTH_LOGIN_FAILED, []);
+                await smtp.Send(model.Email, templateFailed.Subject, templateFailed.Body);
                 throw new BadRequestException(ResponseConstants.AUTH_USER_OR_PASSWORD_NOT_FOUND);
             }
 
             //var token = TokenHelper.Create(user.Id, configuration, cacheService);
             var token = TokenHelper.Create(user.Id, [.. user.UserRoleUsers.Select(x => x.Role.Name)], configuration, cacheService);
             var refreshToken = TokenHelper.CreateRefresh(user.Id, configuration, cacheService);
+
+            var templateSuccess = await emailTemplateService.Get(EmailTemplateNameConstants.AUTH_LOGIN_SUCCESS, new Dictionary<string, string>
+            {
+                { "datetime", DateTimeHelper.UtcNow().ToString() }
+            });
+            await smtp.Send(model.Email, templateSuccess.Subject, templateSuccess.Body);
 
             return ResponseHelper.Create(new LoginAuthResponse
             {

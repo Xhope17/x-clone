@@ -22,6 +22,8 @@ public partial class XcloneContext : DbContext
 
     public virtual DbSet<Country> Countries { get; set; }
 
+    public virtual DbSet<EmailTemplate> EmailTemplates { get; set; }
+
     public virtual DbSet<Following> Followings { get; set; }
 
     public virtual DbSet<Hashtag> Hashtags { get; set; }
@@ -141,6 +143,23 @@ public partial class XcloneContext : DbContext
 
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Name).HasMaxLength(100);
+        });
+
+        modelBuilder.Entity<EmailTemplate>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("email_templates");
+
+            entity.Property(e => e.Body).HasColumnType("text");
+            entity.Property(e => e.CreateAt).HasDefaultValueSql("(sysutcdatetime())");
+            entity.Property(e => e.EmailTemplateId).ValueGeneratedOnAdd();
+            entity.Property(e => e.Name)
+                .HasMaxLength(100)
+                .IsUnicode(false);
+            entity.Property(e => e.Subject)
+                .HasMaxLength(255)
+                .IsUnicode(false);
         });
 
         modelBuilder.Entity<Following>(entity =>

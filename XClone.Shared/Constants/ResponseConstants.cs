@@ -9,7 +9,7 @@
 
         //Users
         public const string USER_NOT_EXIST = "El usuario no existe";
-
+        public const string USER_EMAIL_TAKED = "Ya existe un usuario con el correo que está argumentando";
 
 
         // Projects

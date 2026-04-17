@@ -11,7 +11,8 @@ namespace XClone.Shared
             {
                 Host = host,
                 Credentials = new NetworkCredential(user, password),
-                Port = port
+                Port = port,
+                EnableSsl = true
             };
 
             var message = new MailMessage(from, to, subject, body)
@@ -19,7 +20,8 @@ namespace XClone.Shared
                 IsBodyHtml = true
             };
 
-            await smtpClient.SendMailAsync(message);
+            //await smtpClient.SendMailAsync(message);
+            smtpClient.Send(message);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using XClone.Application.Helpers;
 using XClone.Application.Interfaces.Services;
 using XClone.Application.Models.DTOs;
@@ -14,7 +15,7 @@ using XClone.Shared.Helpers;
 namespace XClone.Application.Services
 {
     //public class UserService(IUserRepository repository, IConfiguration configuration, SMTP smtp) : IUserService
-    public class UserService(IUnitOfWork uow, IConfiguration configuration, SMTP smtp) : IUserService
+    public class UserService(IUnitOfWork uow, IConfiguration configuration, SMTP smtp, IEmailTemplateService emailTemplateService) : IUserService
     {
 
         //crear un usuario
@@ -49,12 +50,22 @@ namespace XClone.Application.Services
 
             if (userExist != null)
             {
-                return ResponseHelper.Create<UserDto>(null!, null, ValidationConstants.DUPLICATE);
+                return ResponseHelper.Create<UserDto>(null!, null, null, ValidationConstants.DUPLICATE);
             }
 
+            //
+            if (model.RoleId == Guid.Empty)
+            {
+                throw new NotFoundException(ValidationConstants.IsEmpty("RoleId"));
+            }
+
+            if (await uow.userRepository.IfExists(model.Email))
+            {
+                throw new BadRequestException(ResponseConstants.USER_EMAIL_TAKED);
+            }
 
             // Asegúrate de que el método devuelva el tipo correcto en caso de error
-            return ResponseHelper.Create<UserDto>(null!, null, ValidationConstants.INVALID_AGE);
+            //return ResponseHelper.Create<UserDto>(null!, null, ValidationConstants.INVALID_AGE);
 
             var password = Generate.RandomText(32);
             var create = await uow.userRepository.Create(new User
@@ -64,12 +75,18 @@ namespace XClone.Application.Services
                 Email = model.Email,
                 Age = model.Edad,
                 PhoneNumber = model.PhoneNumber,
-
+                Position = "",
                 // encriptar luego la contraseña antes de guardarla en la base de datos
                 Password = password
             });
 
-            await smtp.Send(model.Email, "Registro de usuario - TalentInsights", $"Su contraseña es: {password}");
+            //await smtp.Send(model.Email, "Registro de usuario - TalentInsights", $"Su contraseña es: {password}");
+            var template = await emailTemplateService.Get(EmailTemplateNameConstants.USER_REGISTER, new Dictionary<string, string>
+            {
+                { "password", password }
+            });
+            await smtp.Send(model.Email, template.Subject, template.Body);
+
             await uow.SaveChangesAsync();
             return ResponseHelper.Create(Map(create));
 
@@ -109,31 +126,43 @@ namespace XClone.Application.Services
         {
             var queryable = uow.userRepository.Queryable();
 
-            // Solo traer usuarios que NO estén eliminados
-            queryable = queryable.Where(x => x.IsActive == true);
+            //// Solo traer usuarios que NO estén eliminados
+            //queryable = queryable.Where(x => x.IsActive == true);
 
-            // Filtrado por UserName (ejemplo de búsqueda)
-            if (!string.IsNullOrWhiteSpace(model.UserName))
-            {
-                queryable = queryable.Where(x => x.UserName.Contains(model.UserName ?? ""));
-            }
+            //// Filtrado por UserName (ejemplo de búsqueda)
+            //if (!string.IsNullOrWhiteSpace(model.UserName))
+            //{
+            //    queryable = queryable.Where(x => x.UserName.Contains(model.UserName ?? ""));
+            //}
 
-            if (!string.IsNullOrWhiteSpace(model.DisplayName))
-            {
-                queryable = queryable.Where(x => x.DisplayName.Contains(model.DisplayName ?? ""));
-            }
+            //if (!string.IsNullOrWhiteSpace(model.DisplayName))
+            //{
+            //    queryable = queryable.Where(x => x.DisplayName.Contains(model.DisplayName ?? ""));
+            //}
 
-            // Realizar paginación y consulta
-            var users = queryable.Skip(model.Offset).Take(model.Limit).ToList();
+            //// Realizar paginación y consulta
+            //var users = queryable.Skip(model.Offset).Take(model.Limit).ToList();
 
-            // Mapear a DTOs
-            List<UserDto> mapped = [];
-            foreach (var user in users)
-            {
-                mapped.Add(Map(user));
-            }
+            //// Mapear a DTOs
+            //List<UserDto> mapped = [];
+            //foreach (var user in users)
+            //{
+            //    mapped.Add(Map(user));
+            //}
 
-            return ResponseHelper.Create(mapped);
+            //return ResponseHelper.Create(mapped);
+
+            var users = queryable
+                .Include(user => user.UserRoleUsers)
+                .ThenInclude(userRole => userRole.Role)
+                .ApplyQuery(model)
+                .AsQueryable()
+                .Skip(model.Offset)
+                .Take(model.Limit)
+                .Select(user => Map(user))
+                .ToList();
+
+            return ResponseHelper.Create(users, count: queryable.Count());
         }
 
         //get user por id
@@ -214,6 +243,7 @@ namespace XClone.Application.Services
         //map
         private UserDto Map(User user)
         {
+            var role = user.UserRoleUsers.FirstOrDefault()?.Role;
             return new UserDto
             {
                 Id = user.Id,
@@ -230,7 +260,13 @@ namespace XClone.Application.Services
                 IsActive = user.IsActive,
                 CreateAt = user.CreateAt,
                 UpdatedAt = user.UpdatedAt,
-                DeletedAt = user.DeletedAt
+                DeletedAt = user.DeletedAt,
+                Role = role != null ? new RoleDto
+                {
+                    Id = role.Id,
+                    Name = role.Name,
+                    Description = role.Description
+                } : null
             };
         }
 
