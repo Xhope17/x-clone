@@ -49,6 +49,7 @@ namespace XClone.WebApi.Extensions
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IEmailTemplateRepository, EmailTemplateRepository>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
         }
 
         public async static Task AddSMTP(this IServiceCollection services, IConfiguration configuration)

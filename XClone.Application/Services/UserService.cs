@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Security.Claims;
 using XClone.Application.Helpers;
 using XClone.Application.Interfaces.Services;
 using XClone.Application.Models.DTOs;
 using XClone.Application.Models.Requets.User;
 using XClone.Application.Models.Responses;
+using XClone.Application.Queries;
 using XClone.Domain.Database.SqlServer.Entities;
 using XClone.Domain.DataBase.SqlServer;
 using XClone.Domain.Exceptions;
@@ -19,7 +21,7 @@ namespace XClone.Application.Services
     {
 
         //crear un usuario
-        public async Task<GenericResponse<UserDto>> Create(CreateUserRequest model)
+        public async Task<GenericResponse<UserDto>> Create(CreateUserRequest model, Claim claim)
         {
             /*
             //si es mayor de edad, se puede crear el usuario
@@ -27,24 +29,14 @@ namespace XClone.Application.Services
             {
                 return ResponseHelper.Create<UserDto>(null, ValidationConstants.INVALID_AGE);
             }
-            var user = new UserDto
-            {
-                UserId = Guid.NewGuid(),
-                UserName = model.UserName,
-                DisplayName = model.DisplayName,
-                Edad = model.Edad,
-                Email = model.Email,
-                PhoneNumber = model.PhoneNumber,
-                CreatedAt = DateTimeHelper.UtcNow(),
-                JoinedAt = DateTimeHelper.UtcNow(),
-                IsActive = true
-            };
 
             cache.Add(user.UserId.ToString(), user);
             return ResponseHelper.Create(user, "Usuario creado");
             */
 
             //throw new Exception("La base de datos, no e pudo conectar con el servicio");
+
+            var executor = await GetExecutor(claim.Value);
 
             var userExist = await uow.userRepository.GetUserName(model.UserName, model.Email);
 
@@ -59,15 +51,22 @@ namespace XClone.Application.Services
                 throw new NotFoundException(ValidationConstants.IsEmpty("RoleId"));
             }
 
-            if (await uow.userRepository.IfExists(model.Email))
-            {
-                throw new BadRequestException(ResponseConstants.USER_EMAIL_TAKED);
+            /*Para validar
+             * if (await uow.userRepository.IfExists(model.Email))
+            //{
+            //    throw new BadRequestException(ResponseConstants.USER_EMAIL_TAKED);
             }
+            */
+
+            await ValidateEmailIfExists(model.Email); //Validar si el email ya está registrado
 
             // Asegúrate de que el método devuelva el tipo correcto en caso de error
             //return ResponseHelper.Create<UserDto>(null!, null, ValidationConstants.INVALID_AGE);
 
             var password = Generate.RandomText(32);
+
+            var roleToAssign = await ValidateRole(executor, model.RoleId); //Validar que el rol existe y que el executor tiene permisos para asignarlo
+
             var create = await uow.userRepository.Create(new User
             {
                 UserName = model.UserName,
@@ -77,7 +76,13 @@ namespace XClone.Application.Services
                 PhoneNumber = model.PhoneNumber,
                 Position = "",
                 // encriptar luego la contraseña antes de guardarla en la base de datos
-                Password = password
+                Password = Hasher.HashPassword(password),
+                UserRoleUsers = [
+                    new UserRole {
+                        RoleId = roleToAssign.Id,
+                        AssignedBy = executor.Id
+                    }
+                ]
             });
 
             //await smtp.Send(model.Email, "Registro de usuario - TalentInsights", $"Su contraseña es: {password}");
@@ -89,7 +94,6 @@ namespace XClone.Application.Services
 
             await uow.SaveChangesAsync();
             return ResponseHelper.Create(Map(create));
-
         }
 
 
@@ -180,7 +184,7 @@ namespace XClone.Application.Services
         }
 
 
-        public async Task<GenericResponse<UserDto>> Update(Guid userId, UpdateUserRequest model)
+        public async Task<GenericResponse<UserDto>> Update(Guid userId, UpdateUserRequest model, Claim claim)
         {
             /* cache
              * 
@@ -202,16 +206,36 @@ namespace XClone.Application.Services
             return ResponseHelper.Create(exist, "Usuario actualizado");
             */
             var user = await GetUser(userId);
+            var executor = await GetExecutor(claim.Value);
 
             // Solo actualizamos los campos que el request envía. 
             // Si viene null, conservamos el valor actual de la BD.
             user.UserName = model.UserName ?? user.UserName;
             user.DisplayName = model.DisplayName ?? user.DisplayName;
             user.Age = model.Age ?? user.Age;
-            user.Email = model.Email ?? user.Email;
             user.PhoneNumber = model.PhoneNumber ?? user.PhoneNumber;
 
             user.UpdatedAt = DateTimeHelper.UtcNow();
+
+            //user.Email = model.Email ?? user.Email;
+            if (!string.IsNullOrWhiteSpace(model.Email) && user.Email != model.Email)
+            {
+                await ValidateEmailIfExists(model.Email);
+                user.Email = model.Email;
+            }
+
+            if (model.RoleId.HasValue)
+            {
+                var roleToAssign = await ValidateRole(executor, model.RoleId.Value);
+
+                await uow.userRepository.ClearRoles([.. user.UserRoleUsers]);
+
+                user.UserRoleUsers.Add(new UserRole
+                {
+                    RoleId = roleToAssign.Id,
+                    AssignedBy = executor.Id
+                });
+            }
 
             var update = await uow.userRepository.Update(user);
             await uow.SaveChangesAsync();
@@ -241,7 +265,7 @@ namespace XClone.Application.Services
 
 
         //map
-        private UserDto Map(User user)
+        private static UserDto Map(User user)
         {
             var role = user.UserRoleUsers.FirstOrDefault()?.Role;
             return new UserDto
@@ -300,7 +324,8 @@ namespace XClone.Application.Services
             //    Password = Hasher.HashPassword(password),
             //};
 
-            var adminRole = await uow.userRepository.GetRole(RoleConstants.Admin)
+            //var adminRole = await uow.userRepository.GetRole(RoleConstants.Admin)
+            var adminRole = await uow.roleRepository.Get(x => x.Name == RoleConstants.Admin)
                 ?? throw new Exception(ResponseConstants.RoleNotFound(RoleConstants.Admin));
 
             await uow.userRepository.Create(new User
@@ -318,6 +343,34 @@ namespace XClone.Application.Services
                 ]
             });
             await uow.SaveChangesAsync();
+        }
+
+        private async Task<User> GetExecutor(string value)
+        {
+            var uuid = Guid.Parse(value);
+            return await uow.userRepository.Get(uuid)
+                ?? throw new NotFoundException(ResponseConstants.USER_NOT_EXIST);
+        }
+
+        private async Task ValidateEmailIfExists(string email)
+        {
+            if (await uow.userRepository.IfExists(x => x.Email == email))
+            {
+                throw new BadRequestException(ResponseConstants.USER_EMAIL_TAKED);
+            }
+        }
+
+        private async Task<Role> ValidateRole(User executor, Guid roleId)
+        {
+            var roleToAssign = await uow.roleRepository.Get(roleId)
+                ?? throw new NotFoundException(ResponseConstants.RoleNotFound(roleId));
+
+            if (executor.UserRoleUsers.First().Role.Name == RoleConstants.HR && roleToAssign.Name == RoleConstants.Admin)
+            {
+                throw new BadRequestException(ResponseConstants.CANNOT_ASSIGN_THE_ROLE);
+            }
+
+            return roleToAssign;
         }
     }
 }

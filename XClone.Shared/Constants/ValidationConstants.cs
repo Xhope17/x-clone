@@ -11,6 +11,8 @@
         public const string VALIDATION_MESSAGE = "Una o más validaciones necesitan atención";
 
         public static string IsEmpty(string property) => $"El valor de la propiedad '{property}' es vacio. En casos de UUID, no está admitido '00000000-0000-0000-0000-000000000000'";
+        //POST
+
 
 
         //ADICIONAL

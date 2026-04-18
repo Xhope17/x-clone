@@ -49,11 +49,11 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseMiddleware<ErrorHandlerMiddleware>();
+app.UseMiddleware<ErrorHandlerMiddleware>(); //siempre va antes de cualquier otro middleware para capturar errores
 
 app.UseHttpsRedirection();
 
-app.UseAuthentication();
+app.UseAuthentication(); //va antes de authorization para validar el token antes de verificar los roles o permisos
 app.UseAuthorization();
 
 app.MapControllers();

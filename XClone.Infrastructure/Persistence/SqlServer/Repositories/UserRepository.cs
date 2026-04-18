@@ -26,6 +26,12 @@ namespace XClone.Infrastructure.Persistence.SqlServer.Repositories
         //    }
         //}
 
+        public async Task<bool> ClearRoles(List<UserRole> roles)
+        {
+            context.UserRoles.RemoveRange(roles);
+            return true;
+        }
+
         public async Task<User?> Get(Guid userId)
         {
             try
@@ -97,22 +103,22 @@ namespace XClone.Infrastructure.Persistence.SqlServer.Repositories
             }
         }
 
-        public async Task<bool> IfExists(Guid userId)
-        {
-            try
-            {
-                return await context.Users.AnyAsync(x => x.Id == userId);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+        //public async Task<bool> IfExists(Guid userId)
+        //{
+        //    try
+        //    {
+        //        return await context.Users.AnyAsync(x => x.Id == userId);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw;
+        //    }
+        //}
 
-        public async Task<bool> IfExists(string email)
-        {
-            return await context.Users.AnyAsync(x => x.Email == email);
-        }
+        //public async Task<bool> IfExists(string email)
+        //{
+        //    return await context.Users.AnyAsync(x => x.Email == email);
+        //}
 
         public IQueryable<User> Queryable()
         {

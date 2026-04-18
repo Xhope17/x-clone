@@ -17,7 +17,7 @@ namespace XClone.WebApi.Controllers
         {
             if (model.AuthorId == Guid.Empty)
             {
-                return BadRequest(ResponseHelper.Create<string>(null, null, ValidationConstants.AUTHOR_ID_REQUIRED));
+                return BadRequest(ResponseHelper.Create<string>(null, null, null, ValidationConstants.AUTHOR_ID_REQUIRED));
             }
 
             var rsp = await postService.Create(model);
@@ -42,7 +42,7 @@ namespace XClone.WebApi.Controllers
             //valida si el post existe
             if (rsp is null)
             {
-                return NotFound(ResponseHelper.Create<string>(null, null, ValidationConstants.POST_NOT_FOUND));
+                return NotFound(ResponseHelper.Create<string>(null, null, null, ValidationConstants.POST_NOT_FOUND));
             }
             //return Ok(ResponseHelper.Create(rsp));
             return Ok(rsp);
@@ -54,7 +54,7 @@ namespace XClone.WebApi.Controllers
         {
             var rsp = await postService.Update(id, model);
 
-            return Ok(ResponseHelper.Create(rsp, null, "Post actualizado"));
+            return Ok(ResponseHelper.Create(rsp, null, null, "Post actualizado"));
         }
 
 
@@ -64,7 +64,7 @@ namespace XClone.WebApi.Controllers
             var rsp = await postService.Delete(id);
             if (rsp is null)
             {
-                return NotFound(ResponseHelper.Create<string>(null, null, ValidationConstants.POST_NOT_FOUND));
+                return NotFound(ResponseHelper.Create<string>(null, null, null, ValidationConstants.POST_NOT_FOUND));
             }
 
             return Ok(rsp);

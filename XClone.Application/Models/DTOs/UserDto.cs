@@ -30,5 +30,7 @@
         public DateTime CreateAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
+
+        public RoleDto Role { get; set; } = null!;
     }
 }

@@ -1,4 +1,6 @@
-﻿using XClone.Domain.Database.SqlServer.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
+using XClone.Domain.Database.SqlServer.Context;
 
 namespace XClone.Infrastructure.Persistence.SqlServer.Repositories
 {
@@ -16,6 +18,17 @@ namespace XClone.Infrastructure.Persistence.SqlServer.Repositories
             return true;
         }
 
+        public async Task<bool> IfExists(Expression<Func<T, bool>> expression)
+        {
+            return await context.Set<T>().AnyAsync(expression);
+        }
+
+        public async Task<T?> Get(Expression<Func<T, bool>> expression)
+        {
+            return await context.Set<T>().FirstOrDefaultAsync(expression);
+        }
+
+
         public IQueryable<T> Queryable()
         {
             return context.Set<T>().AsQueryable();
@@ -26,5 +39,7 @@ namespace XClone.Infrastructure.Persistence.SqlServer.Repositories
             context.Set<T>().Update(entity);
             return entity;
         }
+
+
     }
 }

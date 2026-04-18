@@ -19,10 +19,12 @@
         public const string AUTH_TOKEN_NOT_FOUND = "El token no es correcto, expiró o no se argumentó";
         public const string AUTH_USER_OR_PASSWORD_NOT_FOUND = "El usuario o la contraseña son incorrectos";
         public const string AUTH_REFRESH_TOKEN_NOT_FOUND = "El token para refrescar la sesión expiró, no existe o es incorrecto";
+        public const string AUTH_CLAIM_USER_NOT_FOUND = "No pudo ser validada la identidad del usuario";
 
         // Roles
         public static string RoleNotFound(string name) => $"El rol {name} no existe";
         public static string RoleNotFound(Guid id) => $"El rol con ID: {id} no existe";
+        public const string CANNOT_ASSIGN_THE_ROLE = "No puede asignar el rol que argumentó";
 
         public static string ErrorUnexpected(string traceId)
         {
