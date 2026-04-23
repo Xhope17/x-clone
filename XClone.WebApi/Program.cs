@@ -1,9 +1,12 @@
 using Scalar.AspNetCore;
 using Serilog;
+using XClone.Infrastructure.Workers;
 using XClone.WebApi.Extensions;
 using XClone.WebApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddHostedService<TimerNotifyWorker>(); //registro del worker para que se ejecute en segundo plano
 
 builder.Host.UseSerilog();
 
