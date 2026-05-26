@@ -1,0 +1,435 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Xhope\\Desktop\\workspace\\x-clone\\backend\\XClone\\XClone.WebApi\\XClone.WebApi.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Xhope\\Desktop\\workspace\\x-clone\\backend\\XClone\\XClone.Application\\XClone.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Xhope\\Desktop\\workspace\\x-clone\\backend\\XClone\\XClone.Application\\XClone.Application.csproj",
+        "projectName": "XClone.Application",
+        "projectPath": "C:\\Users\\Xhope\\Desktop\\workspace\\x-clone\\backend\\XClone\\XClone.Application\\XClone.Application.csproj",
+        "packagesPath": "C:\\Users\\Xhope\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Xhope\\Desktop\\workspace\\x-clone\\backend\\XClone\\XClone.Application\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Xhope\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "framework": "net9.0",
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "C:\\Users\\Xhope\\Desktop\\workspace\\x-clone\\backend\\XClone\\XClone.Domain\\XClone.Domain.csproj": {
+                "projectPath": "C:\\Users\\Xhope\\Desktop\\workspace\\x-clone\\backend\\XClone\\XClone.Domain\\XClone.Domain.csproj"
+              },
+              "C:\\Users\\Xhope\\Desktop\\workspace\\x-clone\\backend\\XClone\\XClone.Shared\\XClone.Shared.csproj": {
+                "projectPath": "C:\\Users\\Xhope\\Desktop\\workspace\\x-clone\\backend\\XClone\\XClone.Shared\\XClone.Shared.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "10.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "framework": "net9.0",
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[9.0.14, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Xhope\\Desktop\\workspace\\x-clone\\backend\\XClone\\XClone.Domain\\XClone.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Xhope\\Desktop\\workspace\\x-clone\\backend\\XClone\\XClone.Domain\\XClone.Domain.csproj",
+        "projectName": "XClone.Domain",
+        "projectPath": "C:\\Users\\Xhope\\Desktop\\workspace\\x-clone\\backend\\XClone\\XClone.Domain\\XClone.Domain.csproj",
+        "packagesPath": "C:\\Users\\Xhope\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Xhope\\Desktop\\workspace\\x-clone\\backend\\XClone\\XClone.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Xhope\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "framework": "net9.0",
+            "targetAlias": "net9.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "10.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "framework": "net9.0",
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.14, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[9.0.14, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.14, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Xhope\\Desktop\\workspace\\x-clone\\backend\\XClone\\XClone.Infrastructure\\XClone.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Xhope\\Desktop\\workspace\\x-clone\\backend\\XClone\\XClone.Infrastructure\\XClone.Infrastructure.csproj",
+        "projectName": "XClone.Infrastructure",
+        "projectPath": "C:\\Users\\Xhope\\Desktop\\workspace\\x-clone\\backend\\XClone\\XClone.Infrastructure\\XClone.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\Xhope\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Xhope\\Desktop\\workspace\\x-clone\\backend\\XClone\\XClone.Infrastructure\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Xhope\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "framework": "net9.0",
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "C:\\Users\\Xhope\\Desktop\\workspace\\x-clone\\backend\\XClone\\XClone.Domain\\XClone.Domain.csproj": {
+                "projectPath": "C:\\Users\\Xhope\\Desktop\\workspace\\x-clone\\backend\\XClone\\XClone.Domain\\XClone.Domain.csproj"
+              },
+              "C:\\Users\\Xhope\\Desktop\\workspace\\x-clone\\backend\\XClone\\XClone.Shared\\XClone.Shared.csproj": {
+                "projectPath": "C:\\Users\\Xhope\\Desktop\\workspace\\x-clone\\backend\\XClone\\XClone.Shared\\XClone.Shared.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "10.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "framework": "net9.0",
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "Microsoft.Extensions.Hosting": {
+              "target": "Package",
+              "version": "[9.0.15, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Xhope\\Desktop\\workspace\\x-clone\\backend\\XClone\\XClone.Shared\\XClone.Shared.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Xhope\\Desktop\\workspace\\x-clone\\backend\\XClone\\XClone.Shared\\XClone.Shared.csproj",
+        "projectName": "XClone.Shared",
+        "projectPath": "C:\\Users\\Xhope\\Desktop\\workspace\\x-clone\\backend\\XClone\\XClone.Shared\\XClone.Shared.csproj",
+        "packagesPath": "C:\\Users\\Xhope\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Xhope\\Desktop\\workspace\\x-clone\\backend\\XClone\\XClone.Shared\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Xhope\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "framework": "net9.0",
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "C:\\Users\\Xhope\\Desktop\\workspace\\x-clone\\backend\\XClone\\XClone.Domain\\XClone.Domain.csproj": {
+                "projectPath": "C:\\Users\\Xhope\\Desktop\\workspace\\x-clone\\backend\\XClone\\XClone.Domain\\XClone.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "10.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "framework": "net9.0",
+          "targetAlias": "net9.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Xhope\\Desktop\\workspace\\x-clone\\backend\\XClone\\XClone.WebApi\\XClone.WebApi.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Xhope\\Desktop\\workspace\\x-clone\\backend\\XClone\\XClone.WebApi\\XClone.WebApi.csproj",
+        "projectName": "XClone.WebApi",
+        "projectPath": "C:\\Users\\Xhope\\Desktop\\workspace\\x-clone\\backend\\XClone\\XClone.WebApi\\XClone.WebApi.csproj",
+        "packagesPath": "C:\\Users\\Xhope\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Xhope\\Desktop\\workspace\\x-clone\\backend\\XClone\\XClone.WebApi\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Xhope\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "framework": "net9.0",
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "C:\\Users\\Xhope\\Desktop\\workspace\\x-clone\\backend\\XClone\\XClone.Application\\XClone.Application.csproj": {
+                "projectPath": "C:\\Users\\Xhope\\Desktop\\workspace\\x-clone\\backend\\XClone\\XClone.Application\\XClone.Application.csproj"
+              },
+              "C:\\Users\\Xhope\\Desktop\\workspace\\x-clone\\backend\\XClone\\XClone.Infrastructure\\XClone.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\Xhope\\Desktop\\workspace\\x-clone\\backend\\XClone\\XClone.Infrastructure\\XClone.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "10.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "framework": "net9.0",
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[9.0.14, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.14, )"
+            },
+            "Scalar.AspNetCore": {
+              "target": "Package",
+              "version": "[2.13.20, )"
+            },
+            "Serilog": {
+              "target": "Package",
+              "version": "[4.3.1, )"
+            },
+            "Serilog.Extensions.Hosting": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Serilog.Sinks.Console": {
+              "target": "Package",
+              "version": "[6.1.1, )"
+            },
+            "Serilog.Sinks.File": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Serilog.Sinks.MSSqlServer": {
+              "target": "Package",
+              "version": "[9.0.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
