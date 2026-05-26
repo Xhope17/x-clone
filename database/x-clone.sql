@@ -43,6 +43,7 @@ CREATE TABLE [User] (
     Password    NVARCHAR(255)    NOT NULL,
     Age         INT              NOT NULL,
     PhoneNumber NVARCHAR(20)     NULL,
+    ProfilePictureUrl NVARCHAR(500) NULL,
     IsVerified  BIT              NOT NULL DEFAULT 0, --FALSE
     --IsPrivate BIT NOT NULL DEFAULT 0, --FALSE deberia ir en otra tabla perfil
     PinnedPostId UNIQUEIDENTIFIER NULL, --deberia ir en otra tabla perfil
@@ -94,6 +95,7 @@ CREATE TABLE Post (
     AuthorId    UNIQUEIDENTIFIER NOT NULL,
     Texto       NVARCHAR(MAX)    NOT NULL,
     IsSensitive BIT              NOT NULL DEFAULT 0,
+    MediaUrl    NVARCHAR(500)    NULL,
     CommunityId UNIQUEIDENTIFIER NULL,
 
     JoinedAt    DATETIME2        NOT NULL DEFAULT SYSUTCDATETIME(),
@@ -137,15 +139,15 @@ CREATE TABLE Block (
 );
 GO
 
-CREATE TABLE Message (
+CREATE TABLE Comment (
     Id         UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
     Texto      NVARCHAR(MAX)    NOT NULL,
     SenderId   UNIQUEIDENTIFIER NOT NULL,
     ReceiverId UNIQUEIDENTIFIER NOT NULL,
     PostId     UNIQUEIDENTIFIER NULL,
 
-    CONSTRAINT FK_Message_Sender FOREIGN KEY (SenderId) REFERENCES [User](Id),
-    CONSTRAINT FK_Message_Post   FOREIGN KEY (PostId)   REFERENCES Post(Id)
+    CONSTRAINT FK_Comment_Sender FOREIGN KEY (SenderId) REFERENCES [User](Id),
+    CONSTRAINT FK_Comment_Post   FOREIGN KEY (PostId)   REFERENCES Post(Id)
 );
 GO
 
@@ -228,7 +230,7 @@ CREATE TABLE PostHashtag (
 GO
 
 -- ============================================================
---  TABLA: Permissions (catálogo de permisos globales)
+--  TABLA: Permissions (catï¿½logo de permisos globales)
 -- ============================================================
 CREATE TABLE Permissions (
     Id          UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
@@ -246,7 +248,7 @@ CREATE TABLE Permissions (
 GO
 
 -- ============================================================
---  TABLA: Roles (catálogo de roles globales del sistema)
+--  TABLA: Roles (catï¿½logo de roles globales del sistema)
 -- ============================================================
 CREATE TABLE Roles (
     Id          UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
@@ -292,23 +294,23 @@ CREATE TABLE UserRoles (
 GO
 
 -- ============================================================
---  TABLA: UserHistory (histórico de eventos del usuario)
+--  TABLA: UserHistory (histï¿½rico de eventos del usuario)
 --  EntityType cubre todos los eventos relevantes en XClone:
 --  RoleChange    = cambio de rol global (User -> Moderator, etc.)
 --  Community     = ingreso o salida de una comunidad
---  Suspension    = suspensión o reactivación de la cuenta
---  Verification  = verificación otorgada o removida
+--  Suspension    = suspensiï¿½n o reactivaciï¿½n de la cuenta
+--  Verification  = verificaciï¿½n otorgada o removida
 -- ============================================================
 CREATE TABLE UserHistory (
     Id          UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
     UserId      UNIQUEIDENTIFIER NOT NULL,
     EntityType  NVARCHAR(20)     NOT NULL,
     EntityId    UNIQUEIDENTIFIER NULL,     -- NULL cuando no aplica (ej. Suspension)
-    EntityName  NVARCHAR(200)    NOT NULL, -- descripción legible del evento
+    EntityName  NVARCHAR(200)    NOT NULL, -- descripciï¿½n legible del evento
     StartedAt   DATETIME2        NOT NULL,
-    EndedAt     DATETIME2        NULL,     -- NULL = aún activo / evento puntual
+    EndedAt     DATETIME2        NULL,     -- NULL = aï¿½n activo / evento puntual
     RecordedAt  DATETIME2        NOT NULL DEFAULT SYSUTCDATETIME(),
-    PerformedBy UNIQUEIDENTIFIER NULL,     -- quién ejecutó el evento, NULL = sistema
+    PerformedBy UNIQUEIDENTIFIER NULL,     -- quiï¿½n ejecutï¿½ el evento, NULL = sistema
 
     CONSTRAINT PK_UserHistory             PRIMARY KEY (Id),
     CONSTRAINT FK_UserHistory_User        FOREIGN KEY (UserId)      REFERENCES [User] (Id) ON DELETE CASCADE,
@@ -332,7 +334,7 @@ VALUES
     (NEWID(), 'USERS/UPDATE',           'USERS',       'UPDATE',           'Actualizar cualquier usuario', 'Permite actualizar el perfil de cualquier usuario',             'ByAssignment'),
     (NEWID(), 'USERS/UPDATE_PERSONAL',  'USERS',       'UPDATE_PERSONAL',  'Actualizar perfil propio',     'Permite al usuario editar su propio perfil',                    'Own'),
     (NEWID(), 'USERS/DISABLE',          'USERS',       'DISABLE',          'Suspender usuario',            'Permite suspender o deshabilitar una cuenta',                   'ByAssignment'),
-    (NEWID(), 'USERS/VERIFY',           'USERS',       'VERIFY',           'Verificar usuario',            'Permite otorgar la verificación a un usuario',                  'ByAssignment'),
+    (NEWID(), 'USERS/VERIFY',           'USERS',       'VERIFY',           'Verificar usuario',            'Permite otorgar la verificaciï¿½n a un usuario',                  'ByAssignment'),
     -- Posts
     (NEWID(), 'POSTS/CREATE',           'POSTS',       'CREATE',           'Crear post',                   'Permite publicar posts',                                        'Own'),
     (NEWID(), 'POSTS/UPDATE',           'POSTS',       'UPDATE',           'Editar post propio',           'Permite editar posts propios',                                  'Own'),
@@ -350,7 +352,7 @@ VALUES
     (NEWID(), 'MESSAGES/DELETE_ANY',    'MESSAGES',    'DELETE_ANY',       'Eliminar cualquier mensaje',   'Permite eliminar mensajes de cualquier usuario',                'ByAssignment'),
     -- Comunidades
     (NEWID(), 'COMMUNITIES/CREATE',     'COMMUNITIES', 'CREATE',           'Crear comunidad',              'Permite crear nuevas comunidades',                              'Own'),
-    (NEWID(), 'COMMUNITIES/DELETE_ANY', 'COMMUNITIES', 'DELETE_ANY',       'Eliminar cualquier comunidad', 'Permite eliminar comunidades desde administración',             'ByAssignment');
+    (NEWID(), 'COMMUNITIES/DELETE_ANY', 'COMMUNITIES', 'DELETE_ANY',       'Eliminar cualquier comunidad', 'Permite eliminar comunidades desde administraciï¿½n',             'ByAssignment');
 GO
 
 -- ============================================================
@@ -367,7 +369,7 @@ VALUES
     (@RoleModerator, 'Moderator',
      'Modera contenido de la plataforma. Puede suspender cuentas, eliminar posts/replies y marcar contenido sensible.'),
     (@RoleUser,      'User',
-     'Usuario estándar. Gestiona su propio perfil, publica contenido y se comunica con otros usuarios.');
+     'Usuario estï¿½ndar. Gestiona su propio perfil, publica contenido y se comunica con otros usuarios.');
 GO
 
 -- Admin: todos los permisos
@@ -394,7 +396,7 @@ JOIN   Permissions p ON p.Code IN (
 WHERE  r.Name = 'Moderator';
 GO
 
--- User: acciones sobre su propio contenido únicamente
+-- User: acciones sobre su propio contenido ï¿½nicamente
 INSERT INTO RolePermissions (RoleId, PermissionId)
 SELECT r.Id, p.Id
 FROM   Roles r
@@ -427,11 +429,11 @@ GO
 
 INSERT INTO EmailTemplates (Name, Subject, Body)
 VALUES
-    ('USER_REGISTER',       'Registro de usuario - Xclone',        'Se creó una cuenta con su correo electrónico. Su contraseña es </strong>{{password}}<strong>'),
-    ('AUTH_LOGIN_SUCCESS',  'Inicio de sesión exitoso - XClone',   'Se inicó sesión en su cuenta a las <strong>{{datetime}}</strong>'),
-    ('AUTH_LOGIN FAILED',   'Inicio de sesión fallido - XClone',   'Se intentó iniciar sesión en su cuenta, si no fue usted quién realizó esta acción, comuniquese de inmediado con administración'),
-	('AUTH_REGISTER_EMAIL_VERIFICATION', 'Verifica tu cuenta - XClone', 'Hola, para continuar con su proceso de registro, necesita validar su correo electrónico haciendo clic en el siguiente <a href="{{url}}">enlace</a>.'),
-	('AUTH_RECOVER_PASSWORD_OTP', 'Código de recuperación de contraseña - XClone', 'Hola, el siguiente código te permitirá restablecer tu contraseña para volver a entrar a tu cuenta: <strong>{{otp}}</strong>. No compartas este código con nadie.');
+    ('USER_REGISTER',       'Registro de usuario - Xclone',        'Se creï¿½ una cuenta con su correo electrï¿½nico. Su contraseï¿½a es </strong>{{password}}<strong>'),
+    ('AUTH_LOGIN_SUCCESS',  'Inicio de sesiï¿½n exitoso - XClone',   'Se inicï¿½ sesiï¿½n en su cuenta a las <strong>{{datetime}}</strong>'),
+    ('AUTH_LOGIN FAILED',   'Inicio de sesiï¿½n fallido - XClone',   'Se intentï¿½ iniciar sesiï¿½n en su cuenta, si no fue usted quiï¿½n realizï¿½ esta acciï¿½n, comuniquese de inmediado con administraciï¿½n'),
+	('AUTH_REGISTER_EMAIL_VERIFICATION', 'Verifica tu cuenta - XClone', 'Hola, para continuar con su proceso de registro, necesita validar su correo electrï¿½nico haciendo clic en el siguiente <a href="{{url}}">enlace</a>.'),
+	('AUTH_RECOVER_PASSWORD_OTP', 'Cï¿½digo de recuperaciï¿½n de contraseï¿½a - XClone', 'Hola, el siguiente cï¿½digo te permitirï¿½ restablecer tu contraseï¿½a para volver a entrar a tu cuenta: <strong>{{otp}}</strong>. No compartas este cï¿½digo con nadie.');
 
 GO
 
@@ -460,13 +462,13 @@ GO
 
 -- ============================================================
 --  TABLA: MenuPermissions (N:M Menu <-> Permission)
---  Define qué permisos son necesarios para ver/acceder a un ítem de menú.
+--  Define quï¿½ permisos son necesarios para ver/acceder a un ï¿½tem de menï¿½.
 --  Los permisos del usuario se derivan de sus roles asignados.
 -- ============================================================
 CREATE TABLE MenuPermissions (
     MenuId       UNIQUEIDENTIFIER NOT NULL,
     PermissionId UNIQUEIDENTIFIER NOT NULL,
-    -- ALL = el usuario debe tener TODOS los permisos del menú para verlo
+    -- ALL = el usuario debe tener TODOS los permisos del menï¿½ para verlo
     -- ANY = basta con tener AL MENOS UNO para verlo
     MatchMode    NVARCHAR(10)     NOT NULL DEFAULT 'ANY',
 
@@ -478,7 +480,7 @@ CREATE TABLE MenuPermissions (
 GO
 
 -- ============================================================
---  SEED: Menús del sistema XClone
+--  SEED: Menï¿½s del sistema XClone
 -- ============================================================
 DECLARE @IdHome          UNIQUEIDENTIFIER = NEWID();
 DECLARE @IdExplore       UNIQUEIDENTIFIER = NEWID();
@@ -494,24 +496,24 @@ DECLARE @IdAdminContent  UNIQUEIDENTIFIER = NEWID();
 
 INSERT INTO Menus (Id, Code, Name, Path, IconName, ParentId, SortOrder, IsVisible, IsActive)
 VALUES
-    -- Menús raíz (visibles para todos los usuarios)
+    -- Menï¿½s raï¿½z (visibles para todos los usuarios)
     (@IdHome,          'home',                  'Inicio',           '/home',                    'home',           NULL,            1,  1, 1),
     (@IdExplore,       'explore',               'Explorar',         '/explore',                 'search',         NULL,            2,  1, 1),
     (@IdNotifications, 'notifications',         'Notificaciones',   '/notifications',           'bell',           NULL,            3,  1, 1),
     (@IdMessages,      'messages',              'Mensajes',         '/messages',                'envelope',       NULL,            4,  1, 1),
     (@IdCommunities,   'communities',           'Comunidades',      '/communities',             'users-group',    NULL,            5,  1, 1),
     (@IdProfile,       'profile',               'Mi Perfil',        '/profile',                 'user-circle',    NULL,            6,  1, 1),
-    -- Submenús de Comunidades
+    -- Submenï¿½s de Comunidades
     (@IdCommList,      'communities.list',      'Mis Comunidades',  '/communities/list',        'list',           @IdCommunities,  1,  1, 1),
     (@IdCommMembers,   'communities.members',   'Miembros',         '/communities/members',     'users',          @IdCommunities,  2,  1, 1),
-    -- Menú de administración (solo Admin y Moderator)
-    (@IdAdmin,         'admin',                 'Administración',   '/admin',                   'shield',         NULL,            7,  1, 1),
+    -- Menï¿½ de administraciï¿½n (solo Admin y Moderator)
+    (@IdAdmin,         'admin',                 'Administraciï¿½n',   '/admin',                   'shield',         NULL,            7,  1, 1),
     (@IdAdminUsers,    'admin.users',           'Usuarios',         '/admin/users',             'user-cog',       @IdAdmin,        1,  1, 1),
     (@IdAdminContent,  'admin.content',         'Contenido',        '/admin/content',           'flag',           @IdAdmin,        2,  1, 1);
 GO
 
 -- ============================================================
---  SEED: Relación Menús <-> Permisos
+--  SEED: Relaciï¿½n Menï¿½s <-> Permisos
 -- ============================================================
 INSERT INTO MenuPermissions (MenuId, PermissionId, MatchMode)
 SELECT m.Id, p.Id, 'ANY'
@@ -524,17 +526,17 @@ WHERE
     OR (m.Code = 'communities.list'   AND p.Code = 'COMMUNITIES/CREATE')
     -- Miembros de comunidad: requiere poder gestionar miembros (Owner/Moderator de comunidad)
     OR (m.Code = 'communities.members' AND p.Code = 'COMMUNITIES/CREATE')
-    -- Panel de admin: requiere al menos un permiso de gestión de usuarios o contenido
+    -- Panel de admin: requiere al menos un permiso de gestiï¿½n de usuarios o contenido
     OR (m.Code = 'admin'              AND p.Code IN ('USERS/DISABLE', 'USERS/VERIFY', 'POSTS/DELETE_ANY', 'POSTS/MARK_SENSITIVE'))
-    -- Gestión de usuarios: suspender o verificar cuentas
+    -- Gestiï¿½n de usuarios: suspender o verificar cuentas
     OR (m.Code = 'admin.users'        AND p.Code IN ('USERS/DISABLE', 'USERS/VERIFY', 'USERS/UPDATE', 'USERS/CREATE'))
-    -- Gestión de contenido: moderar posts, replies y comunidades
+    -- Gestiï¿½n de contenido: moderar posts, replies y comunidades
     OR (m.Code = 'admin.content'      AND p.Code IN ('POSTS/DELETE_ANY', 'POSTS/MARK_SENSITIVE', 'REPLIES/DELETE_ANY', 'COMMUNITIES/DELETE_ANY'));
 GO
 
 
 -- ============================================================
---  ÍNDICES
+--  ï¿½NDICES
 -- ============================================================
 CREATE INDEX IX_RolePermissions_PermissionId ON RolePermissions (PermissionId);
 CREATE INDEX IX_UserRoles_RoleId             ON UserRoles (RoleId);
