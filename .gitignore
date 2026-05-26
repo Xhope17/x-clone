@@ -1,6 +1,25 @@
 .vs/
 .vscode/
 
+# =========================================
+# Variables de Entorno y Secretos
+# =========================================
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+.env.*
+
+# Excepciones (Archivos de ejemplo que SÍ queremos subir)
+!.env.example
+!.env.template
+
+# Environments de Angular
+src/environments/environment.ts
+src/environments/environment.development.ts
+
+
 # Created by https://www.toptal.com/developers/gitignore/api/dotnetcore,aspnetcore,angular
 # Edit at https://www.toptal.com/developers/gitignore?templates=dotnetcore,aspnetcore,angular
 
