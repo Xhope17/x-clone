@@ -1,29 +1,23 @@
-<form
-  class="flex flex-col gap-2"
-  [formGroup]="loginForm"
-  (ngSubmit)="onSubmit()"
->
+<form class="flex flex-col gap-2" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
   <div></div>
-  <fieldset
-    class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4"
-  >
-    <label class="label">Email</label>
+  <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
+    <label class="label">Email o Username</label>
     <input
-      type="email"
+      type="text"
       class="input"
-      placeholder="Correo electrónico"
-      formControlName="email"
+      placeholder="Correo electrónico o usuario"
+      formControlName="username"
     />
 
     <label class="label">Password</label>
-    <input
-      type="password"
-      class="input"
-      placeholder="Contraseña"
-      formControlName="password"
-    />
-
-    <button type="submit" class="btn btn-secondary mt-4">Login</button>
+    <input type="password" class="input" placeholder="Contraseña" formControlName="password" />
+    <button type="submit" class="btn btn-secondary mt-4" [disabled]="isPosting()">
+      @if (isPosting()) {
+        <span class="loading loading-spinner"></span>
+      } @else {
+        Login
+      }
+    </button>
   </fieldset>
 
   <p class="text-slate-700">
@@ -33,21 +27,20 @@
 </form>
 
 @if (hasError()) {
-
-<div role="alert" class="alert alert-error mt-4 fixed bottom-5 right-5 w-52">
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    class="h-6 w-6 shrink-0 stroke-current"
-    fill="none"
-    viewBox="0 0 24 24"
-  >
-    <path
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="2"
-      d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-    />
-  </svg>
-  <span>Verifique la información ingresada.</span>
-</div>
+  <div role="alert" class="alert alert-error mt-4 fixed bottom-5 right-5 w-52">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-6 w-6 shrink-0 stroke-current"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+      />
+    </svg>
+    <span>Verifique la información ingresada.</span>
+  </div>
 }

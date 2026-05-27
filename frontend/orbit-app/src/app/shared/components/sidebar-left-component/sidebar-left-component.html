@@ -1,0 +1,90 @@
+<div class="flex flex-col h-screen p-4 border-r border-base-300 w-full">
+  <div class="mb-6 px-2 lg:px-4">
+    <a routerLink="/home" class="flex items-center gap-2 hover:opacity-80 transition-opacity w-fit">
+      <img
+        src="/images/orbit_logo.png"
+        alt="Orbit"
+        class="w-10 h-10 object-contain lg:w-12 lg:h-12"
+        onerror="this.style.display = 'none'"
+      />
+      <span class="hidden lg:block text-2xl font-extrabold tracking-tighter">Orbit</span>
+    </a>
+  </div>
+
+  <nav class="flex-1 space-y-2">
+    @for (item of publicMenu; track item.label) {
+      <a
+        [routerLink]="item.route"
+        routerLinkActive="font-bold text-secondary"
+        class="flex items-center gap-4 p-3 lg:px-4 lg:py-3 rounded-full hover:bg-base-200 transition-colors text-xl cursor-pointer text-base-content w-fit lg:w-full"
+      >
+        <!-- <span class="text-2xl">{{ item.icon }}</span> -->
+        <i class="{{ item.icon }}"></i>
+        <span class="hidden lg:block">{{ item.label }}</span>
+      </a>
+    }
+
+    @if (isAuthenticated()) {
+      @for (item of privateMenu; track item.label) {
+        <a
+          [routerLink]="item.route"
+          routerLinkActive="font-bold text-secondary"
+          class="flex items-center gap-4 p-3 lg:px-4 lg:py-3 rounded-full hover:bg-base-200 transition-colors text-xl cursor-pointer text-base-content w-fit lg:w-full"
+        >
+          <!-- <span class="text-2xl">{{ item.icon }}</span> -->
+          <i class="{{ item.icon }}"></i>
+          <span class="hidden lg:block">{{ item.label }}</span>
+        </a>
+      }
+    }
+  </nav>
+
+  @if (isAuthenticated()) {
+    <button class="btn btn-secondary rounded-full mt-4 w-full text-lg shadow-lg hidden lg:flex">
+      Post
+    </button>
+    <button
+      class="btn btn-secondary btn-circle mt-4 shadow-lg flex lg:hidden items-center justify-center mx-auto text-xl"
+    >
+      ✍️
+    </button>
+
+    <div class="mt-auto pt-4 border-t border-base-300 flex flex-col gap-2">
+      <div class="hidden lg:flex items-center gap-3 px-2 mb-2">
+        <div class="avatar placeholder">
+          <div class="bg-neutral text-neutral-content rounded-full w-10">
+            <span class="text-lg font-bold">{{ username()?.charAt(0) | uppercase }}</span>
+          </div>
+        </div>
+        <div class="flex flex-col overflow-hidden">
+          <span class="font-bold text-sm truncate">{{ username() }}</span>
+          <span class="text-xs text-base-content/60 truncate">{{ '@' + username() }}</span>
+        </div>
+      </div>
+
+      <button
+        (click)="onLogout.emit()"
+        class="btn btn-ghost w-fit lg:w-full lg:justify-start text-error hover:bg-error hover:text-error-content transition-colors px-3 lg:px-4 mx-auto lg:mx-0"
+        title="Cerrar sesión"
+      >
+        <span class="text-xl">🚪</span>
+        <span class="hidden lg:block">Cerrar sesión</span>
+      </button>
+    </div>
+  } @else {
+    <div class="mt-auto pt-4 border-t border-base-300">
+      <p class="hidden lg:block text-xs text-base-content/60 px-4 mb-4 text-center">
+        Únete a Orbit para compartir tus ideas.
+      </p>
+
+      <button
+        routerLink="/auth/login"
+        class="btn btn-outline btn-secondary rounded-full w-fit lg:w-full lg:justify-center mx-auto flex"
+        title="Iniciar sesión"
+      >
+        <span class="text-xl lg:hidden">🔑</span>
+        <span class="hidden lg:block">Iniciar sesión</span>
+      </button>
+    </div>
+  }
+</div>

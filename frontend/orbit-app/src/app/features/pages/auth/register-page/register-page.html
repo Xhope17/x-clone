@@ -4,7 +4,6 @@
   (ngSubmit)="onSubmit()"
 >
   <fieldset class="fieldset w-full max-w-sm rounded-box border border-base-300 bg-base-200 p-6">
-
     <label class="label font-semibold">Nombre completo</label>
     <input
       type="text"
@@ -40,21 +39,31 @@
       formControlName="password"
     />
 
-    <button type="submit" class="btn btn-secondary mt-6 w-full text-lg">
-      Crear cuenta
+    <button type="submit" class="btn btn-secondary mt-6 w-full text-lg" [disabled]="isPosting()">
+      @if (isPosting()) {
+        <span class="loading loading-spinner"></span>
+      } @else {
+        Crear cuenta
+      }
     </button>
   </fieldset>
 
   <p class="mt-2 text-center text-slate-500">
     ¿Ya tienes cuenta?
-    <a routerLink="/auth/login" class="font-bold text-secondary transition-colors hover:text-secondary-focus hover:underline">
+    <a
+      routerLink="/auth/login"
+      class="font-bold text-secondary transition-colors hover:text-secondary-focus hover:underline"
+    >
       Inicia sesión aquí
     </a>
   </p>
 </form>
 
 @if (hasError()) {
-  <div role="alert" class="alert alert-error fixed bottom-5 right-5 z-50 w-auto max-w-sm shadow-xl border border-error/50">
+  <div
+    role="alert"
+    class="alert alert-error fixed bottom-5 right-5 z-50 w-auto max-w-sm shadow-xl border border-error/50"
+  >
     <svg
       xmlns="http://www.w3.org/2000/svg"
       class="h-6 w-6 shrink-0 stroke-current"

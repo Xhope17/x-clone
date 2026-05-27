@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-login-page',
@@ -12,15 +12,15 @@ import { RouterLink } from '@angular/router';
 })
 export class LoginPage {
   fb = inject(FormBuilder);
+  router = inject(Router);
+  authService = inject(AuthService);
+
   hasError = signal(false);
   isPosting = signal(false);
-  router = inject(Router);
-
-  // authService = inject(AuthService);
 
   loginForm = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6)]],
+    username: ['', [Validators.required]],
+    password: ['', [Validators.required]],
   });
 
   onSubmit() {
@@ -31,18 +31,23 @@ export class LoginPage {
       }, 2000);
       return;
     }
-    const { email = '', password = '' } = this.loginForm.value;
-    console.log({email, password});
 
-    // this.authService.login(email!, password!).subscribe((isAuthenticated) => {
-    //   if (isAuthenticated) {
-    //     this.router.navigateByUrl('/');
-    //     return;
-    //   }
-    //   this.hasError.set(true);
-    //   setTimeout(() => {
-    //     this.hasError.set(false);
-    //   }, 2000);
-    // });
+    this.isPosting.set(true);
+    const { username, password } = this.loginForm.value;
+
+    // mandamos el username como username segun tu interfaz
+    this.authService.login({ username: username!, password: password! }).subscribe({
+      next: () => {
+        this.isPosting.set(false);
+        this.router.navigateByUrl('/home');
+      },
+      error: () => {
+        this.isPosting.set(false);
+        this.hasError.set(true);
+        setTimeout(() => {
+          this.hasError.set(false);
+        }, 2000);
+      },
+    });
   }
 }

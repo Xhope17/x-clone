@@ -1,0 +1,19 @@
+<div class="mx-auto flex min-h-screen max-w-7xl justify-center bg-base-100 text-base-content">
+  <header class="hidden w-20 flex-col md:flex lg:w-64">
+    <app-sidebar-left
+      [isAuthenticated]="authService.isAuthenticated()"
+      [username]="authService.username()"
+      (onLogout)="handleLogout()"
+    ></app-sidebar-left>
+  </header>
+
+  <main class="flex min-h-screen w-full max-w-[600px] flex-col border-x border-base-300">
+    <router-outlet></router-outlet>
+  </main>
+
+  <app-sidebar-right
+    [isAuthenticated]="authService.isAuthenticated()"
+    [username]="authService.username()"
+    (onLogout)="handleLogout()"
+  ></app-sidebar-right>
+</div>

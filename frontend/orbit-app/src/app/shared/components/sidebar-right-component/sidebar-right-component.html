@@ -1,0 +1,45 @@
+<aside class="hidden w-80 flex-col gap-4 p-4 lg:flex min-h-screen">
+  <div class="form-control w-full">
+    <input
+      type="text"
+      placeholder="Buscar en Orbit..."
+      class="input input-bordered w-full rounded-full bg-base-200 focus:bg-base-100 focus:border-secondary"
+    />
+  </div>
+
+  <div class="card bg-base-200 border border-base-300 rounded-2xl">
+    @if (!isAuthenticated()) {
+      <div class="card-body p-4">
+        <h2 class="card-title text-lg font-extrabold">¿Nuevo en Orbit?</h2>
+        <p class="text-sm text-base-content/70">Regístrate para obtener tu propia cronología.</p>
+        <div class="mt-2 flex flex-col gap-3">
+          <a routerLink="/auth/register" class="btn btn-secondary rounded-full w-full"
+            >Crear cuenta</a
+          >
+        </div>
+      </div>
+    }
+  </div>
+
+  <div class="card bg-base-200 border border-base-300 rounded-2xl">
+    <div class="card-body p-4">
+      <h2 class="card-title text-xl font-extrabold mb-2">Qué está pasando</h2>
+
+      <div
+        class="mb-3 flex cursor-pointer flex-col rounded-xl p-2 -mx-2 transition-colors hover:bg-base-300"
+      >
+        <span class="text-xs text-base-content/60">Tecnología · Tendencia</span>
+        <span class="font-bold">Angular 19</span>
+        <span class="text-xs text-base-content/60">15.4 mil posts</span>
+      </div>
+
+      <div
+        class="mb-3 flex cursor-pointer flex-col rounded-xl p-2 -mx-2 transition-colors hover:bg-base-300"
+      >
+        <span class="text-xs text-base-content/60">Educación · Tendencia</span>
+        <span class="font-bold">Bootcamp Full Stack</span>
+        <span class="text-xs text-base-content/60">2.1 mil posts</span>
+      </div>
+    </div>
+  </div>
+</aside>
