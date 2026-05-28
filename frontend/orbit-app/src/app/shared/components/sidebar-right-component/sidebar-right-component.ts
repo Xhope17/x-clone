@@ -12,6 +12,5 @@ export class SidebarRightComponent {
   isAuthenticated = input<boolean>(false);
   username = input<string | null>(null);
 
-  // Emite un evento al padre cuando se hace clic en cerrar sesión
   onLogout = output<void>();
 }

@@ -18,20 +18,18 @@
         routerLinkActive="font-bold text-secondary"
         class="flex items-center gap-4 p-3 lg:px-4 lg:py-3 rounded-full hover:bg-base-200 transition-colors text-xl cursor-pointer text-base-content w-fit lg:w-full"
       >
-        <!-- <span class="text-2xl">{{ item.icon }}</span> -->
         <i class="{{ item.icon }}"></i>
         <span class="hidden lg:block">{{ item.label }}</span>
       </a>
     }
 
     @if (isAuthenticated()) {
-      @for (item of privateMenu; track item.label) {
+      @for (item of privateMenu(); track item.label) {
         <a
           [routerLink]="item.route"
           routerLinkActive="font-bold text-secondary"
           class="flex items-center gap-4 p-3 lg:px-4 lg:py-3 rounded-full hover:bg-base-200 transition-colors text-xl cursor-pointer text-base-content w-fit lg:w-full"
         >
-          <!-- <span class="text-2xl">{{ item.icon }}</span> -->
           <i class="{{ item.icon }}"></i>
           <span class="hidden lg:block">{{ item.label }}</span>
         </a>
@@ -50,7 +48,11 @@
     </button>
 
     <div class="mt-auto pt-4 border-t border-base-300 flex flex-col gap-2">
-      <div class="hidden lg:flex items-center gap-3 px-2 mb-2">
+
+      <a
+        [routerLink]="['/i', username()]"
+        class="hidden lg:flex items-center gap-3 px-2 py-2 mb-2 hover:bg-base-200 cursor-pointer rounded-full transition-colors text-left"
+      >
         <div class="avatar placeholder">
           <div class="bg-neutral text-neutral-content rounded-full w-10">
             <span class="text-lg font-bold">{{ username()?.charAt(0) | uppercase }}</span>
@@ -60,8 +62,7 @@
           <span class="font-bold text-sm truncate">{{ username() }}</span>
           <span class="text-xs text-base-content/60 truncate">{{ '@' + username() }}</span>
         </div>
-      </div>
-
+      </a>
       <button
         (click)="onLogout.emit()"
         class="btn btn-ghost w-fit lg:w-full lg:justify-start text-error hover:bg-error hover:text-error-content transition-colors px-3 lg:px-4 mx-auto lg:mx-0"

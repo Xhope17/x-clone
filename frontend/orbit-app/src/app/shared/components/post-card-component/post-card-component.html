@@ -1,1 +1,87 @@
-<p>post-card-component works!</p>,
+<article class="flex gap-4 border-b border-base-300 p-4 transition-colors hover:bg-base-200/50 cursor-pointer">
+
+  <div class="shrink-0">
+    <a [routerLink]="['/i', post().username]" class="avatar placeholder hover:opacity-80 transition-opacity" (click)="$event.stopPropagation()">
+      <div class="w-10 sm:w-12 rounded-full bg-neutral text-neutral-content">
+        <span class="text-lg font-bold">{{ post().name.charAt(0) | uppercase }}</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="flex flex-col w-full min-w-0">
+
+    <div class="flex items-start justify-between">
+      <div class="flex items-center gap-1 overflow-hidden whitespace-nowrap text-sm sm:text-[15px]">
+        <a [routerLink]="['/i', post().username]" class="font-bold truncate hover:underline text-base-content" (click)="$event.stopPropagation()">
+          {{ post().name }}
+        </a>
+        <span class="text-base-content/60 truncate">@{{ post().username }}</span>
+        <span class="text-base-content/60">·</span>
+        <span class="text-base-content/60 hover:underline">{{ post().createdAt | date:'MMM d' }}</span>
+      </div>
+
+      @if (currentUserId() === post().userId) {
+        <div class="dropdown dropdown-end" (click)="$event.stopPropagation()">
+          <div tabindex="0" role="button" class="btn btn-ghost btn-xs btn-circle text-base-content/60 hover:text-secondary">
+            <i class="fa-solid fa-ellipsis"></i>
+          </div>
+          <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow-lg bg-base-100 rounded-box w-52 border border-base-300">
+            <li>
+              <button (click)="onDelete.emit(post().id)" class="text-error font-semibold hover:bg-error/10 hover:text-error">
+                <i class="fa-regular fa-trash-can mr-2"></i> Eliminar
+              </button>
+            </li>
+          </ul>
+        </div>
+      }
+    </div>
+
+    <div class="mt-1 text-base-content text-[15px] leading-normal break-words">
+      {{ post().content }}
+    </div>
+
+    <div class="flex justify-between mt-3 text-base-content/60 max-w-md">
+
+      <button class="group flex items-center gap-2 hover:text-info transition-colors text-xs sm:text-sm" (click)="$event.stopPropagation()">
+        <div class="p-2 rounded-full group-hover:bg-info/10 transition-colors">
+          <i class="fa-regular fa-comment text-[15px]"></i>
+        </div>
+        <span>{{ post().comments }}</span>
+      </button>
+
+      <button class="group flex items-center gap-2 hover:text-success transition-colors text-xs sm:text-sm" (click)="$event.stopPropagation()">
+        <div class="p-2 rounded-full group-hover:bg-success/10 transition-colors">
+          <i class="fa-solid fa-retweet text-[15px]"></i>
+        </div>
+        <span>{{ post().reposts }}</span>
+      </button>
+
+      <button (click)="onLike.emit(post().id); $event.stopPropagation()" class="group flex items-center gap-2 hover:text-error transition-colors text-xs sm:text-sm">
+        <div class="p-2 rounded-full group-hover:bg-error/10 transition-colors">
+          <i class="fa-regular fa-heart text-[15px]"></i>
+        </div>
+        <span>{{ post().likes }}</span>
+      </button>
+
+      <button class="group flex items-center gap-2 hover:text-primary transition-colors text-xs sm:text-sm" (click)="$event.stopPropagation()">
+        <div class="p-2 rounded-full group-hover:bg-primary/10 transition-colors">
+          <i class="fa-solid fa-chart-simple text-[15px]"></i>
+        </div>
+      </button>
+
+      <div class="flex gap-1 sm:gap-2">
+        <button class="group flex items-center hover:text-secondary transition-colors text-xs sm:text-sm" (click)="$event.stopPropagation()">
+          <div class="p-2 rounded-full group-hover:bg-secondary/10 transition-colors">
+            <i class="fa-regular fa-bookmark text-[15px]"></i>
+          </div>
+        </button>
+        <button class="group flex items-center hover:text-secondary transition-colors text-xs sm:text-sm" (click)="$event.stopPropagation()">
+          <div class="p-2 rounded-full group-hover:bg-secondary/10 transition-colors">
+            <i class="fa-solid fa-arrow-up-from-bracket text-[15px]"></i>
+          </div>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</article>

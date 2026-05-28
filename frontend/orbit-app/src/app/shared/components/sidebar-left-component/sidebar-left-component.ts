@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, output } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../../features/services/auth.service';
 import { UpperCasePipe } from '@angular/common';
@@ -12,7 +12,6 @@ import { UpperCasePipe } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarLeftComponent {
-  // Recibe la información desde el padre (Layout)
   isAuthenticated = input<boolean>(false);
   username = input<string | null>(null);
 
@@ -23,9 +22,9 @@ export class SidebarLeftComponent {
     { icon: 'fa-solid fa-magnifying-glass', label: 'Explorar', route: '/explore' },
   ];
 
-  privateMenu = [
+  privateMenu = computed(() => [
     { icon: 'fa-regular fa-bookmark', label: 'Guardados', route: '/bookmarks' },
     { icon: 'fa-regular fa-gem', label: 'Premium', route: '/premium' },
-    { icon: 'fa-regular fa-user', label: 'Perfil', route: '/profile' },
-  ];
+    { icon: 'fa-regular fa-user', label: 'Perfil', route: `/i/${this.username()}` },
+  ]);
 }
