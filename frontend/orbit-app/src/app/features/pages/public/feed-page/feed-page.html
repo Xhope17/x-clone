@@ -1,1 +1,47 @@
-<p>feed-page works!</p>,
+<div class="flex flex-col w-full min-h-screen pb-20 text-base-content border-x border-base-300">
+
+  <div class="sticky top-0 z-10 bg-base-100/80 backdrop-blur-md border-b border-base-300 p-4">
+    <h1 class="text-xl font-extrabold cursor-pointer w-fit">Inicio</h1>
+  </div>
+
+  <div class="border-b border-base-300 p-4 hidden sm:block">
+    <div class="flex gap-4 items-center">
+      <div class="avatar placeholder">
+        <div class="bg-neutral text-neutral-content rounded-full w-10">
+          <span class="text-xs">{{ (authService.username() || 'U').charAt(0) | uppercase }}</span>
+        </div>
+      </div>
+
+      <button
+        class="w-full text-left text-base-content/60 bg-base-200/50 hover:bg-base-200 rounded-full px-6 py-3 transition-colors text-lg"
+        (click)="abrirModalPost()"
+      >
+        ¿Qué está pasando?
+      </button>
+    </div>
+  </div>
+
+  <div class="flex flex-col">
+    @if (isLoading()) {
+      <div class="p-8 flex justify-center">
+        <span class="loading loading-spinner loading-lg text-secondary"></span>
+      </div>
+    } @else {
+      @for (item of posts(); track item.id) {
+        <app-post-card
+          [post]="item"
+          [currentUserId]="authService.payload()?.profile_id ?? null"
+          (onDelete)="handleDeletePost($event)"
+          (onLike)="handleLikePost($event)"
+        ></app-post-card>
+      } @empty {
+        <div class="p-8 text-center text-base-content/60 mt-10">
+          <div class="text-4xl mb-4">🌌</div>
+          <p class="text-xl font-bold text-base-content mb-2">Tu órbita está vacía</p>
+          <p>Sigue a otros usuarios para ver sus publicaciones aquí.</p>
+        </div>
+      }
+    }
+  </div>
+
+</div>

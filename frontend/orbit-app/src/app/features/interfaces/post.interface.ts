@@ -9,10 +9,21 @@ export interface Post {
   id: string;
   author: PostAuthor;
   content: string;
-  media: string[]; // Ajusta el tipo si tu backend devuelve objetos en lugar de strings de URLs
+  media: Media[]; // Ajusta el tipo si tu backend devuelve objetos en lugar de strings de URLs
   likeCount: number;
   commentCount: number;
   isLiked: boolean;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface Media {
+  url: string;
+  mediaType: string;
+  order: number;
+  width: number;
+  height: number;
+  sizeBytes: number;
+  format: string;
+  durationSeconds: null;
 }

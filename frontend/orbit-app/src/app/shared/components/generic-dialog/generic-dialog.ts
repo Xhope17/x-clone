@@ -1,25 +1,25 @@
-import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { NgComponentOutlet } from '@angular/common';
+import { DialogService } from '../../services/dialog.service';
 
 @Component({
   selector: 'app-generic-dialog',
-  imports: [],
+  standalone: true,
+  imports: [NgComponentOutlet],
   templateUrl: './generic-dialog.html',
-  styleUrl: './generic-dialog.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GenericDialog {
-  // Entradas para configurar el aspecto
-  modalId = input.required<string>(); // Obligatorio para poder abrirlo
-  title = input.required<string>();
-  btnText = input<string>('Guardar');
-  btnColor = input<string>('btn-primary'); // Clases de Daisy: btn-primary, btn-error, etc.
+export class GenericDialogComponent {
+  public dialogService = inject(DialogService);
 
-  // Salida cuando presionan el botón principal
-  onSave = output<void>();
+  onSaveClick() {
+    const currentData = this.dialogService.data();
+    if (currentData?.onSave) {
+      currentData.onSave.next(); // Dispara el evento que escuchará el componente interno
+    }
+  }
 
-  // Método interno para cerrar el modal manualmente si es necesario
-  closeModal() {
-    const modal = document.getElementById(this.modalId()) as HTMLDialogElement;
-    if (modal) modal.close();
+  close() {
+    this.dialogService.close();
   }
 }
