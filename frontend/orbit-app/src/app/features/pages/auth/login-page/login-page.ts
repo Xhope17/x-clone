@@ -36,7 +36,7 @@ export class LoginPage {
     const { username, password } = this.loginForm.value;
 
     // mandamos el username como username segun tu interfaz
-    this.authService.login({ email: username!, password: password! }).subscribe({
+    this.authService.login({ EmailOrUsername: username!, password: password! }).subscribe({
       next: () => {
         this.isPosting.set(false);
         this.router.navigateByUrl('/home');

@@ -16,7 +16,6 @@ export class AuthService {
   private readonly API = environment.apiUrl;
   private readonly TOKEN_KEY = environment.tokenKey;
 
-  // Inicializa leyendo y validando el token localmente
   private _token = signal<string | null>(this.getValidToken());
 
   // para @if del HTML
@@ -28,14 +27,16 @@ export class AuthService {
     return t ? this.decodeToken(t) : null;
   });
 
-  username = computed(() => this.payload()?.user ?? null);
+  // username = computed(() => this.payload()?.user ?? null);
+  username = computed(() => this.payload()?.unique_name ?? null);
   userId = computed(() => this.payload()?.sub ?? null);
 
   login(credentials: LoginRequest) {
     return this.http.post<LoginResponse>(`${this.API}/auth/login`, credentials).pipe(
       tap((res) => {
-        // Cubre si la API manda token o accessToken
-        const tokenToSave = res.token || res.accessToken;
+        // console.log('Respuesta del login:', res);
+        // const tokenToSave = res.token || res.accessToken;
+        const tokenToSave = res.data?.accessToken;
         if (tokenToSave) {
           localStorage.setItem(this.TOKEN_KEY, tokenToSave);
           this._token.set(tokenToSave);
