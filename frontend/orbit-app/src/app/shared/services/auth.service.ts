@@ -7,6 +7,7 @@ import { environment } from '../../../environments/environment';
 // Ajusta la ruta si nombraste el archivo de otra manera (ej. auth.interface.ts)
 import { JwtPayload, LoginRequest, LoginResponse } from '../../features/interfaces/login.interface';
 import { ApiResponse } from '../interfaces/apiResponse.interface';
+import { UserProfile } from '../../features/interfaces/user-profile.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -102,6 +103,15 @@ export class AuthService {
     return this.http.post<ApiResponse<any>>(`${this.API}/auth/register`, formData).pipe(
       catchError((err) => {
         console.error('Error al registrar usuario', err);
+        return throwError(() => err);
+      }),
+    );
+  }
+
+  getCurrentUser() {
+    return this.http.get<ApiResponse<UserProfile>>(`${this.API}/auth/me`).pipe(
+      catchError((err) => {
+        console.error('Error al obtener el usuario actual', err);
         return throwError(() => err);
       }),
     );
