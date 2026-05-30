@@ -1,143 +1,135 @@
 <article
-  class="flex gap-4 border-b border-base-300 p-4 transition-colors hover:bg-base-200/50 cursor-pointer"
+  [routerLink]="['/post', post().id]"
+  class="bg-base-100 rounded-[2rem] p-5 mb-4 shadow-sm ring-1 ring-base-content/5 hover:shadow-md hover:ring-primary/20 transition-all duration-300 cursor-pointer"
 >
-  <div class="shrink-0">
+  <header class="flex justify-between items-start mb-3">
     <a
       [routerLink]="['/i', post().author.username]"
-      class="avatar placeholder hover:opacity-80 transition-opacity"
+      class="flex items-center gap-3 group"
       (click)="$event.stopPropagation()"
     >
-      <div class="w-10 sm:w-12 rounded-full bg-neutral text-neutral-content overflow-hidden">
-        @if (post().author.avatarUrl) {
-          <img [src]="post().author.avatarUrl" alt="Avatar" class="w-full h-full object-cover" />
-        } @else {
-          <span class="text-lg font-bold">{{
-            post().author.displayName.charAt(0) | uppercase
-          }}</span>
-        }
+      <div class="avatar shadow-sm rounded-full">
+        <div
+          class="w-11 h-11 rounded-full bg-neutral text-neutral-content overflow-hidden ring-2 ring-transparent group-hover:ring-primary/30 transition-all"
+        >
+          @if (post().author.avatarUrl) {
+            <img [src]="post().author.avatarUrl" alt="Avatar" class="w-full h-full object-cover" />
+          } @else {
+            <span class="text-lg font-bold flex items-center justify-center h-full">{{
+              post().author.displayName.charAt(0) | uppercase
+            }}</span>
+          }
+        </div>
       </div>
-    </a>
-  </div>
 
-  <div class="flex flex-col w-full min-w-0">
-    <div class="flex items-start justify-between">
-      <div class="flex items-center gap-1 overflow-hidden whitespace-nowrap text-sm sm:text-[15px]">
-        <a
-          [routerLink]="['/i', post().author.username]"
-          class="font-bold truncate hover:underline text-base-content"
-          (click)="$event.stopPropagation()"
+      <div class="flex flex-col">
+        <span
+          class="font-bold text-[15px] group-hover:text-primary transition-colors leading-tight"
         >
           {{ post().author.displayName }}
-        </a>
-        <span class="text-base-content/60 truncate">@{{ post().author.username }}</span>
-        <span class="text-base-content/60">·</span>
-        <span class="text-base-content/60 hover:underline">{{
-          post().createdAt | date: 'MMM d'
-        }}</span>
+        </span>
+        <div class="flex items-center gap-1 text-xs text-base-content/50 mt-0.5">
+          <span>@{{ post().author.username }}</span>
+          <span>•</span>
+          <span class="hover:underline">{{ post().createdAt | date: 'MMM d' }}</span>
+        </div>
       </div>
+    </a>
 
-      @if (currentUserId() === post().author.profileId) {
-        <div class="dropdown dropdown-end" (click)="$event.stopPropagation()">
-          <div
-            tabindex="0"
-            role="button"
-            class="btn btn-ghost btn-xs btn-circle text-base-content/60 hover:text-secondary"
-          >
-            <i class="fa-solid fa-ellipsis"></i>
-          </div>
-          <ul
-            tabindex="0"
-            class="dropdown-content z-[1] menu p-2 shadow-lg bg-base-100 rounded-box w-52 border border-base-300"
-          >
-            <li>
-              <button
-                (click)="onDelete.emit(post().id)"
-                class="text-error font-semibold hover:bg-error/10 hover:text-error"
-              >
-                <i class="fa-regular fa-trash-can mr-2"></i> Eliminar
-              </button>
-            </li>
-          </ul>
+    @if (currentUserId() === post().author.profileId) {
+      <div class="dropdown dropdown-end" (click)="$event.stopPropagation()">
+        <div
+          tabindex="0"
+          role="button"
+          class="btn btn-ghost btn-sm btn-circle text-base-content/40 hover:text-secondary hover:bg-secondary/10 transition-colors"
+        >
+          <i class="fa-solid fa-ellipsis"></i>
+        </div>
+        <ul
+          tabindex="0"
+          class="dropdown-content z-[1] menu p-2 shadow-xl bg-base-100 rounded-2xl w-52 ring-1 ring-base-content/10"
+        >
+          <li>
+            <button
+              (click)="onDelete.emit(post().id)"
+              class="text-error font-semibold hover:bg-error/10 hover:text-error rounded-xl"
+            >
+              <i class="fa-regular fa-trash-can mr-2"></i> Eliminar
+            </button>
+          </li>
+        </ul>
+      </div>
+    }
+  </header>
+
+  <div class="text-base-content/90 text-[15px] leading-relaxed break-words mb-4 pl-1">
+    {{ post().content }}
+  </div>
+
+  @if (post().media && post().media.length > 0) {
+    <div class="mb-4 w-full">
+      @if (post().media.length === 1) {
+        <div
+          class="w-full flex justify-center bg-base-200/30 rounded-[1.5rem] overflow-hidden border border-base-content/5"
+        >
+          <img
+            [src]="post().media[0].url"
+            alt="Post media"
+            class="max-h-[600px] max-w-full object-contain"
+          />
+        </div>
+      } @else {
+        <div
+          class="grid gap-1.5 grid-cols-2 rounded-[1.5rem] overflow-hidden border border-base-content/5 bg-base-200/30"
+        >
+          @for (mediaItem of post().media; track mediaItem.url) {
+            <div class="relative w-full aspect-[4/4] hover:opacity-95 transition-opacity">
+              <img [src]="mediaItem.url" alt="Post media" class="w-full h-full object-cover" />
+            </div>
+          }
         </div>
       }
     </div>
+  }
 
-    <div class="mt-1 text-base-content text-[15px] leading-normal break-words">
-      {{ post().content }}
-    </div>
-    <!--  -->
-    @if (post().media && post().media.length > 0) {
-      <div
-        class="mt-3 grid gap-1 rounded-2xl overflow-hidden border border-base-300 w-full"
-        [class.grid-cols-1]="post().media.length === 1"
-        [class.grid-cols-2]="post().media.length >= 2"
-      >
-        @for (mediaItem of post().media; track mediaItem.url) {
-          <div class="relative w-full bg-base-300">
-            <img [src]="mediaItem.url" alt="Post media" class="w-full h-full object-cover" />
-          </div>
-        }
-      </div>
-    }
-    <div class="flex justify-between mt-3 text-base-content/60 max-w-md">
+  <footer class="flex items-center justify-between pt-1">
+    <div class="flex gap-2 sm:gap-3">
       <button
-        class="group flex items-center gap-2 hover:text-info transition-colors text-xs sm:text-sm"
+        class="btn btn-sm h-9 px-3 btn-ghost rounded-full bg-base-200/50 hover:bg-info/10 hover:text-info border-none transition-all font-medium text-base-content/60"
         (click)="$event.stopPropagation()"
       >
-        <div class="p-2 rounded-full group-hover:bg-info/10 transition-colors">
-          <i class="fa-regular fa-comment text-[15px]"></i>
-        </div>
-        <span>{{ post().commentCount }}</span>
-      </button>
-
-      <button
-        class="group flex items-center gap-2 hover:text-success transition-colors text-xs sm:text-sm"
-        (click)="$event.stopPropagation()"
-      >
-        <div class="p-2 rounded-full group-hover:bg-success/10 transition-colors">
-          <i class="fa-solid fa-retweet text-[15px]"></i>
-        </div>
-        <span>0</span>
+        <i class="fa-regular fa-comment text-[15px]"></i>
+        <span class="ml-1.5">{{ post().commentCount > 0 ? post().commentCount : 'Comentar' }}</span>
       </button>
 
       <button
         (click)="onLike.emit(post().id); $event.stopPropagation()"
-        class="group flex items-center gap-2 hover:text-error transition-colors text-xs sm:text-sm"
+        class="btn btn-sm h-9 px-3 btn-ghost rounded-full bg-base-200/50 hover:bg-error/10 border-none transition-all font-medium"
         [class.text-error]="post().isLiked"
+        [class.hover:text-error]="!post().isLiked"
+        [class.text-base-content/60]="!post().isLiked"
       >
-        <div class="p-2 rounded-full group-hover:bg-error/10 transition-colors">
-          <i class="fa-heart text-[15px]" [class]="post().isLiked ? 'fa-solid' : 'fa-regular'"></i>
-        </div>
-        <span>{{ post().likeCount }}</span>
+        <i
+          class="fa-heart text-[15px]"
+          [class]="post().isLiked ? 'fa-solid scale-110' : 'fa-regular'"
+        ></i>
+        <span class="ml-1.5">{{ post().likeCount > 0 ? post().likeCount : 'Me gusta' }}</span>
       </button>
+    </div>
 
+    <div class="flex gap-1">
       <button
-        class="group flex items-center gap-2 hover:text-primary transition-colors text-xs sm:text-sm"
+        class="btn btn-sm btn-square btn-ghost rounded-full text-base-content/50 hover:bg-secondary/10 hover:text-secondary transition-colors"
         (click)="$event.stopPropagation()"
       >
-        <div class="p-2 rounded-full group-hover:bg-primary/10 transition-colors">
-          <i class="fa-solid fa-chart-simple text-[15px]"></i>
-        </div>
+        <i class="fa-regular fa-bookmark text-[15px]"></i>
       </button>
-
-      <div class="flex gap-1 sm:gap-2">
-        <button
-          class="group flex items-center hover:text-secondary transition-colors text-xs sm:text-sm"
-          (click)="$event.stopPropagation()"
-        >
-          <div class="p-2 rounded-full group-hover:bg-secondary/10 transition-colors">
-            <i class="fa-regular fa-bookmark text-[15px]"></i>
-          </div>
-        </button>
-        <button
-          class="group flex items-center hover:text-secondary transition-colors text-xs sm:text-sm"
-          (click)="$event.stopPropagation()"
-        >
-          <div class="p-2 rounded-full group-hover:bg-secondary/10 transition-colors">
-            <i class="fa-solid fa-arrow-up-from-bracket text-[15px]"></i>
-          </div>
-        </button>
-      </div>
+      <button
+        class="btn btn-sm btn-square btn-ghost rounded-full text-base-content/50 hover:bg-primary/10 hover:text-primary transition-colors"
+        (click)="$event.stopPropagation()"
+      >
+        <i class="fa-solid fa-arrow-up-from-bracket text-[15px]"></i>
+      </button>
     </div>
-  </div>
+  </footer>
 </article>

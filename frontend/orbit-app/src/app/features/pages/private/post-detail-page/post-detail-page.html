@@ -1,0 +1,122 @@
+<div class="w-full flex flex-col pb-20">
+  <div
+    class="sticky top-0 z-20 flex items-center gap-6 bg-base-100/80 p-3 backdrop-blur-md border-b border-base-content/5 mb-4"
+  >
+    <button
+      (click)="backClicked()"
+      class="btn btn-ghost btn-circle hover:bg-base-200 transition-colors"
+    >
+      <i class="fa-solid fa-arrow-left text-lg"></i>
+    </button>
+    <h1 class="text-xl font-bold">Orbit</h1>
+  </div>
+
+  <div class="px-4">
+    @if (loading()) {
+      <div class="flex justify-center p-10">
+        <span class="loading loading-spinner loading-lg text-primary"></span>
+      </div>
+    }
+
+    @if (error()) {
+      <div class="alert alert-error shadow-sm rounded-[1.5rem]">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <span>{{ error() }}</span>
+      </div>
+    }
+
+    @if (!loading() && !error() && post(); as currentPost) {
+      <app-post-card
+        [post]="currentPost"
+        [currentUserId]="authService.userId()"
+        (onLike)="handleLikePost($event)"
+        (onDelete)="handleDeletePost($event)"
+      ></app-post-card>
+
+      <div class="mt-2 border-t border-base-content/5 pt-4">
+        <div class="flex gap-3 mb-6">
+          <div class="avatar">
+            <div class="w-10 rounded-full bg-neutral text-neutral-content">
+              @if (currentUserProfile()?.avatarUrl) {
+                <img [src]="currentUserProfile()?.avatarUrl" />
+              } @else {
+                <span class="text-xs flex items-center justify-center h-full">{{
+                  authService.username()?.charAt(0) | uppercase
+                }}</span>
+              }
+            </div>
+          </div>
+
+          <input
+            #commentInput
+            (keyup.enter)="createComment(currentPost.id, commentInput)"
+            type="text"
+            placeholder="Orbita tu respuesta..."
+            class="input input-bordered rounded-full w-full bg-base-200/50 border-none focus:ring-2 focus:ring-primary/50"
+            [disabled]="isSubmittingComment()"
+          />
+
+          <button
+            (click)="createComment(currentPost.id, commentInput)"
+            class="btn btn-primary rounded-full px-6"
+            [disabled]="isSubmittingComment()"
+          >
+            @if (isSubmittingComment()) {
+              <span class="loading loading-spinner loading-xs"></span>
+            } @else {
+              Enviar
+            }
+          </button>
+        </div>
+
+        <h3 class="text-sm font-bold text-base-content/60 mb-4 px-2">RESPUESTAS</h3>
+
+        @for (comment of comments(); track comment.id) {
+          <article
+            class="flex gap-3 p-4 mb-3 bg-base-200/30 rounded-[1.5rem] hover:bg-base-200/50 transition-colors relative group"
+          >
+            <div class="avatar shrink-0">
+              <div class="w-10 h-10 rounded-full bg-neutral text-neutral-content">
+                @if (comment.author.avatarUrl) {
+                  <img [src]="comment.author.avatarUrl" />
+                } @else {
+                  <span class="flex items-center justify-center h-full font-bold">
+                    {{ comment.author.displayName.charAt(0) | uppercase }}
+                  </span>
+                }
+              </div>
+            </div>
+
+            <div class="flex flex-col w-full pr-8">
+              <div class="flex items-center gap-2">
+                <span class="font-bold text-sm">{{ comment.author.displayName }}</span>
+                <span class="text-xs text-base-content/50">@{{ comment.author.username }}</span>
+                <span class="text-xs text-base-content/30"
+                  >• {{ comment.createdAt | date: 'MMM d' }}</span
+                >
+              </div>
+              <p class="text-sm text-base-content/90 mt-1">{{ comment.content }}</p>
+            </div>
+
+            @if (authService.userId() === comment.author.profileId) {
+              <button
+                (click)="deleteComment(comment.id)"
+                class="btn btn-ghost btn-sm btn-circle absolute top-2 right-2 text-base-content/40 hover:text-error hover:bg-error/10 opacity-0 group-hover:opacity-100 transition-all"
+                title="Eliminar respuesta"
+              >
+                <i class="fa-regular fa-trash-can"></i>
+              </button>
+            }
+          </article>
+        }
+
+        @if (comments().length === 0) {
+          <div class="text-center p-8 text-base-content/50">
+            <i class="fa-regular fa-comment-dots text-3xl mb-2 opacity-50"></i>
+            <p>Sé el primero en orbitar esta publicación.</p>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>

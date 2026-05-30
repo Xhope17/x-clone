@@ -76,11 +76,11 @@ export class FeedPage implements OnInit {
     if (!post) return;
 
     if (post.isLiked) {
-      this.postService.unlikePost(postId).subscribe({
+      this.postService.toggleLike(postId).subscribe({
         next: () => this.toggleLikeUI(postId),
       });
     } else {
-      this.postService.likePost(postId).subscribe({
+      this.postService.toggleLike(postId).subscribe({
         next: () => this.toggleLikeUI(postId),
       });
     }

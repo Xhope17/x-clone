@@ -29,8 +29,14 @@ export const routes: Routes = [
         path: 'premium',
         // canActivate: [authGuard], // Opcional, si quieres que solo logueados lo vean
         loadComponent: () =>
-          import('./features/pages/private/premium-page/premium-page').then(
-            (m) => m.PremiumPage
+          import('./features/pages/private/premium-page/premium-page').then((m) => m.PremiumPage),
+      },
+      // Dentro de tus rutas...
+      {
+        path: 'post/:id', // La ruta será tusitio.com/post/11eb80cc-...
+        loadComponent: () =>
+          import('./features/pages/private/post-detail-page/post-detail-page').then(
+            (m) => m.PostDetailPage,
           ),
       },
       {
