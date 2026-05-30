@@ -6,7 +6,8 @@ export interface GenericDialogData {
   component: Type<unknown>;
   btnText?: string;
   onSave?: Subject<void>;
-  onSuccess?: Subject<any>; // Añadimos esto para devolver el post creado al Feed
+  onSuccess?: Subject<any>;
+  componentInputs?: Record<string, unknown>;
 }
 
 @Injectable({ providedIn: 'root' })

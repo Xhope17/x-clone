@@ -1,0 +1,136 @@
+<form [formGroup]="profileForm" class="flex flex-col h-full flex-1 pb-8 px-4 sm:px-6 mt-4 gap-6">
+  <div class="relative flex flex-col items-center">
+    <div
+      class="relative w-full h-32 sm:h-40 bg-neutral/50 rounded-3xl overflow-hidden group border border-base-content/10"
+    >
+      @if (bannerPreview()) {
+        <img
+          [src]="bannerPreview()"
+          class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+      }
+
+      <div
+        class="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity bg-black/40 backdrop-blur-sm"
+      >
+        <!-- cambiar banner -->
+        <button
+          type="button"
+          class="btn btn-circle btn-ghost bg-neutral/80 text-neutral-content hover:bg-neutral hover:scale-110 transition-all shadow-md"
+          (click)="bannerInput.click()"
+        >
+          <!-- icono cambiar banner -->
+          <i class="fa-solid fa-camera text-xl"></i>
+        </button>
+        @if (bannerPreview()) {
+          <!-- botón eliminar -->
+          <button
+            type="button"
+            class="btn btn-circle btn-ghost bg-neutral/80 text-neutral-content hover:bg-error hover:text-error-content hover:scale-110 transition-all shadow-md"
+            (click)="removeBanner()"
+          >
+            <!-- icono eliminar -->
+            <i class="fa-solid fa-trash-can text-xl"></i>
+          </button>
+        }
+      </div>
+      <input #bannerInput type="file" hidden accept="image/*" (change)="onBannerSelected($event)" />
+    </div>
+
+    <div class="absolute -bottom-12 left-4 sm:left-8 z-10 group">
+      <div class="avatar relative cursor-pointer drop-shadow-xl" (click)="avatarInput.click()">
+        <div
+          class="w-28 sm:w-32 rounded-full ring-[6px] ring-base-100 bg-neutral text-neutral-content flex items-center justify-center overflow-hidden transition-all duration-300 group-hover:brightness-75"
+        >
+          @if (avatarPreview()) {
+            <img [src]="avatarPreview()" class="w-full h-full object-cover" />
+          } @else {
+            <span class="text-5xl font-extrabold uppercase">{{
+              (currentUser().displayName || 'U').charAt(0)
+            }}</span>
+          }
+        </div>
+
+        <div
+          class="absolute inset-0 m-auto flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+        >
+          <div class="bg-black/60 p-3.5 rounded-full text-white backdrop-blur-md shadow-lg">
+            <i class="fa-solid fa-camera text-xl"></i>
+          </div>
+        </div>
+      </div>
+      <input #avatarInput type="file" hidden accept="image/*" (change)="onAvatarSelected($event)" />
+    </div>
+  </div>
+
+  <div class="mt-14 flex flex-col gap-5">
+    @if (errorMessage()) {
+      <div class="alert alert-error shadow-sm rounded-2xl">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <span>{{ errorMessage() }}</span>
+      </div>
+    }
+
+    <div
+      class="bg-base-200 rounded-3xl border border-base-content/10 overflow-hidden flex flex-col shadow-sm"
+    >
+      <div
+        class="form-control w-full px-5 pt-4 pb-2 border-b border-base-content/10 focus-within:bg-base-300/30 transition-colors"
+      >
+        <label class="label p-0 mb-1">
+          <span class="text-[11px] font-bold text-base-content/50 uppercase tracking-widest"
+            >Nombre</span
+          >
+        </label>
+        <input
+          type="text"
+          class="input input-ghost p-0 h-auto text-lg font-semibold focus:outline-none focus:bg-transparent w-full"
+          formControlName="displayName"
+          placeholder="¿Cómo quieres que te llamen?"
+        />
+        @if (profileForm.controls.displayName.invalid && profileForm.controls.displayName.touched) {
+          <span class="text-error text-xs mt-1 font-medium"
+            >No puedes dejar tu nombre en blanco.</span
+          >
+        }
+      </div>
+
+      <div class="form-control w-full px-5 py-3 focus-within:bg-base-300/30 transition-colors">
+        <label class="label p-0 mb-1">
+          <span class="text-[11px] font-bold text-base-content/50 uppercase tracking-widest"
+            >Biografía</span
+          >
+        </label>
+        <textarea
+          class="textarea textarea-ghost p-0 text-base leading-relaxed resize-none focus:outline-none focus:bg-transparent w-full"
+          formControlName="bio"
+          placeholder="Cuéntale al universo sobre ti..."
+          rows="3"
+        ></textarea>
+      </div>
+    </div>
+
+    <label
+      class="cursor-pointer bg-base-200 hover:bg-base-200/80 border border-base-content/10 rounded-3xl p-5 flex items-center justify-between transition-colors gap-4 shadow-sm"
+    >
+      <div class="flex flex-col">
+        <span class="font-bold text-base-content text-lg">Cuenta privada</span>
+        <span class="text-sm text-base-content/50 mt-0.5 leading-tight"
+          >Solo las personas que apruebes podrán ver tu contenido.</span
+        >
+      </div>
+      <input
+        type="checkbox"
+        class="toggle toggle-secondary toggle-lg"
+        formControlName="isPrivate"
+      />
+    </label>
+
+    @if (isSaving()) {
+      <div class="flex justify-center items-center gap-3 text-secondary font-bold py-4">
+        <span class="loading loading-bars loading-md"></span>
+        <span class="animate-pulse tracking-wide">Sincronizando cambios...</span>
+      </div>
+    }
+  </div>
+</form>

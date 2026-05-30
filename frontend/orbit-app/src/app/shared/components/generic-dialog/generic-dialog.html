@@ -29,7 +29,8 @@
 
       <div class="p-4 min-h-[500px] flex flex-col">
         <!-- quiero que ocupe todo el espacio disponible -->
-        <ng-container *ngComponentOutlet="modalData.component"></ng-container>
+        <!-- <ng-container *ngComponentOutlet="modalData.component"></ng-container> -->
+        <ng-container *ngComponentOutlet="modalData.component; inputs: modalData.componentInputs || {}"></ng-container>
       </div>
     </div>
   }

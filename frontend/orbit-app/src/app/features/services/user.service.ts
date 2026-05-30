@@ -32,14 +32,24 @@ export class UserService {
   //{{baseUrl}}/api/profile/avatar
   uploadAvatar(file: File) {
     const formData = new FormData();
-    formData.append('File', file);
-    return this.http.post<ApiResponse<UserProfile>>(`${this.API}/profile/avatar`, formData);
+    formData.append('file', file); // <-- Cambiado a minúscula ('file')
+    return this.http.put<ApiResponse<UserProfile>>(`${this.API}/profile/avatar`, formData); // <-- Cambiado a PUT
+  }
+
+  //eliminar avatar
+  deleteAvatar() {
+    return this.http.delete(`${this.API}/profile/avatar`);
   }
 
   //{{baseUrl}}/api/profile/banner
   uploadBanner(file: File) {
     const formData = new FormData();
-    formData.append('file', file);
-    return this.http.post<ApiResponse<UserProfile>>(`${this.API}/profile/banner`, formData);
+    formData.append('file', file); // Este ya lo tenías bien en minúscula
+    return this.http.put<ApiResponse<UserProfile>>(`${this.API}/profile/banner`, formData); // <-- Cambiado a PUT
+  }
+
+  //eliminar banner
+  deleteBanner() {
+    return this.http.delete(`${this.API}/profile/banner`);
   }
 }

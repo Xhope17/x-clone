@@ -12,19 +12,27 @@
   </div>
 
   <div class="relative">
-    <div class="h-32 sm:h-48 bg-base-300 w-full object-cover"></div>
+    <!-- banner -->
+    <div class="h-32 sm:h-48 bg-base-300 w-full object-cover">
+      @if (currentProfile()?.bannerUrl) {
+        <img
+          [src]="currentProfile()?.bannerUrl"
+          alt="Banner"
+          class="w-full h-full object-cover rounded-b-lg"
+        />
+      }
+    </div>
 
-    <div class="absolute -bottom-16 left-4">
+    <div class="absolute -bottom-16 left-4 sm:left-8 z-10">
       <div class="avatar">
         <div
-          class="w-32 rounded-full ring-4 ring-base-100 bg-neutral text-neutral-content flex items-center justify-center"
+          class="w-32 rounded-full ring-4 ring-base-100 bg-neutral text-neutral-content flex items-center justify-center "
         >
-          <!-- <span class="text-5xl font-bold uppercase">aaa{{ usernameUrl().charAt(0) }}</span> -->
-          @if (userProfile()?.avatarUrl) {
-            <img [src]="userProfile()?.avatarUrl" alt="Avatar" class="w-full h-full object-cover" />
+          @if (currentProfile()?.avatarUrl) {
+            <img [src]="currentProfile()?.avatarUrl" alt="Avatar" class="w-full h-full object-cover" />
           } @else {
             <span class="text-lg font-bold">{{
-              (userProfile()?.displayName || usernameUrl() || 'U').charAt(0) | uppercase
+              (currentProfile()?.displayName || usernameUrl() || 'U').charAt(0) | uppercase
             }}</span>
           }
         </div>
@@ -46,10 +54,10 @@
   </div>
 
   <div class="px-4 pb-4">
-    <h1 class="text-2xl font-extrabold leading-tight">{{ userProfile()?.displayName }}</h1>
-    <p class="text-base-content/60 text-sm mb-3">@{{ userProfile()?.username }}</p>
+    <h1 class="text-2xl font-extrabold leading-tight">{{ currentProfile()?.displayName }}</h1>
+    <p class="text-base-content/60 text-sm mb-3">@{{ currentProfile()?.username }}</p>
 
-    <p class="text-sm mb-3">{{ userProfile()?.bio }}</p>
+    <p class="text-sm mb-3">{{ currentProfile()?.bio }}</p>
 
     <div class="flex gap-4 text-sm text-base-content/60 mb-4">
       <span class="flex gap-1 items-center"
@@ -59,11 +67,11 @@
 
     <div class="flex gap-4 text-sm">
       <a href="#" class="hover:underline">
-        <strong>{{ userProfile()?.followingCount || 0 }}</strong>
+        <strong>{{ currentProfile()?.followingCount || 0 }}</strong>
         <span class="text-base-content/60"> Following </span>
       </a>
       <a href="#" class="hover:underline">
-        <strong>{{ userProfile()?.followersCount || 0 }}</strong>
+        <strong>{{ currentProfile()?.followersCount || 0 }}</strong>
         <span class="text-base-content/60"> Followers </span>
       </a>
     </div>

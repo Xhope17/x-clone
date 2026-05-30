@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { ActivatedRoute, RouterLinkActive, RouterLink } from '@angular/router';
 import { AuthService } from '../../../../shared/services/auth.service';
 import { PostCardComponent } from '../../../../shared/components/post-card-component/post-card-component';
@@ -6,6 +13,9 @@ import { Post } from '../../../../features/interfaces/post.interface';
 import { UserService } from '../../../../features/services/user.service';
 import { UserProfile } from '../../../../features/interfaces/user-profile.interface';
 import { UpperCasePipe } from '@angular/common';
+import { DialogService } from '../../../../shared/services/dialog.service';
+import { EditProfileModal } from '../../../../features/pages/private/edit-profile-modal/edit-profile-modal';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-profile-layout',
@@ -19,15 +29,11 @@ export class ProfileLayout implements OnInit {
   authService = inject(AuthService);
   userService = inject(UserService);
 
-  userProfile = signal<UserProfile>(null!);
+  currentProfile = signal<UserProfile>(null!);
 
-  // Lee el parámetro :username de la URL
   usernameUrl = signal<string>(this.route.snapshot.paramMap.get('username') || '');
 
-  // userProfile = signal<UserProfile>(this.authService.getCurrentUser().subscribe({}));
-
-  userProfile2 = this.authService.getCurrentUser();
-
+  private dialogService = inject(DialogService);
   // Computed: Es true si el usuario logueado está viendo su propio perfil
   isMyProfile = computed(() => {
     const loggedUser = this.authService.username();
@@ -41,8 +47,7 @@ export class ProfileLayout implements OnInit {
   loadUserProfile() {
     this.authService.getCurrentUser().subscribe({
       next: (data) => {
-        // console.log('Usuario actual:', data);
-        this.userProfile.set(data.data);
+        this.currentProfile.set(data.data);
       },
       error: (err) => {
         console.error('Error al obtener el usuario actual', err);
@@ -51,13 +56,29 @@ export class ProfileLayout implements OnInit {
   }
 
   openEditModal() {
-    const modal = document.getElementById('edit_profile_modal') as HTMLDialogElement;
-    if (modal) modal.showModal();
+    const saveSubject = new Subject<void>();
+    const successSubject = new Subject<boolean>();
+
+    successSubject.subscribe(() => {
+      this.loadUserProfile();
+    });
+
+    this.dialogService.open({
+      title: 'Edit profile',
+      component: EditProfileModal,
+      // AQUÍ LE PASAMOS LOS DATOS AL INPUT() DEL MODAL
+      componentInputs: {
+        currentUser: this.currentProfile(),
+      },
+      btnText: 'Save',
+      onSave: saveSubject,
+      onSuccess: successSubject,
+    });
   }
 
   userPosts = signal<Post[]>([
     {
-      id: 'fc1ddb5c-a4d7-4772-8d68-4cadea7d3412', // GUID temporal
+      id: 'fc1ddb5c-a4d7-4772-8d68-4cadea7d3412',
       author: {
         profileId: this.authService.payload()?.profile_id || 'mock-profile-id',
         username: this.usernameUrl(),
