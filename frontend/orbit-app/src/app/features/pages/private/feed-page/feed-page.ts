@@ -5,7 +5,7 @@ import { PostService } from '../../../services/post.service';
 import { Post } from '../../../interfaces/post.interface';
 import { UpperCasePipe } from '@angular/common';
 import { DialogService } from '../../../../shared/services/dialog.service';
-import { Subject } from 'rxjs';
+import { Subject, take } from 'rxjs';
 import { CreatePostModal } from '../../../../shared/components/create-post-modal/create-post-modal';
 import { UserService } from '../../../services/user.service';
 import { UserProfile } from '../../../interfaces/user-profile.interface';
@@ -27,6 +27,8 @@ export class FeedPage implements OnInit {
 
   public posts = signal<Post[]>([]);
   public isLoading = signal<boolean>(true);
+  // para evitar bugs al eliminar rápidamente
+  public deletingPosts = signal<string[]>([]);
 
   userProfile = signal<UserProfile | null>(null);
 
@@ -61,11 +63,37 @@ export class FeedPage implements OnInit {
   }
 
   handleDeletePost(postId: string): void {
-    this.postService.deletePost(postId).subscribe({
-      next: () => {
-        this.posts.update((currentPosts) => currentPosts.filter((p) => p.id !== postId));
-      },
-      error: (err) => console.error('Error al eliminar', err),
+    if (this.dialogService.data()) return;
+    if (this.deletingPosts().includes(postId)) return;
+
+    const confirmSubject = new Subject<void>();
+
+    //para no hacer multiples clicks mientras se elimina
+    confirmSubject.pipe(take(1)).subscribe(() => {
+      this.deletingPosts.update((ids) => [...ids, postId]);
+
+      this.postService.deletePost(postId).subscribe({
+        next: () => {
+          this.posts.update((currentPosts) => currentPosts.filter((p) => p.id !== postId));
+          this.deletingPosts.update((ids) => ids.filter((id) => id !== postId));
+          this.dialogService.close(); // Cerramos el modal al terminar
+        },
+        error: (err) => {
+          console.error('Error al eliminar', err);
+          this.deletingPosts.update((ids) => ids.filter((id) => id !== postId));
+          alert('Hubo un error al eliminar');
+        },
+      });
+    });
+
+    //se llama al generic dialog
+    this.dialogService.open({
+      title: '¿Eliminar publicación?',
+      message:
+        'Esta acción es permanente y no se puede deshacer. Se eliminará la publicación de tu perfil.',
+      btnText: 'Eliminar',
+      btnClass: 'btn-error text-white',
+      onSave: confirmSubject,
     });
   }
 

@@ -1,41 +1,59 @@
 <dialog
   id="generic_dialog"
-  class="modal modal-bottom sm:modal-middle backdrop-blur-sm bg-black/40 transition-all"
+  class="modal modal-middle backdrop-blur-md bg-black/60 transition-all duration-300"
 >
   @if (dialogService.data(); as modalData) {
     <div
-      class="modal-box bg-base-100 p-0 overflow-hidden w-full max-w-xl shadow-2xl border border-base-300"
+      class="modal-box bg-base-100 p-0 overflow-hidden w-[95%] sm:w-full max-w-xl shadow-2xl shadow-teal-900/20 border border-base-content/10 rounded-3xl"
     >
       <div
-        class="flex justify-between items-center p-4 border-b border-base-300 bg-base-100/95 backdrop-blur-md sticky top-0 z-20"
+        class="flex justify-between items-center p-4 border-b border-base-content/5 bg-base-100/95 backdrop-blur-md sticky top-0 z-20"
       >
-        <div class="flex items-center gap-6">
-          <!-- botón x -->
+        <div class="flex items-center gap-4 sm:gap-6">
           <button
-            class="btn btn-sm btn-circle btn-ghost text-xl hover:bg-red-950 transition-colors"
+            class="btn btn-sm btn-circle btn-ghost text-xl hover:bg-base-200 transition-colors"
             (click)="close()"
           >
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <h3 class="font-bold text-xl tracking-tight">{{ modalData.title }}</h3>
+          <h3 class="font-bold text-xl tracking-tight text-base-content">
+            {{ modalData.title }}
+          </h3>
         </div>
+
         <button
-          class="btn btn-secondary btn-sm rounded-full font-bold px-5 shadow-sm hover:scale-105 transition-transform"
+          class="btn btn-sm rounded-full font-bold px-6 shadow-sm hover:scale-105 transition-transform {{
+            modalData.btnClass || 'bg-teal-600 hover:bg-teal-500 text-white border-none'
+          }}"
           (click)="onSaveClick()"
         >
           {{ modalData.btnText || 'Guardar' }}
         </button>
       </div>
 
-      <div class="p-4 min-h-[500px] flex flex-col">
-        <!-- quiero que ocupe todo el espacio disponible -->
-        <!-- <ng-container *ngComponentOutlet="modalData.component"></ng-container> -->
-        <ng-container *ngComponentOutlet="modalData.component; inputs: modalData.componentInputs || {}"></ng-container>
+      <div class="p-4 sm:p-6 flex flex-col">
+        @if (modalData.message) {
+          <div class="flex flex-col items-center text-center py-6 gap-4">
+            <div
+              class="w-16 h-16 bg-error/10 text-error rounded-full flex items-center justify-center text-3xl mb-2"
+            >
+              <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <p class="text-base-content/70 text-lg max-w-sm">
+              {{ modalData.message }}
+            </p>
+          </div>
+
+        } @else if (modalData.component) {
+          <ng-container
+            *ngComponentOutlet="modalData.component; inputs: modalData.componentInputs || {}"
+          ></ng-container>
+        }
       </div>
     </div>
   }
 
   <form method="dialog" class="modal-backdrop">
-    <button (click)="close()" class="cursor-default">cerrar</button>
+    <button (click)="close()" class="cursor-default text-transparent">cerrar</button>
   </form>
 </dialog>

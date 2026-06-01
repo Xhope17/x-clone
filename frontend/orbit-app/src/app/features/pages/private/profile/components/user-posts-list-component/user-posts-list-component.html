@@ -1,18 +1,3 @@
-<!-- <div class="flex flex-col">
-  @for (item of posts(); track item.id) {
-    <app-post-card
-      [post]="item"
-      [currentUserId]="currentUserId()"
-      (onDelete)="deletePost.emit($event)"
-      (onLike)="likePost.emit($event)"
-    ></app-post-card>
-  } @empty {
-    <div class="p-8 text-center text-base-content/60">
-      <p class="text-xl font-bold text-base-content mb-2">No posts yet</p>
-      <p>When they post, their posts will show up here.</p>
-    </div>
-  }
-</div> -->
 <div class="flex flex-col px-2 sm:px-4 pt-4 bg-base-200/10 min-h-screen">
   @if (isLoading()) {
     <div class="p-12 flex justify-center">
@@ -22,7 +7,7 @@
     @for (item of posts(); track item.id) {
       <!-- [currentUserId]="authService.payload()?.profile_id ?? null" -->
       <!-- [currentUserId]="authService.userId() ?? null" -->
-      <p>{{ authService.userId() ?? null }}</p>
+      <!-- <p>{{ authService.userId() ?? null }}</p> -->
       <app-post-card
         [post]="item"
         [currentUserId]="authService.payload()?.profile_id ?? null"

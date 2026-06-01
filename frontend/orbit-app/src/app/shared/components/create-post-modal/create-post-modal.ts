@@ -21,7 +21,7 @@ export class CreatePostModal implements OnInit {
   public isPosting = signal(false);
   public errorMessage = signal('');
 
-  // Signals para manejar los archivos y sus vistas previas
+  // para manejar los archivos y sus vistas previas
   public selectedFiles = signal<File[]>([]);
   public imagePreviews = signal<string[]>([]);
 
@@ -38,7 +38,7 @@ export class CreatePostModal implements OnInit {
     }
   }
 
-  // --- LÓGICA PARA ARCHIVOS ---
+  // Para archivos seleccionados por el input
   onFilesSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
@@ -86,8 +86,9 @@ export class CreatePostModal implements OnInit {
     this.imagePreviews.update(previews => previews.filter((_, i) => i !== index));
   }
 
-  // --- GUARDADO ---
+  // subir post
   guardarPost() {
+    if (this.isPosting()) return;
     if (this.postForm.invalid || !this.postForm.value.content?.trim()) {
       this.errorMessage.set('El post no puede estar vacío.');
       return;
@@ -99,7 +100,7 @@ export class CreatePostModal implements OnInit {
     const formData = new FormData();
     formData.append('Content', this.postForm.value.content.trim());
 
-    // Agregamos cada archivo al FormData con la clave 'Media' (como lo espera tu API en C#)
+    // Agregamos cada archivo al FormData
     this.selectedFiles().forEach(file => {
       formData.append('Media', file);
     });

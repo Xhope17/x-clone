@@ -15,7 +15,7 @@ export class GenericDialogComponent {
   onSaveClick() {
     const currentData = this.dialogService.data();
     if (currentData?.onSave) {
-      currentData.onSave.next(); // Dispara el evento que escuchará el componente interno
+      currentData.onSave.next();
     }
   }
 

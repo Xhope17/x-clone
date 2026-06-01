@@ -3,8 +3,10 @@ import { Subject } from 'rxjs';
 
 export interface GenericDialogData {
   title: string;
-  component: Type<unknown>;
+  component?: Type<unknown>;
+  message?: string;
   btnText?: string;
+  btnClass?: string;
   onSave?: Subject<void>;
   onSuccess?: Subject<any>;
   componentInputs?: Record<string, unknown>;
