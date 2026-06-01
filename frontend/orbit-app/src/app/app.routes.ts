@@ -68,8 +68,8 @@ export const routes: Routes = [
       {
         path: ':username',
         loadComponent: () =>
-          import('./core/layouts/private/profile-layout/profile-layout').then(
-            (m) => m.ProfileLayout,
+          import('./features/pages/private/profile/profile-page/profile-page').then(
+            (m) => m.ProfilePage,
           ),
       },
       {

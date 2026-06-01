@@ -1,0 +1,31 @@
+<div class="flex flex-col w-full text-base-content min-h-screen pb-20">
+  <div
+    class="sticky top-0 z-10 bg-base-100/80 backdrop-blur-md border-b border-base-300 p-3 flex items-center gap-6"
+  >
+    <button routerLink="/home" class="btn btn-ghost btn-circle btn-sm">
+      <i class="fa-solid fa-arrow-left text-lg"></i>
+    </button>
+    <div>
+      <h2 class="text-xl font-extrabold leading-tight">{{ usernameUrl() }}</h2>
+      <p class="text-xs text-base-content/60">0 posts</p>
+    </div>
+  </div>
+
+  <app-profile-header
+    [currentProfile]="currentProfile()"
+    [usernameUrl]="usernameUrl()"
+    [isMyProfile]="isMyProfile()"
+    (editProfile)="openEditModal()"
+  />
+
+  <app-profile-tabs />
+
+  <!-- <app-user-posts-list
+    [posts]="userPosts()"
+    [currentUserId]="authService.payload()?.profile_id ?? null"
+    (deletePost)="handleDeletePost($event)"
+    (likePost)="handleLikePost($event)"
+  /> -->
+
+  <app-user-posts-list/>
+</div>

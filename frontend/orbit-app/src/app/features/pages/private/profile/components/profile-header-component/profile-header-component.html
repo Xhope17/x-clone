@@ -1,0 +1,66 @@
+<div class="relative">
+  <div class="h-32 sm:h-48 bg-base-300 w-full object-cover">
+    @if (currentProfile()?.bannerUrl) {
+      <img
+        [src]="currentProfile()?.bannerUrl"
+        alt="Banner"
+        class="w-full h-full object-cover rounded-b-lg"
+      />
+    }
+  </div>
+
+  <div class="absolute -bottom-16 left-4 sm:left-8 z-10">
+    <div class="avatar">
+      <div
+        class="w-32 rounded-full ring-4 ring-base-100 bg-neutral text-neutral-content flex items-center justify-center"
+      >
+        @if (currentProfile()?.avatarUrl) {
+          <img
+            [src]="currentProfile()?.avatarUrl"
+            alt="Avatar"
+            class="w-full h-full object-cover"
+          />
+        } @else {
+          <img src="/images/default.png" class="w-full h-full object-cover" />
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="flex justify-end p-4 h-20">
+  @if (isMyProfile()) {
+    <button
+      (click)="editProfile.emit()"
+      class="btn btn-outline btn-sm rounded-full font-bold transition-all hover:bg-base-200"
+    >
+      Edit profile
+    </button>
+  } @else {
+    <button class="btn btn-neutral btn-sm rounded-full font-bold">Follow</button>
+  }
+</div>
+
+<div class="px-4 pb-4">
+  <h1 class="text-2xl font-extrabold leading-tight">{{ currentProfile()?.displayName }}</h1>
+  <p class="text-base-content/60 text-sm mb-3">@{{ currentProfile()?.username }}</p>
+
+  <p class="text-sm mb-3">{{ currentProfile()?.bio }}</p>
+
+  <div class="flex gap-4 text-sm text-base-content/60 mb-4">
+    <span class="flex gap-1 items-center"
+      ><i class="fa-regular fa-calendar"></i> Joined May 2026</span
+    >
+  </div>
+
+  <div class="flex gap-4 text-sm">
+    <a href="#" class="hover:underline">
+      <strong>{{ currentProfile()?.followingCount || 0 }}</strong>
+      <span class="text-base-content/60"> Following </span>
+    </a>
+    <a href="#" class="hover:underline">
+      <strong>{{ currentProfile()?.followersCount || 0 }}</strong>
+      <span class="text-base-content/60"> Followers </span>
+    </a>
+  </div>
+</div>
