@@ -30,6 +30,12 @@ export class FeedPage implements OnInit {
   // para evitar bugs al eliminar rápidamente
   public deletingPosts = signal<string[]>([]);
 
+  //evitar multiples clicks en el refresh
+  public canRefresh = signal<boolean>(true);
+
+  //para mostrar el cd del botón refresh
+  public showCooldownWarning = signal<boolean>(false);
+
   userProfile = signal<UserProfile | null>(null);
 
   ngOnInit(): void {
@@ -45,6 +51,7 @@ export class FeedPage implements OnInit {
   }
 
   loadTimeline(): void {
+    this.isLoading.set(true);
     this.postService.getTimeline().subscribe({
       next: (res) => {
         if (res.isSuccess && res.data) {
@@ -62,6 +69,33 @@ export class FeedPage implements OnInit {
     });
   }
 
+  refreshFeed(): void {
+    if (this.isLoading()) return; // Evita recargar si ya se está cargando
+
+    if (!this.canRefresh()) {
+      this.showCooldownWarning.set(true);
+
+      // Ocultamos el aviso automáticamente después de 3 segundos
+      setTimeout(() => {
+        this.showCooldownWarning.set(false);
+      }, 3000);
+
+      return; // Abortamos la recarga
+    }
+
+    this.posts.set([]);
+    this.loadTimeline();
+
+    // vuelve al inicio de la pagina para ver el nuevo contenido
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // cd de 10 segundos para evitar spam de refresh
+    this.canRefresh.set(false);
+    setTimeout(() => {
+      this.canRefresh.set(true);
+    }, 10000);
+  }
+
   handleDeletePost(postId: string): void {
     if (this.dialogService.data()) return;
     if (this.deletingPosts().includes(postId)) return;
@@ -76,7 +110,7 @@ export class FeedPage implements OnInit {
         next: () => {
           this.posts.update((currentPosts) => currentPosts.filter((p) => p.id !== postId));
           this.deletingPosts.update((ids) => ids.filter((id) => id !== postId));
-          this.dialogService.close(); // Cerramos el modal al terminar
+          this.dialogService.close();
         },
         error: (err) => {
           console.error('Error al eliminar', err);

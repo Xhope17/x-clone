@@ -2,17 +2,44 @@
   class="flex flex-col w-full min-h-screen pb-20 bg-base-100 border-x border-base-content/5 relative"
 >
   <div
-    class="sticky top-0 z-10 bg-base-100/80 backdrop-blur-lg border-b border-base-content/5 px-4 py-3 flex items-center justify-between shadow-sm"
+    class="sticky top-0 z-20 bg-base-100/80 backdrop-blur-lg border-b border-base-content/5 px-4 py-3 flex items-center justify-between shadow-sm relative"
   >
     <h1
-      class="text-xl font-black tracking-tight bg-gradient-to-r from-teal-400 to-cyan-500 bg-clip-text text-transparent cursor-pointer w-fit hover:opacity-80 transition-opacity"
+      (click)="refreshFeed()"
+      class="text-xl font-black tracking-tight bg-gradient-to-r from-teal-400 to-cyan-500 bg-clip-text text-transparent w-fit transition-opacity"
+      [class.cursor-pointer]="!isLoading() && canRefresh()"
+      [class.cursor-not-allowed]="!canRefresh()"
+      [class.hover:opacity-80]="!isLoading() && canRefresh()"
+      [class.opacity-50]="isLoading() || !canRefresh()"
     >
       Inicio
     </h1>
+
+    @if (showCooldownWarning()) {
+      <div
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 pointer-events-none animate-fade-in"
+      >
+        <div
+          class="shadow-sm rounded-full py-1 px-2.5 sm:px-3 border border-error/30 bg-base-100/95 backdrop-blur-md text-error flex items-center gap-1.5"
+        >
+          <i class="fa-solid fa-clock text-[10px]"></i>
+          <span class="font-bold text-[10px] sm:text-[11px] whitespace-nowrap tracking-tight"
+            >Espera un momento</span
+          >
+        </div>
+      </div>
+    }
+
     <button
-      class="btn btn-ghost btn-sm btn-circle text-base-content/50 hover:text-teal-400 transition-colors"
+      (click)="refreshFeed()"
+      class="btn btn-ghost btn-sm btn-circle text-base-content/50 transition-colors relative"
+      [class.cursor-not-allowed]="!canRefresh()"
+      [class.hover:text-teal-400]="!isLoading() && canRefresh()"
+      [class.hover:bg-teal-500/10]="!isLoading() && canRefresh()"
+      [class.opacity-50]="isLoading() || !canRefresh()"
+      title="Recargar feed"
     >
-      <i class="fa-solid fa-arrows-rotate text-sm"></i>
+      <i class="fa-solid fa-arrows-rotate text-sm" [class.fa-spin]="isLoading()"></i>
     </button>
   </div>
 
