@@ -1,0 +1,52 @@
+<article
+  [routerLink]="['/c', community().slug]"
+  class="bg-base-100 rounded-[1.5rem] p-4 sm:p-5 mb-4 shadow-sm ring-1 ring-base-content/5 hover:shadow-md hover:ring-primary/20 transition-all duration-300 cursor-pointer flex flex-col sm:flex-row gap-4 group"
+>
+  <div class="avatar shadow-sm rounded-2xl flex-shrink-0">
+    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-neutral text-neutral-content overflow-hidden ring-2 ring-transparent group-hover:ring-primary/30 transition-all">
+      @if (community().iconUrl) {
+        <img [src]="community().iconUrl" alt="Icono de comunidad" class="w-full h-full object-cover" />
+      } @else {
+        <span class="text-3xl font-bold flex items-center justify-center h-full">
+          {{ community().name.charAt(0) | uppercase }}
+        </span>
+      }
+    </div>
+  </div>
+
+  <div class="flex flex-col flex-1 min-w-0">
+    <div class="flex justify-between items-start gap-2">
+      <div class="flex flex-col min-w-0">
+        <h3 class="font-bold text-lg sm:text-xl text-base-content truncate group-hover:text-primary transition-colors">
+          c/{{ community().name }}
+        </h3>
+        <div class="flex items-center gap-1.5 text-xs font-medium text-base-content/50 mt-0.5">
+          <span><i class="fa-solid fa-users text-[10px]"></i> {{ community().memberCount }}</span>
+          <span>•</span>
+          @if (community().isPrivate) {
+            <span class="text-warning"><i class="fa-solid fa-lock text-[10px]"></i> Privada</span>
+          } @else {
+            <span class="text-success"><i class="fa-solid fa-globe text-[10px]"></i> Pública</span>
+          }
+        </div>
+      </div>
+
+      <button
+        class="btn btn-sm rounded-full font-bold px-4"
+        [class.btn-primary]="!community().isMember"
+        [class.bg-base-200]="community().isMember"
+        [class.text-base-content]="community().isMember"
+        [class.border-none]="community().isMember"
+        (click)="onJoinClick.emit(community().slug); $event.stopPropagation()"
+      >
+        {{ community().isMember ? 'Ver' : 'Unirse' }}
+      </button>
+    </div>
+
+    @if (community().description) {
+      <p class="text-sm text-base-content/80 mt-2 line-clamp-2 leading-relaxed">
+        {{ community().description }}
+      </p>
+    }
+  </div>
+</article>

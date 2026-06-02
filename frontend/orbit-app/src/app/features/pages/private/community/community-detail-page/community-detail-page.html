@@ -1,0 +1,160 @@
+<div
+  class="flex flex-col w-full min-h-screen pb-20 bg-base-100 border-x border-base-content/5 relative"
+>
+  @if (isLoading()) {
+    <div class="p-12 flex justify-center mt-10">
+      <span class="loading loading-spinner loading-lg text-teal-500"></span>
+    </div>
+  }
+
+  <!-- ESTADO 404: NO ENCONTRADA -->
+  @else if (errorState() === 'not-found') {
+    <div class="flex flex-col items-center justify-center p-10 text-center mt-20">
+      <div
+        class="w-20 h-20 mb-4 rounded-full bg-base-200 flex items-center justify-center text-base-content/40 text-4xl"
+      >
+        <i class="fa-solid fa-ghost"></i>
+      </div>
+      <h1 class="text-2xl font-black text-base-content mb-2">Comunidad no encontrada</h1>
+      <p class="text-base-content/60 max-w-sm mb-6">
+        Parece que esta comunidad fue eliminada o el enlace es incorrecto.
+      </p>
+      <button class="btn btn-primary rounded-full px-6" routerLink="/communities">
+        Volver a Comunidades
+      </button>
+    </div>
+  }
+
+  <!-- COMUNIDAD ENCONTRADA -->
+  @else if (community()) {
+    <!-- header de comunidad -->
+    <div class="flex flex-col relative">
+      <div class="h-32 sm:h-48 w-full bg-base-300 relative overflow-hidden">
+        @if (community()?.bannerUrl) {
+          <img [src]="community()?.bannerUrl" alt="Banner" class="w-full h-full object-cover" />
+        } @else {
+          <div
+            class="absolute inset-0 opacity-10"
+            style="
+              background-image: radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0);
+              background-size: 20px 20px;
+            "
+          ></div>
+        }
+      </div>
+
+      <div class="px-4 pb-4">
+        <div class="flex justify-between items-start">
+          <div class="avatar -mt-12 sm:-mt-16 relative z-10 p-1 bg-base-100 rounded-2xl">
+            <div
+              class="w-24 h-24 sm:w-32 sm:h-32 rounded-2xl bg-neutral text-neutral-content shadow-sm"
+            >
+              @if (community()?.iconUrl) {
+                <img [src]="community()?.iconUrl" alt="Icono" class="w-full h-full object-cover" />
+              } @else {
+                <span
+                  class="text-4xl sm:text-5xl font-bold flex items-center justify-center h-full"
+                >
+                  {{ community()!.name.charAt(0) | uppercase }}
+                </span>
+              }
+            </div>
+          </div>
+
+          <div class="pt-3 flex gap-2">
+            <button
+              class="btn btn-sm sm:btn-md rounded-full font-bold px-6 border-none"
+              [class.bg-teal-600]="!community()?.isMember"
+              [class.text-white]="!community()?.isMember"
+              [class.hover:bg-teal-500]="!community()?.isMember"
+              [class.bg-base-200]="community()?.isMember"
+              [class.hover:bg-error/20]="community()?.isMember"
+              [class.hover:text-error]="community()?.isMember"
+              (click)="toggleJoin()"
+            >
+              {{ community()?.isMember ? 'Miembro' : 'Unirse' }}
+            </button>
+          </div>
+        </div>
+
+        <div class="mt-3">
+          <h1 class="text-2xl font-black text-base-content leading-tight">
+            {{ community()?.name }}
+          </h1>
+          <p class="text-sm font-medium text-base-content/50">c/{{ community()?.slug }}</p>
+
+          @if (community()?.description) {
+            <p class="mt-3 text-[15px] text-base-content/90 leading-relaxed max-w-2xl">
+              {{ community()?.description }}
+            </p>
+          }
+
+          <div class="flex items-center gap-4 mt-4 text-sm font-medium text-base-content/60">
+            <div
+              class="flex items-center gap-1.5 hover:text-base-content transition-colors cursor-pointer"
+            >
+              <span class="text-base-content font-bold">{{ community()?.memberCount }}</span>
+              <span>Miembros</span>
+            </div>
+            <div class="flex items-center gap-1">
+              @if (community()?.isPrivate) {
+                <i class="fa-solid fa-lock text-warning text-xs"></i>
+                <span class="text-warning">Privada</span>
+              } @else {
+                <i class="fa-solid fa-globe text-success text-xs"></i>
+                <span class="text-success">Pública</span>
+              }
+            </div>
+            <div class="flex items-center gap-1">
+              <i class="fa-regular fa-calendar text-xs"></i>
+              <span>Creada el {{ community()?.createdAt | date: 'd MMM, yyyy' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex w-full border-b border-base-content/5 px-4 mt-2">
+      <button class="pb-3 pt-2 text-[15px] font-bold text-base-content relative">
+        Publicaciones
+        <div class="absolute bottom-0 left-0 w-full h-1 bg-teal-500 rounded-t-full"></div>
+      </button>
+    </div>
+
+    <!-- ZONA DEL FEED -->
+    <div class="flex flex-col p-2 sm:p-4 bg-base-200/10 min-h-screen">
+      @if (errorState() === 'forbidden') {
+        <div
+          class="flex flex-col items-center justify-center p-10 text-center mt-6 border border-base-content/10 rounded-3xl bg-base-100 shadow-sm"
+        >
+          <div
+            class="w-16 h-16 mb-4 rounded-full bg-warning/10 flex items-center justify-center text-warning text-2xl"
+          >
+            <i class="fa-solid fa-lock"></i>
+          </div>
+          <h2 class="text-xl font-bold text-base-content mb-2 tracking-tight">Comunidad Privada</h2>
+          <p class="text-sm text-base-content/60 max-w-xs mb-4">
+            Solo los miembros aprobados pueden ver y participar en las publicaciones de esta
+            comunidad.
+          </p>
+          <button class="btn btn-outline btn-sm rounded-full" (click)="toggleJoin()">
+            Solicitar unirse
+          </button>
+        </div>
+      } @else {
+        @for (post of posts(); track post.id) {
+          <app-post-card [post]="post"></app-post-card>
+        } @empty {
+          <div class="flex flex-col items-center justify-center p-10 text-center mt-6">
+            <div
+              class="w-16 h-16 mb-4 rounded-full bg-base-200/50 flex items-center justify-center text-base-content/40 text-2xl"
+            >
+              <i class="fa-solid fa-feather-pointed"></i>
+            </div>
+            <h2 class="text-xl font-bold text-base-content mb-2">Aún no hay publicaciones</h2>
+          </div>
+        }
+      }
+    </div>
+  }
+</div>

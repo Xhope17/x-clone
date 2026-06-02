@@ -73,6 +73,13 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'c/:slug',
+        loadComponent: () =>
+          import('./features/pages/private/community/community-detail-page/community-detail-page').then(
+            (m) => m.CommunityDetailPage,
+          ),
+      },
+      {
         path: 'bookmarks',
         loadComponent: () =>
           import('./features/pages/private/bookmarks-page/bookmarks-page').then(

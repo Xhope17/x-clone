@@ -1,0 +1,65 @@
+<form [formGroup]="communityForm" class="flex flex-col gap-4">
+  @if (isSubmitting()) {
+    <div
+      class="absolute inset-0 z-10 bg-base-100/50 backdrop-blur-[1px] flex items-center justify-center rounded-b-3xl"
+    >
+      <span class="loading loading-spinner text-primary"></span>
+    </div>
+  }
+
+  <label class="form-control w-full">
+    <div class="label pt-0">
+      <span class="label-text font-bold text-base-content/80">Nombre</span>
+    </div>
+    <label
+      class="input input-bordered flex items-center gap-2 bg-base-200/50 focus-within:bg-base-100 focus-within:ring-1 focus-within:ring-primary focus-within:border-primary transition-all"
+    >
+      <span class="text-base-content/50 font-bold">c/</span>
+      <input
+        type="text"
+        formControlName="name"
+        placeholder="desarrolladores"
+        class="grow bg-transparent"
+      />
+    </label>
+    <div class="label pb-0">
+      <span class="label-text-alt text-base-content/50"
+        >El nombre no se puede cambiar después.</span
+      >
+    </div>
+  </label>
+
+  <label class="form-control w-full">
+    <div class="label pt-0">
+      <span class="label-text font-bold text-base-content/80">Descripción (Opcional)</span>
+    </div>
+    <textarea
+      formControlName="description"
+      class="textarea textarea-bordered bg-base-200/50 focus:bg-base-100 focus:ring-1 focus:ring-primary focus:border-primary resize-none h-24"
+      placeholder="¿Cuál es el propósito de esta comunidad?"
+    ></textarea>
+  </label>
+
+  <div class="form-control bg-base-200/50 rounded-2xl p-4 border border-base-content/5 mt-2">
+    <label class="cursor-pointer flex items-start gap-4">
+      <input type="checkbox" formControlName="isPrivate" class="toggle toggle-primary mt-1" />
+      <div class="flex flex-col">
+        <span class="font-bold text-base-content flex items-center gap-2">
+          <i class="fa-solid fa-lock text-[13px]"></i> Privada
+        </span>
+        <span class="text-sm text-base-content/60 mt-1 leading-relaxed">
+          Solo los miembros podrán ver y participar en las publicaciones de esta comunidad.
+        </span>
+      </div>
+    </label>
+  </div>
+
+  @if (errorMessage()) {
+    <div
+      class="p-3 bg-error/10 text-error text-sm font-semibold rounded-xl flex items-center gap-2"
+    >
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      {{ errorMessage() }}
+    </div>
+  }
+</form>
