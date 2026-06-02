@@ -9,7 +9,9 @@
       <i class="fa-solid fa-arrow-left text-lg"></i>
     </button>
     <div class="flex flex-col">
-      <h1 class="text-xl font-bold leading-tight tracking-tight">Seguidores</h1>
+      <h1 class="text-xl font-bold leading-tight tracking-tight">
+        {{ listType() === 'followers' ? 'Seguidores' : 'Siguiendo' }}
+      </h1>
       <p class="text-xs text-base-content/60 font-medium">@{{ usernameUrl() }}</p>
     </div>
   </div>
@@ -21,13 +23,13 @@
       </div>
     } @else {
       <div class="flex flex-col gap-1">
-        @for (user of followers(); track user.profileId) {
+        @for (user of usersList(); track user.profileId) {
           <!-- tarjeta de usuario -->
           <a
             [routerLink]="['/', user.username]"
             class="flex items-center justify-between p-3 hover:bg-base-200/50 rounded-2xl transition-colors cursor-pointer border border-transparent hover:border-base-content/5 group"
           >
-            <!-- Lado Izquierdo: Foto y Nombres -->
+            <!-- avatar y nombres -->
             <div class="flex items-center gap-3 overflow-hidden">
               <div class="avatar drop-shadow-sm shrink-0">
                 <div
@@ -87,8 +89,16 @@
             <div class="text-4xl mb-4 opacity-50">
               <i class="fa-solid fa-users-slash"></i>
             </div>
-            <h3 class="font-bold text-lg text-base-content">Aún no hay seguidores</h3>
-            <p class="text-sm mt-1">Cuando alguien siga a @{{ usernameUrl() }}, aparecerá aquí.</p>
+            <h3 class="font-bold text-lg text-base-content">
+              {{ listType() === 'followers' ? 'Aún no hay seguidores' : 'No sigue a nadie aún' }}
+            </h3>
+            <p class="text-sm mt-1">
+              {{
+                listType() === 'followers'
+                  ? 'Cuando alguien siga a @' + usernameUrl() + ', aparecerá aquí.'
+                  : '@' + usernameUrl() + ' no ha empezado a seguir a otros usuarios.'
+              }}
+            </p>
           </div>
         }
       </div>

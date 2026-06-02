@@ -89,16 +89,18 @@ export const routes: Routes = [
       },
       {
         path: ':username/followers',
+        data: { listType: 'followers' }, // Le decimos que es la lista de seguidores
         loadComponent: () =>
-          import('./features/pages/private/follow/followers-page/followers-page').then(
-            (m) => m.FollowersPage,
+          import('./features/pages/private/follow/follow-list-page/follow-list-page').then(
+            (m) => m.FollowListPage,
           ),
       },
       {
         path: ':username/following',
+        data: { listType: 'following' }, // Le decimos que es la lista de seguidos
         loadComponent: () =>
-          import('./features/pages/private/follow/following-page/following-page').then(
-            (m) => m.FollowingPage,
+          import('./features/pages/private/follow/follow-list-page/follow-list-page').then(
+            (m) => m.FollowListPage,
           ),
       },
       {
