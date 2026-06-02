@@ -35,6 +35,86 @@
         (onDelete)="handleDeletePost($event)"
       ></app-post-card>
 
+      @if (threadChain().length > 0) {
+        <div class="mt-2 mb-4 pl-2 border-l-2 border-base-content/10">
+          @for (
+            ancestor of threadChain().slice(1);
+            track ancestor.id;
+            let i = $index
+          ) {
+            @if (i < revealedLevels()) {
+              <div
+                class="ml-3 mb-2 p-3 rounded-xl bg-base-200/20 border border-base-content/5 hover:bg-base-200/30 transition-colors cursor-pointer"
+                [routerLink]="['/i/post', ancestor.id]"
+              >
+                <div class="flex items-center gap-2 mb-1.5">
+                  <div class="avatar">
+                    <div
+                      class="w-6 h-6 rounded-full bg-neutral text-neutral-content overflow-hidden ring-1 ring-base-content/10"
+                    >
+                      @if (ancestor.author.avatarUrl) {
+                        <img
+                          [src]="ancestor.author.avatarUrl"
+                          alt="Avatar"
+                          class="w-full h-full object-cover"
+                        />
+                      } @else {
+                        <span
+                          class="text-[10px] font-bold flex items-center justify-center h-full"
+                        >{{ ancestor.author.displayName.charAt(0) | uppercase }}</span>
+                      }
+                    </div>
+                  </div>
+                  <span class="font-semibold text-sm text-base-content">{{ ancestor.author.displayName }}</span>
+                  <span class="text-xs text-base-content/50">@{{ ancestor.author.username }}</span>
+                  <span class="text-xs text-base-content/40">•</span>
+                  <span class="text-xs text-base-content/40">{{ ancestor.createdAt | date: 'd MMM, h:mm a' }}</span>
+                </div>
+
+                @if (ancestor.content) {
+                  <p
+                    class="text-sm text-base-content/80 whitespace-pre-wrap leading-relaxed mb-1"
+                    [innerHTML]="ancestor.content | linkifyPipe"
+                  ></p>
+                }
+
+                @if (ancestor.media && ancestor.media.length > 0) {
+                  <div class="mt-1.5 rounded-lg overflow-hidden border border-base-content/5 bg-base-300/20 max-h-40">
+                    @if (ancestor.media[0].mediaType.includes('video')) {
+                      <video
+                        class="max-h-40 w-full object-contain bg-black/5"
+                        [src]="ancestor.media[0].url"
+                      ></video>
+                    } @else {
+                      <img
+                        [src]="ancestor.media[0].url"
+                        alt="Post media"
+                        class="max-h-40 w-full object-contain"
+                      />
+                    }
+                  </div>
+                }
+
+                <div class="flex items-center gap-3 mt-2 text-xs text-base-content/40">
+                  <span><i class="fa-regular fa-heart mr-1"></i>{{ ancestor.likeCount }}</span>
+                  <span><i class="fa-regular fa-comment mr-1"></i>{{ ancestor.commentCount }}</span>
+                </div>
+              </div>
+
+              @if (ancestor.isThread && ancestor.originalPost && i < threadChain().length - 1 && i >= revealedLevels() - 1) {
+                <button
+                  (click)="$event.stopPropagation(); revealNextLevel()"
+                  class="ml-6 mb-2 btn btn-ghost btn-xs text-teal-600 hover:text-teal-500 hover:bg-teal-500/10 rounded-full font-semibold gap-1.5"
+                >
+                  <i class="fa-solid fa-arrow-up text-[10px]"></i>
+                  Ver hilo original
+                </button>
+              }
+            }
+          }
+        </div>
+      }
+
       <div class="mt-2 sm:mt-4 pt-4 sm:pt-6 border-t border-base-content/5">
         <div
           class="flex items-center gap-2 sm:gap-3 mb-6 sm:mb-8 bg-base-200 p-1.5 sm:p-2.5 rounded-[2rem] border border-base-300 focus-within:bg-base-100 focus-within:border-teal-500 focus-within:shadow-md focus-within:shadow-teal-900/10 transition-all duration-300"

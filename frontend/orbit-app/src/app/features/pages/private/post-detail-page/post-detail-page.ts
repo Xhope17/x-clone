@@ -1,6 +1,6 @@
 import { DatePipe, UpperCasePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PostCardComponent } from '../../../../shared/components/post-card-component/post-card-component';
 import { AuthService } from '../../../../shared/services/auth.service';
 import { Post, PostComment } from '../../../interfaces/post.interface';
@@ -9,9 +9,11 @@ import { Location } from '@angular/common';
 import { UserService } from '../../../services/user.service';
 import { UserProfile } from '../../../interfaces/user-profile.interface';
 import { CommentItemComponent } from '../../../../shared/components/comment-item-component/comment-item-component';
+import { LinkifyPipe } from '../../../../shared/pipes/LinkifyPipe-pipe';
+
 @Component({
   selector: 'app-post-detail-page',
-  imports: [PostCardComponent, DatePipe, UpperCasePipe, CommentItemComponent],
+  imports: [PostCardComponent, DatePipe, UpperCasePipe, CommentItemComponent, RouterLink, LinkifyPipe],
   templateUrl: './post-detail-page.html',
   styleUrl: './post-detail-page.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -32,6 +34,9 @@ export class PostDetailPage implements OnInit {
   public loading = signal(true);
   public error = signal('');
   public isSubmittingComment = signal(false);
+
+  public threadChain = signal<Post[]>([]);
+  public revealedLevels = signal(1);
 
   ngOnInit() {
     if (this.authService.isAuthenticated()) {
@@ -58,30 +63,33 @@ export class PostDetailPage implements OnInit {
     this.location.back();
   }
 
-  // loadUserProfile(username: string) {
-  //   this.userService.getUserByUsername(username).subscribe({
-  //     next: (resp) => {
-  //       if (resp.isSuccess && resp.data) {
-  //         this.currentProfile.set(resp.data);
-  //       }
-  //     },
-  //     error: (err) => {
-  //       console.error('Error al obtener el usuario actual', username, err);
-  //       this.router.navigate(['/home']);
-  //     },
-  //   });
-  // }
+  private extractThreadChain(parentPost: Post): Post[] {
+    const chain: Post[] = [];
+    let current = parentPost.originalPost;
+    while (current) {
+      chain.push(current);
+      current = current.isThread ? current.originalPost : null;
+    }
+    return chain;
+  }
+
+  revealNextLevel() {
+    this.revealedLevels.update((v) => v + 1);
+  }
 
   loadPostAndComments(postId: string) {
     this.loading.set(true);
 
-    // PRIMERO pedimos el Post
     this.postService.getPostById(postId).subscribe({
       next: (postRes) => {
         if (postRes.isSuccess && postRes.data) {
-          this.post.set(postRes.data);
+          const loadedPost = postRes.data;
+          this.post.set(loadedPost);
 
-          // SEGUNDO pedimos los Comentarios
+          if (loadedPost.isThread && loadedPost.originalPost) {
+            this.threadChain.set(this.extractThreadChain(loadedPost));
+          }
+
           this.postService.getComments(postId).subscribe({
             next: (commentRes) => {
               if (commentRes.isSuccess && commentRes.data?.items) {

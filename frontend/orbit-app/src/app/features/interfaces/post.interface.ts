@@ -29,6 +29,11 @@ export interface Post {
   isSaved: boolean;
   createdAt: string;
   updatedAt: string;
+  isRepost: boolean;
+  isThread: boolean;
+  originalPostId: string | null;
+  originalAuthor: PostAuthor | null;
+  originalPost: Post | null;
 }
 
 export interface PostComment {
