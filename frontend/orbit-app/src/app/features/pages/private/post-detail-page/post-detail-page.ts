@@ -31,7 +31,7 @@ export class PostDetailPage implements OnInit {
 
   public loading = signal(true);
   public error = signal('');
-  public isSubmittingComment = signal(false); //botón enviar comentario
+  public isSubmittingComment = signal(false);
 
   ngOnInit() {
     if (this.authService.isAuthenticated()) {
@@ -152,7 +152,9 @@ export class PostDetailPage implements OnInit {
     this.postService.deleteComment(commentId).subscribe({
       next: (res) => {
         if (res.isSuccess) {
+          // Filtra el comentario de la lista al instante (Optimistic UI)
           this.comments.update((comments) => comments.filter((c) => c.id !== commentId));
+          // Resta 1 al contador del Post sin bajar de 0
           this.post.update((p) =>
             p ? { ...p, commentCount: Math.max(0, p.commentCount - 1) } : null,
           );
@@ -160,5 +162,44 @@ export class PostDetailPage implements OnInit {
       },
       error: (err) => console.error('Error al eliminar comentario', err),
     });
+  }
+
+  handleLikeComment(commentId: string) {
+    const comment = this.comments().find((c) => c.id === commentId);
+    if (!comment) return;
+
+    if (comment.isLiked) {
+      // Si ya tiene like, lo quitamos (DELETE)
+      this.postService.disLikeComment(commentId).subscribe({
+        next: (res) => {
+          if (res.isSuccess && res.data) {
+            this.toggleCommentLikeUI(commentId, res.data.isLiked, res.data.likeCount);
+          }
+        },
+        error: (err) => console.error('Error al quitar like al comentario', err),
+      });
+    } else {
+      // Si no tiene like, lo damos (POST)
+      this.postService.likeComment(commentId).subscribe({
+        next: (res) => {
+          if (res.isSuccess && res.data) {
+            this.toggleCommentLikeUI(commentId, res.data.isLiked, res.data.likeCount);
+          }
+        },
+        error: (err) => console.error('Error al dar like al comentario', err),
+      });
+    }
+  }
+
+  // actualizar la UI
+  private toggleCommentLikeUI(commentId: string, isLiked: boolean, likeCount: number): void {
+    this.comments.update((currentComments) =>
+      currentComments.map((c) => {
+        if (c.id === commentId) {
+          return { ...c, isLiked, likeCount };
+        }
+        return c;
+      }),
+    );
   }
 }

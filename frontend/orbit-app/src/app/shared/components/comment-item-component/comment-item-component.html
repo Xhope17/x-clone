@@ -1,7 +1,10 @@
 <article
   class="flex gap-2.5 sm:gap-3 p-3 sm:p-4 mb-2 bg-transparent hover:bg-base-200/50 rounded-[1.5rem] transition-colors relative group border border-transparent hover:border-base-content/5"
 >
-  <a [routerLink]="['/', comment().author.username]" class="avatar shrink-0 pt-0.5 sm:pt-1 cursor-pointer hover:opacity-80 transition-opacity">
+  <a
+    [routerLink]="['/', comment().author.username]"
+    class="avatar shrink-0 pt-0.5 sm:pt-1 cursor-pointer hover:opacity-80 transition-opacity"
+  >
     <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-neutral text-neutral-content shadow-sm">
       @if (comment().author.avatarUrl) {
         <img [src]="comment().author.avatarUrl" class="object-cover" />
@@ -15,12 +18,17 @@
 
   <div class="flex flex-col w-full pr-6 sm:pr-8">
     <div class="flex flex-wrap items-center gap-x-1 sm:gap-x-1.5 gap-y-0.5">
-
-      <a [routerLink]="['/', comment().author.username]" class="font-bold text-[14px] sm:text-[15px] text-base-content hover:underline transition-colors cursor-pointer">
+      <a
+        [routerLink]="['/', comment().author.username]"
+        class="font-bold text-[14px] sm:text-[15px] text-base-content hover:underline transition-colors cursor-pointer"
+      >
         {{ comment().author.displayName }}
       </a>
 
-      <a [routerLink]="['/', comment().author.username]" class="text-[12px] sm:text-[13px] text-base-content/50 hover:text-teal-500 transition-colors cursor-pointer">
+      <a
+        [routerLink]="['/', comment().author.username]"
+        class="text-[12px] sm:text-[13px] text-base-content/50 hover:text-teal-500 transition-colors cursor-pointer"
+      >
         @{{ comment().author.username }}
       </a>
 
@@ -31,21 +39,57 @@
       </span>
     </div>
 
-    <p class="text-[14px] sm:text-[15px] text-base-content/90 mt-0.5 sm:mt-1 leading-relaxed whitespace-pre-wrap">
+    <p
+      class="text-[14px] sm:text-[15px] text-base-content/90 mt-0.5 sm:mt-1 leading-relaxed whitespace-pre-wrap"
+    >
       {{ comment().content }}
     </p>
 
     <div class="flex gap-4 mt-2 text-base-content/40">
-      <button class="hover:text-teal-500 transition-colors text-[11px] sm:text-xs font-medium flex items-center gap-1.5">
-        <i class="fa-regular fa-heart"></i> Me gusta
+      <button
+        class="transition-colors text-[11px] sm:text-xs font-medium flex items-center gap-1.5 group hover:text-teal-500"
+      >
+        <div
+          class="p-1.5 -ml-1.5 rounded-full group-hover:bg-teal-500/10 transition-colors flex items-center justify-center"
+        >
+          <i class="fa-regular fa-comment"></i>
+        </div>
+        <span>
+          {{ comment().replyCount > 0 ? comment().replyCount : 'Responder' }}
+        </span>
+      </button>
+
+      <button
+        (click)="handleLike()"
+        class="transition-colors text-[11px] sm:text-xs font-medium flex items-center gap-1.5 group"
+        [class.text-error]="comment().isLiked"
+        [class.hover:text-error]="!comment().isLiked"
+      >
+        <div
+          class="p-1.5 -ml-1.5 rounded-full group-hover:bg-error/10 transition-colors flex items-center justify-center"
+        >
+          <i
+            class="fa-heart"
+            [class.fa-solid]="comment().isLiked"
+            [class.fa-regular]="!comment().isLiked"
+          ></i>
+        </div>
+        <span>
+          {{ comment().likeCount > 0 ? comment().likeCount : 'Me gusta' }}
+        </span>
       </button>
     </div>
   </div>
 
+  <!-- <div class="w-full text-[10px] bg-warning/20 text-warning p-2 mt-2 rounded-lg break-words">
+    <p><b>Mi ID:</b> {{ currentUserId() }}</p>
+    <p><b>Autor ID:</b> {{ comment().author.profileId }}</p>
+  </div> -->
+
   @if (currentUserId() === comment().author.profileId) {
     <button
       (click)="handleDelete()"
-      class="btn btn-ghost btn-xs sm:btn-sm btn-circle absolute top-2 right-2 sm:top-3 sm:right-3 text-base-content/40 hover:text-error hover:bg-error/10 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-all focus:opacity-100"
+      class="btn btn-ghost btn-xs sm:btn-sm btn-circle absolute top-2 right-2 sm:top-3 sm:right-3 text-base-content/40 hover:text-error hover:bg-error/10 transition-all"
       title="Eliminar respuesta"
     >
       <i class="fa-regular fa-trash-can text-xs sm:text-sm"></i>

@@ -3,6 +3,7 @@ export interface PostAuthor {
   username: string;
   displayName: string;
   avatarUrl: string | null;
+  isFollowing: boolean;
 }
 
 export interface Media {
@@ -32,11 +33,25 @@ export interface PostComment {
   id: string;
   author: PostAuthor;
   content: string;
-  createdAt: string;
+  parentCommentId: string | null;
+  replyCount: number;
+  likeCount: number;
+  isLiked: boolean;
+  createdAt: Date;
 }
 
 export interface LikeResponse {
   postId: string;
   isLiked: boolean;
   likeCount: number;
+}
+
+export interface PaginatedComments {
+  items: PostComment[];
+  totalCount: number;
+  page: number;
+  pageSize: number;
+  totalPages: number;
+  hasPreviousPage: boolean;
+  hasNextPage: boolean;
 }

@@ -73,4 +73,13 @@ export class PostService {
       params,
     });
   }
+
+  //COMENTARIOS
+  likeComment(commentId: string) {
+    return this.http.post<ApiResponse<LikeResponse>>(`${this.API}/comments/${commentId}/like`, {});
+  }
+
+  disLikeComment(commentId: string) {
+    return this.http.delete<ApiResponse<LikeResponse>>(`${this.API}/comments/${commentId}/like`);
+  }
 }

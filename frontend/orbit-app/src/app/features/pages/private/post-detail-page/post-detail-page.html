@@ -84,8 +84,9 @@
         @for (comment of comments(); track comment.id) {
           <comment-item-component
             [comment]="comment"
-            [currentUserId]="authService.userId()"
+            [currentUserId]="authService.payload()?.profile_id ?? null"
             (onDelete)="deleteComment($event)"
+            (onLike)="handleLikeComment($event)"
           >
           </comment-item-component>
         } @empty {
