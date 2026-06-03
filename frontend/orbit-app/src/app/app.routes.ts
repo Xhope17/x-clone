@@ -94,6 +94,13 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'i/notifications',
+        loadComponent: () =>
+          import('./features/pages/private/notifications-page/notifications-page').then(
+            (m) => m.NotificationsPage,
+          ),
+      },
+      {
         path: 'i/premium',
         loadComponent: () =>
           import('./features/pages/private/premium-page/premium-page').then((m) => m.PremiumPage),

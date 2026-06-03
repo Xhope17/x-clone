@@ -1,5 +1,172 @@
-<h1 class="text-2xl font-bold">Chat</h1>
-<h2>Aquí se mostrarán los chats</h2>
-<p>Este va a estar difícil</p>
-<br>
-<en-contruccion-component></en-contruccion-component>
+<div class="flex h-full min-h-[calc(100vh-60px)] overflow-hidden">
+  @if (showMobileList() || !activeConversation()) {
+    <div class="flex flex-col w-full md:max-w-sm border-r border-base-300">
+      <div class="p-3 border-b border-base-300">
+        <h1 class="text-xl font-bold">Mensajes</h1>
+        <div class="mt-2 flex gap-2">
+          <input
+            [(ngModel)]="newMessageUsername"
+            placeholder="Nombre de usuario..."
+            class="input input-bordered input-sm flex-1"
+            (keyup.enter)="createNewConversation()"
+          />
+          <button
+            class="btn btn-primary btn-sm"
+            (click)="createNewConversation()"
+            [disabled]="!newMessageUsername().trim()"
+          >
+            Nuevo
+          </button>
+        </div>
+      </div>
+
+      <div class="flex-1 overflow-y-auto">
+        @if (loadingConversations()) {
+          <div class="flex justify-center p-4">
+            <span class="loading loading-spinner loading-md text-teal-500"></span>
+          </div>
+        } @else if (conversations().length === 0) {
+          <div class="p-4 text-center text-base-content/60">
+            <p>No tienes conversaciones aún.</p>
+            <p class="text-sm mt-1">Busca un usuario para iniciar un chat.</p>
+          </div>
+        } @else {
+          @for (conv of conversations(); track trackByConversationId($index, conv)) {
+            <button
+              class="w-full p-3 flex gap-3 hover:bg-base-200 transition-colors text-left border-b border-base-200/50"
+              [class.bg-teal-500/10]="activeConversation()?.id === conv.id"
+              (click)="selectConversation(conv)"
+            >
+              <div class="avatar">
+                <div class="w-12 h-12 rounded-full bg-neutral text-neutral-content">
+                  @if (conv.otherParticipant.avatarUrl) {
+                    <img [src]="conv.otherParticipant.avatarUrl" alt="avatar" />
+                  } @else {
+                    <span class="text-lg font-bold flex items-center justify-center w-full h-full">
+                      {{ conv.otherParticipant.displayName.charAt(0) | uppercase }}
+                    </span>
+                  }
+                </div>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex justify-between items-baseline">
+                  <span class="font-semibold truncate">{{ conv.otherParticipant.displayName }}</span>
+                  @if (conv.lastMessage) {
+                    <span class="text-xs text-base-content/50">{{ conv.lastMessage.createdAt | date:'short' }}</span>
+                  }
+                </div>
+                <div class="flex justify-between items-center mt-0.5">
+                  <span class="text-sm text-base-content/70 truncate">
+                    @if (conv.lastMessage) {
+                      @if (conv.isLastMessageFromCurrentUser) { <span class="font-medium">Tú: </span> }
+                      {{ conv.lastMessage.content }}
+                    } @else {
+                      <span class="italic text-base-content/40">Se el primero en enviar un mensaje</span>
+                    }
+                  </span>
+                  @if (conv.unreadCount > 0) {
+                    <span class="badge badge-sm badge-primary ml-2 shrink-0">{{ conv.unreadCount }}</span>
+                  }
+                </div>
+              </div>
+            </button>
+          }
+        }
+      </div>
+    </div>
+  }
+
+  @if (activeConversation(); as conv) {
+    <div class="flex flex-col flex-1 min-w-0" [class.hidden]="showMobileList() && activeConversation()">
+      <div class="p-3 border-b border-base-300 flex items-center gap-3 shrink-0">
+        <button class="btn btn-ghost btn-sm md:hidden" (click)="goBackToList()">
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <div class="avatar">
+          <div class="w-10 h-10 rounded-full bg-neutral text-neutral-content">
+            @if (conv.otherParticipant.avatarUrl) {
+              <img [src]="conv.otherParticipant.avatarUrl" alt="avatar" />
+            } @else {
+              <span class="text-sm font-bold flex items-center justify-center w-full h-full">
+                {{ conv.otherParticipant.displayName.charAt(0) | uppercase }}
+              </span>
+            }
+          </div>
+        </div>
+        <div>
+          <span class="font-semibold">{{ conv.otherParticipant.displayName }}</span>
+          <span class="text-sm text-base-content/60 ml-1">@{{ conv.otherParticipant.username }}</span>
+        </div>
+      </div>
+
+      <div class="flex-1 overflow-y-auto p-4 space-y-3">
+        @if (loadingMessages()) {
+          <div class="flex justify-center p-4">
+            <span class="loading loading-spinner loading-md text-teal-500"></span>
+          </div>
+        } @else if (messages().length === 0) {
+          <div class="flex items-center justify-center h-full text-base-content/60">
+            <p>No hay mensajes aún. Envía el primero.</p>
+          </div>
+        } @else {
+          @for (msg of messages(); track trackByMessageId($index, msg)) {
+            <div class="flex" [class.justify-end]="isOwnMessage(msg)" [class.justify-start]="!isOwnMessage(msg)">
+              <div
+                class="max-w-[75%] px-3 py-2 rounded-2xl"
+                [class.bg-teal-500]="isOwnMessage(msg)"
+                [class.text-white]="isOwnMessage(msg)"
+                [class.bg-base-200]="!isOwnMessage(msg)"
+              >
+                <p class="text-sm whitespace-pre-wrap break-words">{{ msg.content }}</p>
+                <div class="flex justify-end items-center gap-1 mt-1">
+                  <span class="text-[10px]" [class.text-white/70]="isOwnMessage(msg)" [class.text-base-content/50]="!isOwnMessage(msg)">
+                    {{ msg.createdAt | date:'shortTime' }}
+                  </span>
+                  @if (isOwnMessage(msg)) {
+                    <i class="fa-solid fa-check text-[10px]" [class.text-white/70]="isOwnMessage(msg)"></i>
+                    @if (msg.isSeen) {
+                      <i class="fa-solid fa-check-double text-[10px] text-blue-300"></i>
+                    }
+                  }
+                </div>
+              </div>
+            </div>
+          }
+        }
+
+        @if (typingProfile(); as typing) {
+          <div class="flex items-center gap-2 text-sm text-base-content/50 italic">
+            <span class="loading loading-dots loading-xs"></span>
+            {{ typing.displayName }} está escribiendo...
+          </div>
+        }
+      </div>
+
+      <div class="p-3 border-t border-base-300 shrink-0">
+        <div class="flex gap-2">
+          <input
+            [(ngModel)]="messageInput"
+            (keyup.enter)="sendMessage()"
+            (keyup)="onTyping()"
+            placeholder="Escribe un mensaje..."
+            class="input input-bordered flex-1"
+          />
+          <button
+            class="btn btn-primary btn-square"
+            (click)="sendMessage()"
+            [disabled]="!messageInput().trim()"
+          >
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  } @else if (!showMobileList()) {
+    <div class="hidden md:flex flex-1 items-center justify-center text-base-content/40">
+      <div class="text-center">
+        <i class="fa-regular fa-comment-dots text-6xl mb-3"></i>
+        <p class="text-lg">Selecciona una conversación</p>
+      </div>
+    </div>
+  }
+</div>
