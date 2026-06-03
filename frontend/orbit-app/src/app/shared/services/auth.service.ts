@@ -8,6 +8,7 @@ import { environment } from '../../../environments/environment';
 import { JwtPayload, LoginRequest, LoginResponse } from '../../features/interfaces/login.interface';
 import { ApiResponse } from '../interfaces/apiResponse.interface';
 import { UserProfile } from '../../features/interfaces/user-profile.interface';
+import { SignalrService } from './signalr.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,12 +16,20 @@ import { UserProfile } from '../../features/interfaces/user-profile.interface';
 export class AuthService {
   private http = inject(HttpClient);
   private router = inject(Router);
+  private signalrService = inject(SignalrService);
 
   private readonly API = environment.apiUrl;
   private readonly TOKEN_KEY = environment.tokenKey;
   private readonly REFRESH_TOKEN_KEY = environment.refreshTokenKey;
 
   private _token = signal<string | null>(this.getValidToken());
+
+  constructor() {
+    const token = this._token();
+    if (token) {
+      this.signalrService.startConnections(token);
+    }
+  }
 
   // para @if del HTML
   isAuthenticated = computed(() => !!this._token());
@@ -43,6 +52,7 @@ export class AuthService {
         if (tokenToSave) {
           localStorage.setItem(this.TOKEN_KEY, tokenToSave);
           this._token.set(tokenToSave);
+          this.signalrService.startConnections(tokenToSave);
         }
         if (refreshTokenToSave) {
           localStorage.setItem(this.REFRESH_TOKEN_KEY, refreshTokenToSave);
@@ -56,6 +66,7 @@ export class AuthService {
   }
 
   logout() {
+    this.signalrService.stopConnections();
     localStorage.removeItem(this.TOKEN_KEY);
     localStorage.removeItem(this.REFRESH_TOKEN_KEY);
 
@@ -83,6 +94,7 @@ export class AuthService {
             localStorage.setItem(this.TOKEN_KEY, res.data.accessToken);
             localStorage.setItem(this.REFRESH_TOKEN_KEY, res.data.refreshToken);
             this._token.set(res.data.accessToken);
+            this.signalrService.restartConnections(res.data.accessToken);
           }
         }),
       );

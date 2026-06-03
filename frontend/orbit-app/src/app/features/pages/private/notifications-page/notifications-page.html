@@ -1,0 +1,61 @@
+<div class="p-4">
+  <div class="flex items-center justify-between mb-4">
+    <h1 class="text-2xl font-bold">Notificaciones</h1>
+    @if (unreadCount() > 0) {
+      <button class="btn btn-ghost btn-sm text-teal-500" (click)="markAllAsRead()">
+        Marcar todas como leídas
+      </button>
+    }
+  </div>
+
+  @if (loading()) {
+    <div class="flex justify-center p-8">
+      <span class="loading loading-spinner loading-lg text-teal-500"></span>
+    </div>
+  } @else if (notifications().length === 0) {
+    <div class="flex flex-col items-center justify-center p-8 text-base-content/50">
+      <i class="fa-regular fa-bell-slash text-6xl mb-4"></i>
+      <p class="text-lg">No hay notificaciones aún</p>
+    </div>
+  } @else {
+    <div class="space-y-1">
+      @for (notif of notifications(); track notif.id) {
+        <div
+          class="flex gap-3 p-3 rounded-xl transition-colors cursor-pointer"
+          [class.bg-teal-500/5]="!notif.isRead"
+          [class.hover:bg-base-200]="!notif.isRead"
+          [class.hover:bg-base-100]="notif.isRead"
+          (click)="!notif.isRead && markAsRead(notif.id)"
+          [routerLink]="notif.postId ? ['/i/post', notif.postId] : undefined"
+        >
+          <div class="shrink-0 w-10 h-10 rounded-full bg-neutral text-neutral-content flex items-center justify-center">
+            @if (notif.actor.avatarUrl) {
+              <img [src]="notif.actor.avatarUrl" class="w-full h-full rounded-full object-cover" />
+            } @else {
+              <span class="font-bold">{{ notif.actor.displayName.charAt(0) }}</span>
+            }
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm">
+              <span class="font-semibold">{{ notif.actor.displayName }}</span>
+              <span class="text-base-content/60"> @{{ notif.actor.username }} </span>
+              <span class="text-base-content/70"> {{ typeLabel(notif.type) }} </span>
+            </p>
+            @if (notif.postPreview) {
+              <p class="text-sm text-base-content/50 truncate mt-0.5">{{ notif.postPreview }}</p>
+            }
+            @if (notif.totalCount > 1) {
+              <p class="text-xs text-base-content/40 mt-0.5">{{ notif.totalCount }} interacciones</p>
+            }
+            <p class="text-xs text-base-content/40 mt-1">{{ notif.createdAt | date:'medium' }}</p>
+          </div>
+          @if (!notif.isRead) {
+            <div class="shrink-0 flex items-start pt-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-teal-500"></span>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  }
+</div>
