@@ -58,6 +58,14 @@
         >
           <li>
             <button
+              (click)="onEdit.emit(post())"
+              class="font-semibold hover:bg-primary/10 hover:text-primary rounded-xl"
+            >
+              <i class="fa-regular fa-pen-to-square mr-2"></i> Editar
+            </button>
+          </li>
+          <li>
+            <button
               (click)="onDelete.emit(post().id)"
               class="text-error font-semibold hover:bg-error/10 hover:text-error rounded-xl"
             >

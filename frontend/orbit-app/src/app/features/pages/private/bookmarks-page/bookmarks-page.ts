@@ -7,6 +7,7 @@ import { Post } from '../../../interfaces/post.interface';
 import { BookmarkService } from '../../../services/bookmark.service';
 import { PostService } from '../../../services/post.service';
 import { CreateQuoteModal } from '../feed/components/create-quote-modal/create-quote-modal';
+import { CreatePostModal } from '../../../../shared/components/create-post-modal/create-post-modal';
 
 @Component({
   selector: 'app-bookmarks-page',
@@ -91,6 +92,26 @@ export class BookmarksPage implements OnInit {
       btnText: 'Eliminar',
       btnClass: 'btn-error text-white',
       onSave: confirmSubject,
+    });
+  }
+
+  handleEditPost(post: Post) {
+    const saveSubject = new Subject<void>();
+    const successSubject = new Subject<Post>();
+
+    successSubject.subscribe((updatedPost) => {
+      this.posts.update((currentPosts) =>
+        currentPosts.map((p) => (p.id === post.id ? { ...p, ...updatedPost } : p)),
+      );
+    });
+
+    this.dialogService.open({
+      title: 'Editar publicación',
+      component: CreatePostModal,
+      btnText: 'Guardar',
+      onSave: saveSubject,
+      onSuccess: successSubject,
+      componentInputs: { postToEdit: post },
     });
   }
 

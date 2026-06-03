@@ -3,6 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DialogService } from '../../services/dialog.service';
 import { PostService } from '../../../features/services/post.service';
 import { CommunityService } from '../../../features/services/community.service';
+import { Post } from '../../../features/interfaces/post.interface';
 
 @Component({
   selector: 'app-create-post-modal',
@@ -21,6 +22,7 @@ export class CreatePostModal implements OnInit {
 
   //para comunidades
   public communitySlug = input<string>();
+  public postToEdit = input<Post>();
   private communityService = inject(CommunityService);
 
   public isPosting = signal(false);
@@ -35,6 +37,11 @@ export class CreatePostModal implements OnInit {
   });
 
   ngOnInit() {
+    const editData = this.postToEdit();
+    if (editData) {
+      this.postForm.patchValue({ content: editData.content });
+    }
+
     const data = this.dialogService.data();
     if (data?.onSave) {
       data.onSave.subscribe(() => {
@@ -164,12 +171,15 @@ export class CreatePostModal implements OnInit {
       formData.append('Media', file);
     });
 
+    const editData = this.postToEdit();
     const dialogData = this.dialogService.data();
     const slug = (dialogData?.componentInputs as any)?.communitySlug || this.communitySlug();
 
-    const request$ = slug
-      ? this.communityService.createCommunityPost(slug, formData) // Post para la comunidad
-      : this.postService.createPost(formData); // Post para el muro normal
+    const request$ = editData
+      ? this.postService.updatePost(editData.id, formData)
+      : slug
+        ? this.communityService.createCommunityPost(slug, formData)
+        : this.postService.createPost(formData);
 
     request$.subscribe({
       next: (res) => {

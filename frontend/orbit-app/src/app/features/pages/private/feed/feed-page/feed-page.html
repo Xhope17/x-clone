@@ -104,6 +104,7 @@
             (onSave)="handleSavePost($event)"
             (onQuote)="handleQuotePost($event)"
             (onRepost)="handleRepostPost($event)"
+            (onEdit)="handleEditPost($event)"
           ></app-post-card>
           </div>
         } @empty {
@@ -148,9 +149,10 @@
             [currentUserId]="authService.payload()?.profile_id ?? null"
             (onDelete)="handleDeletePost($event)"
             (onLike)="handleLikePost($event)"
-            (onSave)="handleSavePost($event)"
+          (onSave)="handleSavePost($event)"
             (onQuote)="handleQuotePost($event)"
             (onRepost)="handleRepostPost($event)"
+            (onEdit)="handleEditPost($event)"
           ></app-post-card>
         } @empty {
           <div
@@ -161,6 +163,17 @@
             >
               <i class="fa-solid fa-satellite-dish"></i>
             </div>
+            <h2 class="text-xl font-bold text-base-content mb-2 tracking-tight">
+              No hay publicaciones
+            </h2>
+            <p class="text-sm text-base-content/60 max-w-xs mb-6">
+              Este feed se genera según tus intereses. Sigue a más personas para personalizarlo.
+            </p>
+          </div>
+        }
+      }
+    </div>
+  </div>
             <h2 class="text-xl font-bold text-base-content mb-2 tracking-tight">
               {{ activeTab() === 'foryou' ? 'No hay publicaciones' : 'Aún no sigues a nadie' }}
             </h2>

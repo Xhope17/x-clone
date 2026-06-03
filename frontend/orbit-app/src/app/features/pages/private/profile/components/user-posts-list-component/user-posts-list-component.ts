@@ -19,6 +19,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BookmarkService } from '../../../../../services/bookmark.service';
 import { Subject } from 'rxjs';
 import { CreateQuoteModal } from '../../../feed/components/create-quote-modal/create-quote-modal';
+import { CreatePostModal } from '../../../../../../shared/components/create-post-modal/create-post-modal';
 
 @Component({
   selector: 'app-user-posts-list',
@@ -151,6 +152,26 @@ export class UserPostsList implements OnInit {
         this.posts.update((currentPosts) => currentPosts.filter((p) => p.id !== postId));
       },
       error: (err) => console.error('Error al eliminar', err),
+    });
+  }
+
+  handleEditPost(post: Post): void {
+    const saveSubject = new Subject<void>();
+    const successSubject = new Subject<Post>();
+
+    successSubject.subscribe((updatedPost) => {
+      this.posts.update((currentPosts) =>
+        currentPosts.map((p) => (p.id === post.id ? { ...p, ...updatedPost } : p)),
+      );
+    });
+
+    this.dialogService.open({
+      title: 'Editar publicación',
+      component: CreatePostModal,
+      btnText: 'Guardar',
+      onSave: saveSubject,
+      onSuccess: successSubject,
+      componentInputs: { postToEdit: post },
     });
   }
 

@@ -240,6 +240,26 @@ export class CommunityDetailPage implements OnInit {
     });
   }
 
+  handleEditPost(post: Post): void {
+    const saveSubject = new Subject<void>();
+    const successSubject = new Subject<Post>();
+
+    successSubject.subscribe((updatedPost) => {
+      this.posts.update((currentPosts) =>
+        currentPosts.map((p) => (p.id === post.id ? { ...p, ...updatedPost } : p)),
+      );
+    });
+
+    this.dialogService.open({
+      title: 'Editar publicación',
+      component: CreatePostModal,
+      btnText: 'Guardar',
+      onSave: saveSubject,
+      onSuccess: successSubject,
+      componentInputs: { postToEdit: post },
+    });
+  }
+
   confirmLeave() {
     const slug = this.currentSlug();
     if (!slug) return;

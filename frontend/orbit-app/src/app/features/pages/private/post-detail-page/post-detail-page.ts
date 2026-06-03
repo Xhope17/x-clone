@@ -15,6 +15,7 @@ import { DialogService } from '../../../../shared/services/dialog.service';
 import { BookmarkService } from '../../../services/bookmark.service';
 import { Subject } from 'rxjs';
 import { CreateQuoteModal } from '../feed/components/create-quote-modal/create-quote-modal';
+import { CreatePostModal } from '../../../../shared/components/create-post-modal/create-post-modal';
 
 @Component({
   selector: 'app-post-detail-page',
@@ -128,6 +129,25 @@ export class PostDetailPage implements OnInit {
       error: (err) => console.error('Error al eliminar post', err),
     });
   }
+
+  handleEditPost(post: Post) {
+    const saveSubject = new Subject<void>();
+    const successSubject = new Subject<Post>();
+
+    successSubject.subscribe((updatedPost) => {
+      this.post.update((p) => (p ? { ...p, ...updatedPost } : null));
+    });
+
+    this.dialogService.open({
+      title: 'Editar publicación',
+      component: CreatePostModal,
+      btnText: 'Guardar',
+      onSave: saveSubject,
+      onSuccess: successSubject,
+      componentInputs: { postToEdit: post },
+    });
+  }
+
   handleLikePost(postId: string) {
     this.postService.toggleLike(postId).subscribe({
       next: (res) => {

@@ -186,6 +186,26 @@ export class FeedPage implements OnInit {
     });
   }
 
+  handleEditPost(post: Post): void {
+    const saveSubject = new Subject<void>();
+    const successSubject = new Subject<Post>();
+
+    successSubject.subscribe((updatedPost) => {
+      this.posts.update((currentPosts) =>
+        currentPosts.map((p) => (p.id === post.id ? { ...p, ...updatedPost } : p)),
+      );
+    });
+
+    this.dialogService.open({
+      title: 'Editar publicación',
+      component: CreatePostModal,
+      btnText: 'Guardar',
+      onSave: saveSubject,
+      onSuccess: successSubject,
+      componentInputs: { postToEdit: post },
+    });
+  }
+
   handleLikePost(postId: string): void {
     const post = this.posts().find((p) => p.id === postId);
     if (!post) return;

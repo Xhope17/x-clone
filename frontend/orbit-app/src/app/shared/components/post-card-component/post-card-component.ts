@@ -41,6 +41,7 @@ export class PostCardComponent implements OnDestroy {
   onSave = output<string>();
   onQuote = output<Post>();
   onRepost = output<string>();
+  onEdit = output<Post>();
 
   fetchedOriginalPost = signal<Post | null>(null);
   linkCopied = signal(false);

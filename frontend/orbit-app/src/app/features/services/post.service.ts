@@ -31,8 +31,8 @@ export class PostService {
     );
   }
 
-  updatePost(postId: string, content: string) {
-    return this.http.put<ApiResponse<Post>>(`${this.API}/posts/${postId}`, { content });
+  updatePost(postId: string, formData: FormData) {
+    return this.http.put<ApiResponse<Post>>(`${this.API}/posts/${postId}`, formData);
   }
 
   deletePost(postId: string) {
