@@ -1,1 +1,65 @@
-<p>contact-us-page works!</p>
+<div class="max-w-3xl mx-auto px-4 py-12 flex flex-col gap-10">
+  <div class="text-center">
+    <div class="flex justify-center mb-6">
+      <div
+        class="w-20 h-20 rounded-2xl bg-gradient-to-br from-teal-400 to-cyan-500 flex items-center justify-center shadow-lg"
+      >
+        <i class="fa-regular fa-paper-plane text-white text-3xl"></i>
+      </div>
+    </div>
+    <h1 class="text-4xl font-black tracking-tight mb-3">Contáctanos</h1>
+    <p class="text-base-content/60 text-lg max-w-xl mx-auto leading-relaxed">
+      ¿Tienes alguna pregunta, sugerencia o problema? Estamos aquí para ayudarte.
+    </p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="grid md:grid-cols-2 gap-4">
+    @for (method of contactMethods(); track method.label) {
+      <div class="card bg-base-200/40 border border-base-content/5 rounded-2xl p-5">
+        <div class="flex items-center gap-4">
+          <div
+            class="w-12 h-12 rounded-xl bg-teal-500/10 flex items-center justify-center text-teal-500 shrink-0"
+          >
+            <i class="{{ method.icon }} text-xl"></i>
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-xs text-base-content/50 font-medium uppercase tracking-wider">
+              {{ method.label }}
+            </p>
+            @if (method.link) {
+              <a
+                [href]="method.link"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="font-semibold text-sm hover:text-teal-500 transition-colors"
+              >
+                {{ method.value }}
+              </a>
+            } @else {
+              <p class="font-semibold text-sm">{{ method.value }}</p>
+            }
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+  <div
+    class="card bg-gradient-to-br from-teal-500/5 to-cyan-500/5 border border-teal-500/10 rounded-2xl p-6 text-center"
+  >
+    <h3 class="font-bold text-lg mb-2">¿Prefieres escribirnos directamente?</h3>
+    <p class="text-sm text-base-content/60 leading-relaxed mb-4">
+      Escríbenos a <span class="font-semibold text-teal-500">soporte@orbitsocial.com</span> y te
+      responderemos dentro de las próximas 24 horas hábiles.
+    </p>
+    <a
+      href="mailto:soporte@orbitsocial.com"
+      class="btn bg-teal-600 hover:bg-teal-500 text-white border-none rounded-full px-6 shadow-md shadow-teal-900/20 hover:scale-[1.02] transition-transform"
+    >
+      <i class="fa-regular fa-envelope mr-1"></i>
+      Enviar correo
+    </a>
+  </div>
+</div>
