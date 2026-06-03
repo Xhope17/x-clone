@@ -12,7 +12,7 @@ import { Post } from '../../../../interfaces/post.interface';
 import { UserService } from '../../../../services/user.service';
 import { UserProfile } from '../../../../interfaces/user-profile.interface';
 import { DialogService } from '../../../../../shared/services/dialog.service';
-import { EditProfileModal } from '../../edit-profile-modal/edit-profile-modal';
+import { EditProfileModal } from '../components/edit-profile-modal/edit-profile-modal';
 import { ProfileHeader } from '../components/profile-header-component/profile-header-component';
 import { ProfileTabs } from '../components/profile-tabs-component/profile-tabs-component';
 import { UserPostsList } from '../components/user-posts-list-component/user-posts-list-component';

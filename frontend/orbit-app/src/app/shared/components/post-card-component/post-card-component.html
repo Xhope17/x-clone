@@ -233,7 +233,7 @@
         class="btn btn-sm h-9 px-3 btn-ghost rounded-full bg-base-200/50 hover:bg-info/10 hover:text-info border-none transition-all font-medium text-base-content/60"
       >
         <i class="fa-regular fa-comment text-[15px]"></i>
-        <span class="ml-1.5">
+        <span class="ml-1.5 hidden sm:inline">
           @if (displayCommentCount() === 0) {
             Comentar
           } @else if (displayCommentCount() === 1) {
@@ -242,25 +242,6 @@
             {{ displayCommentCount() }} Comentarios
           }
         </span>
-      </button>
-
-      <button
-        (click)="handleRepost(); $event.stopPropagation()"
-        class="btn btn-sm h-9 px-3 btn-ghost rounded-full bg-base-200/50 hover:bg-success/10 border-none transition-all font-medium"
-        [class.text-success]="isRepostedByCurrentUser()"
-        [class.hover:text-success]="!isRepostedByCurrentUser()"
-        [class.text-base-content/60]="!isRepostedByCurrentUser()"
-      >
-        <i class="fa-solid fa-retweet text-[15px]"></i>
-        <span class="ml-1.5">Repostear</span>
-      </button>
-
-      <button
-        (click)="handleQuote(); $event.stopPropagation()"
-        class="btn btn-sm h-9 px-3 btn-ghost rounded-full bg-base-200/50 hover:bg-accent/10 hover:text-accent border-none transition-all font-medium text-base-content/60"
-      >
-        <i class="fa-solid fa-pen text-[14px]"></i>
-        <span class="ml-1.5">Citar</span>
       </button>
 
       <button
@@ -274,7 +255,26 @@
           class="fa-heart text-[15px]"
           [class]="displayIsLiked() ? 'fa-solid scale-110' : 'fa-regular'"
         ></i>
-        <span class="ml-1.5">{{ displayLikeCount() }} Me gusta</span>
+        <span class="ml-1.5 hidden sm:inline">{{ displayLikeCount() }} Me gusta</span>
+      </button>
+
+      <button
+        (click)="handleRepost(); $event.stopPropagation()"
+        class="btn btn-sm h-9 px-3 btn-ghost rounded-full bg-base-200/50 hover:bg-success/10 border-none transition-all font-medium"
+        [class.text-success]="isRepostedByCurrentUser()"
+        [class.hover:text-success]="!isRepostedByCurrentUser()"
+        [class.text-base-content/60]="!isRepostedByCurrentUser()"
+      >
+        <i class="fa-solid fa-retweet text-[15px]"></i>
+        <span class="ml-1.5 hidden sm:inline">Repostear</span>
+      </button>
+
+      <button
+        (click)="handleQuote(); $event.stopPropagation()"
+        class="btn btn-sm h-9 px-3 btn-ghost rounded-full bg-base-200/50 hover:bg-accent/10 hover:text-accent border-none transition-all font-medium text-base-content/60"
+      >
+        <i class="fa-solid fa-pen text-[14px]"></i>
+        <span class="ml-1.5 hidden sm:inline">Citar</span>
       </button>
     </div>
 

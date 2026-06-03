@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject, input, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { forkJoin, lastValueFrom, Observable } from 'rxjs';
-import { UserService } from '../../../services/user.service';
-import { DialogService } from '../../../../shared/services/dialog.service';
-import { UserProfile } from '../../../interfaces/user-profile.interface';
+import { UserService } from '../../../../../services/user.service';
+import { DialogService } from '../../../../../../shared/services/dialog.service';
+import { UserProfile } from '../../../../../interfaces/user-profile.interface';
 
 @Component({
   selector: 'app-edit-profile-modal',

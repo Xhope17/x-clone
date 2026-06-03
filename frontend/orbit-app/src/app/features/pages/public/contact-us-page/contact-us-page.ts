@@ -19,7 +19,7 @@ export class ContactUsPage {
     {
       icon: 'fa-regular fa-envelope',
       label: 'Correo electrónico',
-      value: 'soporte@orbitsocial.com',
+      value: 'soporte@orbit.com',
     },
     {
       icon: 'fa-brands fa-twitter',
@@ -30,8 +30,8 @@ export class ContactUsPage {
     {
       icon: 'fa-brands fa-github',
       label: 'GitHub',
-      value: 'github.com/orbitsocial',
-      link: 'https://github.com/orbitsocial',
+      value: 'github.com/orbit-app',
+      link: 'https://github.com/Xhope17/x-clone/tree/main/frontend/orbit-app',
     },
     {
       icon: 'fa-regular fa-clock',
@@ -41,7 +41,7 @@ export class ContactUsPage {
     {
       icon: 'fa-solid fa-location-dot',
       label: 'Ubicación',
-      value: 'San José, Costa Rica',
+      value: 'Guayaquil, Ecuador',
     },
   ]);
 }
