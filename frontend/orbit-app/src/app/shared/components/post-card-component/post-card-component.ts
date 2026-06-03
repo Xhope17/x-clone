@@ -43,6 +43,7 @@ export class PostCardComponent implements OnDestroy {
   onRepost = output<string>();
 
   fetchedOriginalPost = signal<Post | null>(null);
+  linkCopied = signal(false);
 
   constructor() {
     effect(
@@ -270,5 +271,22 @@ export class PostCardComponent implements OnDestroy {
 
   handleQuote() {
     this.onQuote.emit(this.targetForActions());
+  }
+
+  copyLink() {
+    const link = `${window.location.origin}/i/post/${this.displayTargetId()}`;
+    navigator.clipboard.writeText(link).then(() => {
+      this.linkCopied.set(true);
+      setTimeout(() => this.linkCopied.set(false), 2000);
+    }).catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = link;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      this.linkCopied.set(true);
+      setTimeout(() => this.linkCopied.set(false), 2000);
+    });
   }
 }

@@ -129,19 +129,19 @@
 
   @if (post().isThread && displayOriginalPost(); as orig) {
     <div
-      class="mt-4 pt-4 border-t border-base-content/10 cursor-pointer"
+      class="ml-2 mt-3 pl-4 border-l-2 border-base-content/20 cursor-pointer hover:border-primary/40 transition-colors"
       [routerLink]="['/i/post', orig.id]"
       (click)="$event.stopPropagation()"
     >
-      <div class="flex items-center gap-3 group mb-3">
+      <div class="flex items-center gap-3 group mb-2">
         <div class="avatar shadow-sm rounded-full">
           <div
-            class="w-11 h-11 rounded-full bg-neutral text-neutral-content overflow-hidden ring-2 ring-transparent group-hover:ring-primary/30 transition-all"
+            class="w-8 h-8 rounded-full bg-neutral text-neutral-content overflow-hidden ring-2 ring-transparent group-hover:ring-primary/30 transition-all"
           >
             @if (orig.author.avatarUrl) {
               <img [src]="orig.author.avatarUrl" alt="Avatar" class="w-full h-full object-cover" />
             } @else {
-              <span class="text-lg font-bold flex items-center justify-center h-full">{{
+              <span class="text-xs font-bold flex items-center justify-center h-full">{{
                 orig.author.displayName.charAt(0) | uppercase
               }}</span>
             }
@@ -149,37 +149,35 @@
         </div>
 
         <div class="flex flex-col">
-          <span class="font-bold text-[15px] group-hover:text-primary transition-colors leading-tight">
+          <span class="font-bold text-sm group-hover:text-primary transition-colors leading-tight">
             {{ orig.author.displayName }}
           </span>
-          <div class="flex items-center gap-1 text-xs text-base-content/50 mt-0.5">
+          <div class="flex items-center gap-1 text-xs text-base-content/50">
             <span>@{{ orig.author.username }}</span>
-            <span>•</span>
-            <span class="hover:underline">{{ orig.createdAt | localDate: 'd MMM, h:mm a' }}</span>
           </div>
         </div>
       </div>
 
       @if (orig.content) {
-        <div class="text-base-content/90 text-[15px] leading-relaxed break-words mb-4 pl-1">
+        <div class="text-base-content/80 text-sm leading-relaxed break-words mb-2">
           <p
-            class="text-base-content mt-2 whitespace-pre-wrap"
+            class="whitespace-pre-wrap"
             [innerHTML]="orig.content | linkifyPipe"
           ></p>
         </div>
       }
 
       @if (orig.media && orig.media.length > 0) {
-        <div class="mb-4 w-full">
+        <div class="mb-2 w-full">
           @if (orig.media.length === 1) {
             <div
-              class="w-full flex justify-center bg-base-200/30 rounded-[1.5rem] overflow-hidden border border-base-content/5 relative"
+              class="w-full flex justify-center bg-base-200/30 rounded-xl overflow-hidden border border-base-content/5 relative"
             >
               @if (orig.media[0].mediaType.includes('video')) {
                 <video
                   controls
                   preload="metadata"
-                  class="max-h-[600px] w-full object-contain bg-black/5"
+                  class="max-h-[300px] w-full object-contain bg-black/5"
                   [src]="orig.media[0].url"
                   (click)="$event.stopPropagation()"
                 ></video>
@@ -187,13 +185,13 @@
                 <img
                   [src]="orig.media[0].url"
                   alt="Post media"
-                  class="max-h-[600px] max-w-full object-contain"
+                  class="max-h-[300px] max-w-full object-contain"
                 />
               }
             </div>
           } @else {
             <div
-              class="grid gap-1.5 grid-cols-2 rounded-[1.5rem] overflow-hidden border border-base-content/5 bg-base-200/30"
+              class="grid gap-1 grid-cols-2 rounded-xl overflow-hidden border border-base-content/5 bg-base-200/30"
             >
               @for (mediaItem of orig.media; track mediaItem.url) {
                 <div
@@ -290,13 +288,26 @@
         </div>
       </button>
 
-      <button
-        class="btn btn-sm btn-square btn-ghost rounded-full text-base-content/50 hover:bg-primary/10 hover:text-primary transition-colors"
-        (click)="$event.stopPropagation()"
-        title="Compartir"
-      >
-        <i class="fa-solid fa-arrow-up-from-bracket text-[15px]"></i>
-      </button>
+      <div class="relative">
+        <button
+          class="btn btn-sm btn-square btn-ghost rounded-full transition-colors"
+          (click)="copyLink(); $event.stopPropagation()"
+          [class.text-primary]="linkCopied()"
+          [class.text-base-content/50]="!linkCopied()"
+          [class.hover:bg-primary/10]="!linkCopied()"
+          [class.hover:text-primary]="!linkCopied()"
+          title="Compartir"
+        >
+          <i class="fa-solid fa-arrow-up-from-bracket text-[15px]"></i>
+        </button>
+        @if (linkCopied()) {
+          <span
+            class="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap text-[11px] font-semibold text-white bg-base-900/90 bg-gray-800 px-3 py-1.5 rounded-xl shadow-lg"
+          >
+            Copiado al portapapeles
+          </span>
+        }
+      </div>
     </div>
   </footer>
   }
