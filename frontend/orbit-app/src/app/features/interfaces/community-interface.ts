@@ -17,9 +17,11 @@ export interface Community {
   isPrivate: boolean;
   bannerUrl: string | null;
   iconUrl: string | null;
-  owner?: CommunityOwner; // Opcional
+  owner?: CommunityOwner;
   isMember?: boolean;
   memberRole?: string | null;
+  hasPendingJoinRequest?: boolean;
+  hasPendingInvitation?: boolean;
   createdAt?: string;
 }
 

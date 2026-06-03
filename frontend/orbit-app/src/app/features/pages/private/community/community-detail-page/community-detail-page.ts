@@ -85,4 +85,13 @@ export class CommunityDetailPage implements OnInit {
   handleSavePost(postId: string) {
     /* ... */
   }
+
+  // En community-detail-page.ts
+  requestAccess() {
+    const slug = this.currentSlug();
+    this.communityService.requestToJoin(slug).subscribe({
+      next: () => alert('Solicitud enviada!'),
+      error: () => alert('Error al enviar la solicitud.'),
+    });
+  }
 }

@@ -132,6 +132,8 @@ export class CommunityService {
     );
   }
 
+  // TODO: Agregar endpoint para cancelar solicitud en el backend
+
   // INVITACIONES
 
   inviteMember(slug: string, payload: InviteMemberPayload) {

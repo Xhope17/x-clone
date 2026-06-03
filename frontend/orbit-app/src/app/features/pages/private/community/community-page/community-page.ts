@@ -5,7 +5,7 @@ import { CommunityCardComponent } from '../components/community-card-component/c
 import { CreateCommunityModalComponent } from '../components/create-community-modal-component/create-community-modal-component';
 import { DialogService } from '../../../../../shared/services/dialog.service';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-community-page',
@@ -18,7 +18,7 @@ export class CommunityPage implements OnInit {
   private communityService = inject(CommunityService);
   private dialogService = inject(DialogService);
   private router = inject(Router);
-  // Estados
+
   public activeTab = signal<'my-communities' | 'discover'>('my-communities');
   public communities = signal<Community[]>([]);
   public isLoading = signal(false);
@@ -39,44 +39,91 @@ export class CommunityPage implements OnInit {
   loadCommunities(query: string = '') {
     this.isLoading.set(true);
 
-    const request$ =
-      this.activeTab() === 'my-communities'
-        ? this.communityService.getMyCommunities()
-        : this.communityService.searchCommunities(query);
+    const isMyTab = this.activeTab() === 'my-communities';
+    const communities$ = isMyTab
+      ? this.communityService.getMyCommunities()
+      : this.communityService.searchCommunities(query);
 
-    request$.subscribe({
-      next: (res) => {
-        if (res.isSuccess && res.data) {
-          this.communities.set(res.data.items);
+    const myCommunities$ = isMyTab ? null : this.communityService.getMyCommunities();
+
+    const calls = myCommunities$ ? [communities$, myCommunities$] : [communities$];
+
+    forkJoin(calls).subscribe({
+      next: (results: any) => {
+        const commRes = results[0];
+        const myCommRes = results[1];
+
+        if (commRes.isSuccess && commRes.data) {
+          let items = commRes.data.items;
+
+          if (isMyTab) {
+            items = items.map((c: Community) => ({ ...c, isMember: true }));
+          } else if (myCommRes?.isSuccess && myCommRes?.data) {
+            const mySlugs = new Set(myCommRes.data.items.map((c: Community) => c.slug));
+            items = items.map((c: Community) => ({
+              ...c,
+              isMember: mySlugs.has(c.slug) || !!c.isMember,
+            }));
+          }
+
+          this.communities.set(items);
         } else {
           this.communities.set([]);
         }
+
         this.isLoading.set(false);
       },
-      error: (err) => {
-        console.error('Error cargando comunidades', err);
+      error: () => {
         this.communities.set([]);
         this.isLoading.set(false);
       },
     });
   }
 
-  // Se activa cuando el usuario escribe en el buscador
   onSearch(event: Event) {
     const input = event.target as HTMLInputElement;
     const query = input.value.trim();
 
-    // Si estás en "Descubrir", busca en la base de datos
     if (this.activeTab() === 'discover') {
       this.loadCommunities(query);
     }
   }
 
   handleJoinCommunity(slug: string) {
-    // Si el usuario ya es miembro y le da a "Ver", lo llevas a la ruta.
-    // Si no es miembro, llamas al endpoint de unirse.
-    // Por ahora, solo mostraremos un console log para que veas que el evento del botón funciona:
-    console.log(`Intentando unirse a c/${slug}`);
+    const comm = this.communities().find((c) => c.slug === slug);
+    if (!comm) return;
+
+    if (comm.isMember) {
+      this.router.navigate(['/c', slug]);
+    } else if (comm.isPrivate) {
+      this.communityService.requestToJoin(slug).subscribe({
+        next: () => {
+          this.communities.update((list) =>
+            list.map((c) =>
+              c.slug === slug ? { ...c, hasPendingJoinRequest: true } : c,
+            ),
+          );
+          alert('Solicitud enviada correctamente.');
+        },
+        error: (err) => {
+          alert('Error: ' + (err.error?.message || 'No se pudo enviar la solicitud.'));
+        },
+      });
+    } else {
+      this.communityService.joinCommunity(slug).subscribe({
+        next: () => {
+          this.communities.update((list) =>
+            list.map((c) =>
+              c.slug === slug ? { ...c, isMember: true } : c,
+            ),
+          );
+          alert('Te has unido a la comunidad.');
+        },
+        error: (err) => {
+          alert('Error: ' + (err.error?.message || 'No se pudo unir a la comunidad.'));
+        },
+      });
+    }
   }
 
   openCreateModal() {
