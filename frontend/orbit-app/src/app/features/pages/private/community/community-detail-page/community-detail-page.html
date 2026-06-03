@@ -114,11 +114,20 @@
       </div>
     </div>
 
-    <div class="flex w-full border-b border-base-content/5 px-4 mt-2">
+    <div class="flex justify-between items-center w-full border-b border-base-content/5 px-4 mt-2">
       <button class="pb-3 pt-2 text-[15px] font-bold text-base-content relative">
         Publicaciones
         <div class="absolute bottom-0 left-0 w-full h-1 bg-teal-500 rounded-t-full"></div>
       </button>
+
+      @if (errorState() !== 'forbidden') {
+        <button
+          class="btn btn-sm btn-primary rounded-full mb-1 px-4 shadow-sm"
+          (click)="openCreatePostModal()"
+        >
+          <i class="fa-solid fa-pen-to-square text-xs mr-1"></i> Publicar
+        </button>
+      }
     </div>
 
     <!-- ZONA DEL FEED -->
@@ -143,7 +152,13 @@
         </div>
       } @else {
         @for (post of posts(); track post.id) {
-          <app-post-card [post]="post"></app-post-card>
+          <app-post-card
+            [post]="post"
+            [currentUserId]="currentUserId()"
+            (onLike)="handleLikePost($event)"
+            (onSave)="handleSavePost($event)"
+            (onDelete)="handleDeletePost($event)"
+          ></app-post-card>
         } @empty {
           <div class="flex flex-col items-center justify-center p-10 text-center mt-6">
             <div

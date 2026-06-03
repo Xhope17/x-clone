@@ -1,4 +1,15 @@
-import { ChangeDetectionStrategy, Component, computed, effect, ElementRef, inject, input, OnDestroy, output, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  ElementRef,
+  inject,
+  input,
+  OnDestroy,
+  output,
+  signal,
+} from '@angular/core';
 import { UpperCasePipe, DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Post } from '../../../features/interfaces/post.interface';
@@ -29,22 +40,25 @@ export class PostCardComponent implements OnDestroy {
   fetchedOriginalPost = signal<Post | null>(null);
 
   constructor() {
-    effect(() => {
-      const p = this.post();
-      const orig = p.originalPost ?? this.fetchedOriginalPost();
+    effect(
+      () => {
+        const p = this.post();
+        const orig = p.originalPost ?? this.fetchedOriginalPost();
 
-      if (!orig && (p.isRepost || p.isThread) && p.originalPostId) {
-        this.postService.getPostById(p.originalPostId).subscribe({
-          next: (res) => {
-            if (res.isSuccess && res.data) {
-              this.fetchedOriginalPost.set(res.data);
-            }
-          },
-        });
-      } else if (p.originalPost) {
-        this.fetchedOriginalPost.set(p.originalPost);
-      }
-    }, { allowSignalWrites: true });
+        if (!orig && (p.isRepost || p.isThread) && p.originalPostId) {
+          this.postService.getPostById(p.originalPostId).subscribe({
+            next: (res) => {
+              if (res.isSuccess && res.data) {
+                this.fetchedOriginalPost.set(res.data);
+              }
+            },
+          });
+        } else if (p.originalPost) {
+          this.fetchedOriginalPost.set(p.originalPost);
+        }
+      },
+      { allowSignalWrites: true },
+    );
   }
 
   ngOnDestroy() {
@@ -95,6 +109,24 @@ export class PostCardComponent implements OnDestroy {
     }
     return p.author;
   });
+
+  // displayCommunityName = computed(() => {
+  //   const p = this.post();
+  //   const orig = this.displayOriginalPost();
+  //   if (p.isRepost && orig) {
+  //     return orig.community; // Asumiendo que tu backend envía este campo
+  //   }
+  //   return p.communityName;
+  // });
+
+  // displayCommunitySlug = computed(() => {
+  //   const p = this.post();
+  //   const orig = this.displayOriginalPost();
+  //   if (p.isRepost && orig) {
+  //     return orig.communitySlug; // Asumiendo que tu backend envía este campo
+  //   }
+  //   return p.communitySlug;
+  // });
 
   displayTargetId = computed(() => {
     const p = this.post();

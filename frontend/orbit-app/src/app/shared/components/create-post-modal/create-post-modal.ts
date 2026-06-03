@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DialogService } from '../../services/dialog.service';
 import { PostService } from '../../../features/services/post.service';
+import { CommunityService } from '../../../features/services/community.service';
 
 @Component({
   selector: 'app-create-post-modal',
@@ -17,6 +18,10 @@ export class CreatePostModal implements OnInit {
   private fb = inject(FormBuilder);
   private postService = inject(PostService);
   private dialogService = inject(DialogService);
+
+  //para comunidades
+  public communitySlug = input<string>();
+  private communityService = inject(CommunityService);
 
   public isPosting = signal(false);
   public errorMessage = signal('');
@@ -138,7 +143,7 @@ export class CreatePostModal implements OnInit {
       return;
     }
 
-    // Si  es inválido
+    // Si es inválido
     if (this.postForm.invalid) {
       this.errorMessage.set('El post excede el límite de caracteres.');
       return;
@@ -159,13 +164,19 @@ export class CreatePostModal implements OnInit {
       formData.append('Media', file);
     });
 
-    this.postService.createPost(formData).subscribe({
+    const dialogData = this.dialogService.data();
+    const slug = (dialogData?.componentInputs as any)?.communitySlug || this.communitySlug();
+
+    const request$ = slug
+      ? this.communityService.createCommunityPost(slug, formData) // Post para la comunidad
+      : this.postService.createPost(formData); // Post para el muro normal
+
+    request$.subscribe({
       next: (res) => {
         this.isPosting.set(false);
         if (res.isSuccess && res.data) {
-          const data = this.dialogService.data();
-          if (data?.onSuccess) {
-            data.onSuccess.next(res.data);
+          if (dialogData?.onSuccess) {
+            dialogData.onSuccess.next(res.data);
           }
           this.dialogService.close();
         }

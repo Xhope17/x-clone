@@ -99,9 +99,7 @@ export class CommunityPage implements OnInit {
       this.communityService.requestToJoin(slug).subscribe({
         next: () => {
           this.communities.update((list) =>
-            list.map((c) =>
-              c.slug === slug ? { ...c, hasPendingJoinRequest: true } : c,
-            ),
+            list.map((c) => (c.slug === slug ? { ...c, hasPendingJoinRequest: true } : c)),
           );
           alert('Solicitud enviada correctamente.');
         },
@@ -113,9 +111,7 @@ export class CommunityPage implements OnInit {
       this.communityService.joinCommunity(slug).subscribe({
         next: () => {
           this.communities.update((list) =>
-            list.map((c) =>
-              c.slug === slug ? { ...c, isMember: true } : c,
-            ),
+            list.map((c) => (c.slug === slug ? { ...c, isMember: true } : c)),
           );
           alert('Te has unido a la comunidad.');
         },
@@ -137,13 +133,12 @@ export class CommunityPage implements OnInit {
       this.router.navigate(['/c', nuevaComunidad.slug]);
     });
 
-    // Añadimos "as any" para evitar que la interfaz estricta bloquee la compilación
     this.dialogService.open({
       title: 'Crear comunidad',
       btnText: 'Crear',
       component: CreateCommunityModalComponent,
       onSave: onSaveTrigger,
       onSuccess: onSuccess,
-    } as any);
+    });
   }
 }
