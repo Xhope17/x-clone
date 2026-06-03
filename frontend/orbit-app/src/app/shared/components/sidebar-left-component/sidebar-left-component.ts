@@ -46,7 +46,7 @@ export class SidebarLeftComponent implements OnInit {
 
     {
       icon: 'fa-solid fa-users',
-      label: 'Comunidades (falta)',
+      label: 'Comunidades',
       route: `/community`,
     },
     // { icon: 'fa-solid fa-user-group', label: 'Seguidores', route: `/${this.username()}/followers` },

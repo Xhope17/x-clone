@@ -110,24 +110,6 @@ export class PostCardComponent implements OnDestroy {
     return p.author;
   });
 
-  // displayCommunityName = computed(() => {
-  //   const p = this.post();
-  //   const orig = this.displayOriginalPost();
-  //   if (p.isRepost && orig) {
-  //     return orig.community; // Asumiendo que tu backend envía este campo
-  //   }
-  //   return p.communityName;
-  // });
-
-  // displayCommunitySlug = computed(() => {
-  //   const p = this.post();
-  //   const orig = this.displayOriginalPost();
-  //   if (p.isRepost && orig) {
-  //     return orig.communitySlug; // Asumiendo que tu backend envía este campo
-  //   }
-  //   return p.communitySlug;
-  // });
-
   displayTargetId = computed(() => {
     const p = this.post();
     if (p.isRepost) {
